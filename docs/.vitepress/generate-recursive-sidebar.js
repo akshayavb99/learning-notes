@@ -1,20 +1,28 @@
 // docs/.vitepress/generate-recursive-sidebar.js
+
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
 /**
- * Clean fallback text for file/folder names
+ * Format fallback text for files
  */
 function formatText(name) {
   return name
     .replace(".md", "")
-    .replace(/-/g, " ")
+    .replace(/[-_]/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 /**
- * Read frontmatter title from a markdown file
+ * Force folder name to ALL CAPS
+ */
+function formatFolderName(name) {
+  return name.replace(/[-_]/g, " ").toUpperCase();
+}
+
+/**
+ * Read title from frontmatter
  */
 function getTitle(filePath, fallback) {
   const content = fs.readFileSync(filePath, "utf-8");
@@ -23,11 +31,7 @@ function getTitle(filePath, fallback) {
 }
 
 /**
- * Recursively build sidebar items
- * @param {string} dir - folder relative to docs/
- * @param {string} basePath - URL base path
- * @param {number} depth - current depth (used for collapsed)
- * @returns {Array}
+ * Recursively generate sidebar
  */
 export function getSidebar(dir, basePath = "", depth = 0) {
   const docsRoot = path.resolve(process.cwd(), "docs");
@@ -36,64 +40,86 @@ export function getSidebar(dir, basePath = "", depth = 0) {
   if (!fs.existsSync(fullPath)) return [];
 
   const entries = fs.readdirSync(fullPath).sort();
+  const items = [];
 
-  const items = entries
-    .map((entry) => {
-      const entryPath = path.join(fullPath, entry);
-      const stat = fs.statSync(entryPath);
+  for (const entry of entries) {
+    const entryPath = path.join(fullPath, entry);
+    const stat = fs.statSync(entryPath);
 
-      // Folder
-      if (stat.isDirectory()) {
-        const indexPath = path.join(entryPath, "index.md");
-        let title = formatText(entry);
-        if (fs.existsSync(indexPath)) {
-          title = getTitle(indexPath, title);
-        }
+    // 📂 Folder
+    if (stat.isDirectory()) {
+      const indexPath = path.join(entryPath, "index.md");
 
-        return {
-          text: title,
-          link: fs.existsSync(indexPath) ? `${basePath}/${entry}/` : undefined,
-          collapsible: true,
-          collapsed: depth > 0,
-          items: getSidebar(
-            path.join(dir, entry),
-            `${basePath}/${entry}`,
-            depth + 1,
-          ),
-        };
+      const folderTitle = formatFolderName(entry); // ✅ ALL CAPS
+      const children = [];
+
+      // ✅ index.md as first item
+      if (fs.existsSync(indexPath)) {
+        const indexTitle = getTitle(indexPath, formatText(entry));
+
+        children.push({
+          text: indexTitle,
+          link: `${basePath}/${entry}/`,
+        });
       }
 
-      // Markdown file (ignore index.md)
-      if (entry.endsWith(".md") && entry !== "index.md") {
-        return {
-          text: getTitle(entryPath, formatText(entry)),
-          link: `${basePath}/${entry.replace(".md", "")}`,
-        };
-      }
-    })
-    .filter(Boolean);
+      // ✅ recursive children
+      const nestedItems = getSidebar(
+        path.join(dir, entry),
+        `${basePath}/${entry}`,
+        depth + 1,
+      );
+
+      children.push(...nestedItems);
+
+      items.push({
+        text: folderTitle,
+        collapsible: true,
+        collapsed: depth > 0,
+        items: children,
+      });
+    }
+
+    // 📄 Markdown files (excluding index.md)
+    else if (entry.endsWith(".md") && entry !== "index.md") {
+      items.push({
+        text: getTitle(entryPath, formatText(entry)),
+        link: `${basePath}/${entry.replace(".md", "")}`,
+      });
+    }
+  }
 
   return items;
 }
 
 /**
- * Wrap top-level folder to include itself in the sidebar
- * @param {string} dir - top folder (e.g., "programming")
- * @param {string} basePath - URL base path (e.g., "/programming")
+ * Wrap top-level folder
  */
 export function getSidebarWithRoot(dir, basePath) {
   const indexPath = path.resolve(process.cwd(), "docs", dir, "index.md");
-  const rootTitle = fs.existsSync(indexPath)
-    ? getTitle(indexPath, formatText(dir))
-    : formatText(dir);
+
+  const rootTitle = formatFolderName(dir); // ✅ ALL CAPS
+
+  const items = [];
+
+  // ✅ root index first
+  if (fs.existsSync(indexPath)) {
+    const indexTitle = getTitle(indexPath, formatText(dir));
+
+    items.push({
+      text: indexTitle,
+      link: `${basePath}/`,
+    });
+  }
+
+  items.push(...getSidebar(dir, basePath, 1));
 
   return [
     {
       text: rootTitle,
-      link: fs.existsSync(indexPath) ? `${basePath}/` : undefined,
       collapsible: true,
-      collapsed: false, // expand top-level by default
-      items: getSidebar(dir, basePath, 1),
+      collapsed: false,
+      items,
     },
   ];
 }
