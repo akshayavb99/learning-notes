@@ -1,0 +1,27 @@
+# Node dependencies
+node_modules/
+
+# VitePress output
+docs/.vitepress/dist/
+
+# VitePress build cache
+docs/.vitepress/cache
+
+# Generated indexes
+docs/.vitepress/slug-map.json
+docs/.vitepress/tag-map.json
+docs/tags/index.md
+
+# IDE / OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Optional npm/yarn caches
+.npm/
+.yarn/
+
+# env files
+.env
+
+

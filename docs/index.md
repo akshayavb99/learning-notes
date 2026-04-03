@@ -1,0 +1,37 @@
+---
+# https://vitepress.dev/reference/default-theme-home-page
+layout: home
+
+hero:
+  name: "Akshaya's Learning Notes"
+  # text: "Notes & Knowledge Base"
+  tagline: "A collection of my learning notes across ML, data science and systems"
+  actions:
+    # - theme: brand // or alt
+    #   text: Start Reading
+    #   link: /ml/index
+    - theme: brand
+      text: Portfolio
+      link: https://akshayavb99.github.io/
+
+features:
+  - title: Machine Learning
+    details: Notes on Machine Learning, and its related domains like Deep Learning and more.
+    link: /ml/index
+
+  - title: Systems
+    details: Notes on Distributed systems, and system design concepts.
+    link: /systems/index
+
+  - title: Programming
+    details: Notes on programming languages like Python.
+    link: /programming/index
+
+  - title: Tags
+    details: List of the notes available organized by tags.
+    link: /tags/index
+
+  - title: Miscellaneous
+    details: Any random notes, code snippets that I found useful.
+    link: /miscellaneous/index
+---
