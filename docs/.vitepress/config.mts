@@ -97,6 +97,13 @@ export default withMermaid(
 
       search: {
         provider: "local",
+        options: {
+          // Include frontmatter title in the search index
+          searchExtra: (page) => {
+            console.log("Page title for searchExtra:", page.frontmatter.title);
+            return page.frontmatter.title || "";
+          },
+        },
       },
     },
 

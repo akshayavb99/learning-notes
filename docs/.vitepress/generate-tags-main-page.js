@@ -28,7 +28,10 @@ function getMdPathFromSlug(slug) {
 // Build the content
 let content = `---
 title: Tags
+search: false
 ---
+
+# Tags
 
 `;
 

@@ -3,6 +3,8 @@ title: How to push changes from local git repo to GitHub with Finegrained Person
 tags: [git, github]
 ---
 
+# How to push changes from local git repo to GitHub with Finegrained Personal Access Token (PAT)
+
 Make sure your .env file is loaded in the shell:
 
 ```bash
