@@ -24,7 +24,7 @@ features:
     link: /systems/index
 
   - title: Programming
-    details: Notes on programming languages like Python.
+    details: Notes on DSA and programming languages like Python.
     link: /programming/index
 
   - title: Tags
