@@ -74,7 +74,7 @@ export default withMermaid(
         { text: "Systems", link: "/systems/index" },
         { text: "Programming", link: "/programming/index" },
         { text: "Tags", link: "/tags/index" },
-        { text: "Miscellaneous", link: "/miscellaneous/index" },
+        { text: "Version Control", link: "/version-control/index" },
       ],
 
       sidebar: {
@@ -83,9 +83,9 @@ export default withMermaid(
         "/systems/": getSidebarWithRoot("systems", "/systems"),
         "/programming/": getSidebarWithRoot("programming", "/programming"),
         "/tags/": getSidebarWithRoot("tags", "/tags"),
-        "/miscellaneous/": getSidebarWithRoot(
-          "miscellaneous",
-          "/miscellaneous",
+        "/version-control/": getSidebarWithRoot(
+          "version-control",
+          "/version-control",
         ),
       },
 

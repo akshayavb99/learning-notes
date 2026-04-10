@@ -31,7 +31,7 @@ features:
     details: List of the notes available organized by tags.
     link: /tags/index
 
-  - title: Miscellaneous
-    details: Any random notes, code snippets that I found useful.
-    link: /miscellaneous/index
+  - title: Version Control
+    details: Notes on version control systems like Git and Github.
+    link: /version-control/index
 ---
