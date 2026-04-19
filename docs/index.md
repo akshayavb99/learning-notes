@@ -15,11 +15,11 @@ hero:
       link: https://akshayavb99.github.io/
 
 features:
-  - title: Machine Learning
-    details: Notes on Machine Learning, and its related domains like Deep Learning and more.
-    link: /ml/index
+  - title: Artificial Intelligence
+    details: Notes on Artificial Intelligence and its sub-domains like Machine Learning, Deep Learning and more.
+    link: /ai/index
 
-  - title: Systems
+  - title: System Design
     details: Notes on Distributed systems, and system design concepts.
     link: /systems/index
 
@@ -27,11 +27,15 @@ features:
     details: Notes on DSA and programming languages like Python.
     link: /programming/index
 
-  - title: Tags
-    details: List of the notes available organized by tags.
-    link: /tags/index
+  - title: Book Summaries
+    details: A collection of notes and summaries from books I’ve read, focusing on key ideas, takeaways, and personal insights.
+    link: /book-summaries/index
 
   - title: Version Control
     details: Notes on version control systems like Git and Github.
     link: /version-control/index
+
+  - title: Tags
+    details: List of the notes available organized by tags.
+    link: /tags/index
 ---

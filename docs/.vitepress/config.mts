@@ -70,18 +70,26 @@ export default withMermaid(
     themeConfig: {
       nav: [
         { text: "Home", link: "/" },
-        { text: "Machine Learning", link: "/ml/index" },
-        { text: "Systems", link: "/systems/index" },
+        { text: "Artificial Intelligence", link: "/ai/index" },
+        { text: "System Design", link: "/system-design/index" },
         { text: "Programming", link: "/programming/index" },
+        { text: "Book Summaries", link: "/book-summaries/index" },
         { text: "Tags", link: "/tags/index" },
         { text: "Version Control", link: "/version-control/index" },
       ],
 
       sidebar: {
         "/": getSidebarWithRoot("Home", "/"),
-        "/ml/": getSidebarWithRoot("ml", "/ml"),
-        "/systems/": getSidebarWithRoot("systems", "/systems"),
+        "/ai/": getSidebarWithRoot("ai", "/ai"),
+        "/system-design/": getSidebarWithRoot(
+          "system-design",
+          "/system-design",
+        ),
         "/programming/": getSidebarWithRoot("programming", "/programming"),
+        "/book-summaries/": getSidebarWithRoot(
+          "book-summaries",
+          "/book-summaries",
+        ),
         "/tags/": getSidebarWithRoot("tags", "/tags"),
         "/version-control/": getSidebarWithRoot(
           "version-control",
