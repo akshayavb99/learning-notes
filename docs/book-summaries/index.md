@@ -1,4 +1,6 @@
 ---
+layout: doc
+
 title: Book Summaries MoC
 tags: [book-summary, map-of-contents]
 ---

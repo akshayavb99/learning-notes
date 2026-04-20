@@ -16,23 +16,23 @@ hero:
 
 features:
   - title: Artificial Intelligence
-    details: Notes on Artificial Intelligence and its sub-domains like Machine Learning, Deep Learning and more.
+    details: Notes on concepts in Artificial Intelligence and its sub-domains like Machine Learning, Deep Learning and more.
     link: /ai/index
 
   - title: System Design
-    details: Notes on Distributed systems, and system design concepts.
+    details: Notes on concepts in Distributed systems, and system design concepts.
     link: /systems/index
 
   - title: Programming
-    details: Notes on DSA and programming languages like Python.
+    details: Notes on concepts in Data Structures and Algorithms and programming languages like Python.
     link: /programming/index
 
   - title: Book Summaries
-    details: A collection of notes and summaries from books I’ve read, focusing on key ideas, takeaways, and personal insights.
+    details: Collection of notes and summaries from books I’ve read, focusing on key ideas, takeaways, and personal insights.
     link: /book-summaries/index
 
   - title: Version Control
-    details: Notes on version control systems like Git and Github.
+    details: Notes on concepts in version control systems like Git and Github.
     link: /version-control/index
 
   - title: Tags
