@@ -122,3 +122,7 @@ BREAKING CHANGE: response is now an object instead of array
 - Use scopes when helpful
 - Avoid vague messages like `update stuff`
 - Write messages that make sense in changelogs
+
+## References
+
+1. https://www.conventionalcommits.org/en/v1.0.0/
