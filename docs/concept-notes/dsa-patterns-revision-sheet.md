@@ -2,7 +2,9 @@
 title: DSA Patterns Revision Sheet
 description: >
   This page is a summary of important DSA patterns which I think will be useful when revising for interviews.
-tags: [dsa, interview_preparation]
+tags: 
+  - dsa
+  - interview-preparation
 ---
 
 # DSA Patterns Revision Sheet
@@ -59,10 +61,10 @@ So instead of recalculating the entire window, you just **update the previous an
 ### When to use?
 
 - Keywords:
-  - “subarray” / “substring”
-  - “longest / shortest”
-  - “continuous / contiguous”
-  - “at most / exactly K”
+  - "subarray" / "substring"
+  - "longest / shortest"
+  - "continuous / contiguous"
+  - "at most / exactly K"
 
 - Problems involving:
   - Window-based constraints

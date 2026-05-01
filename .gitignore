@@ -24,4 +24,7 @@ Thumbs.db
 # env files
 .env
 
+# Zensical site
+site/
+
 

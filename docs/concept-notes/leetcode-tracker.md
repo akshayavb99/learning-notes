@@ -1,6 +1,9 @@
 ---
 title: Leetcode Practice Tracker
-tags: [dsa, leetcode, practice]
+tags: 
+  - dsa
+  - leetcode
+  - interview-preparation
 ---
 
 # Leetcode Practice Tracker

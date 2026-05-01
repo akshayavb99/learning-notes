@@ -1,9 +1,10 @@
 ---
-layout: doc
-
 title: Designing ML Systems
 author: Chip Huyen
-tags: [book-summary, machine-learning, system-design]
+tags: 
+  - book-summary
+  - machine-learning
+  - system-design
 ---
 
 # Designing ML Systems

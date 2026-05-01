@@ -1,41 +1,50 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
+title: Akshaya's Learning Notes
+hide:
+  - navigation
+  - toc
+  - footer
+---
 
-hero:
-  name: "Akshaya's Learning Notes"
-  # text: "Notes & Knowledge Base"
-  tagline: "A collection of my learning notes across ML, data science and systems"
-  actions:
-    # - theme: brand // or alt
-    #   text: Start Reading
-    #   link: /ml/index
-    - theme: brand
-      text: Portfolio
-      link: https://akshayavb99.github.io/
+# Akshaya's Learning Notes
 
-features:
-  - title: Artificial Intelligence
-    details: Notes on concepts in Artificial Intelligence and its sub-domains like Machine Learning, Deep Learning and more.
-    link: /ai/index
+A collection of my learning notes across ML, data science and systems.
 
-  - title: System Design
-    details: Notes on concepts in Distributed systems, and system design concepts.
-    link: /systems/index
+[View Portfolio](https://akshayavb99.github.io/){ .md-button .md-button--primary }
 
-  - title: Programming
-    details: Notes on concepts in Data Structures and Algorithms and programming languages like Python.
-    link: /programming/index
+---
 
-  - title: Book Summaries
-    details: Collection of notes and summaries from books I’ve read, focusing on key ideas, takeaways, and personal insights.
-    link: /book-summaries/index
+## Browse
 
-  - title: Version Control
-    details: Notes on concepts in version control systems like Git and Github.
-    link: /version-control/index
+<div class="grid cards" markdown>
 
-  - title: Tags
-    details: List of the notes available organized by tags.
-    link: /tags/index
+-   __Concept Notes__
+
+    ---
+
+    A flat collection of notes spanning AI, system design, programming, version control,
+    and more — without forcing each note into one area.
+
+    [View All](concept-notes/){ .md-button }
+
+-   __Indexes__
+
+    ---
+
+    Area-wise indexes for Artificial Intelligence, System Design, Programming,
+    and Version Control. Browse notes by subject.
+
+    [View All](indexes/){ .md-button }
+
+-   __Book Summaries__
+
+    ---
+
+    Notes and summaries from books I've read, focusing on key ideas, takeaways,
+    and personal insights.
+
+    [View All](book-summaries/){ .md-button }
+
+</div>
+
 ---

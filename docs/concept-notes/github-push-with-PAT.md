@@ -1,6 +1,8 @@
 ---
 title: How to push changes from local git repo to GitHub with Finegrained Personal Access Token (PAT)
-tags: [git, github]
+tags: 
+    - git
+    - github
 ---
 
 # How to push changes from local git repo to GitHub with Finegrained Personal Access Token (PAT)
