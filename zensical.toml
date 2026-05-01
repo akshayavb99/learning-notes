@@ -6,6 +6,7 @@ repo_name = "akshayavb99/learning-notes"
 site_description = "Akshaya's Learning Notes"
 site_author = "Akshaya Balaji"
 docs_dir = "docs"
+site_dir = "site"
 copyright = "&copy; 2026 Akshaya Balaji"
 
 [project.theme]
@@ -22,7 +23,8 @@ features = [
     "search.suggest",
     "search.highlight",
     "toc.follow",
-    "content.footnote.tooltips"
+    "content.footnote.tooltips",
+    "content.tabs.link"
 ]
 
 # Palette toggle for automatic mode
