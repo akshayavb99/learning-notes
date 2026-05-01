@@ -13,4 +13,4 @@ Notes on Git and GitHub.
 
 ## Notes
 
-- [Push to GitHub with a Personal Access Token (PAT)](/concept-notes/github-push-with-PAT)
+- [Push to GitHub with a Personal Access Token (PAT)](../concept-notes/github-push-with-PAT)

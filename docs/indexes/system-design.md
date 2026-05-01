@@ -15,4 +15,4 @@ _No standalone system design concept notes yet._
 
 ## Book Summaries
 
-- [Designing ML Systems](/book-summaries/designing-ml-systems/index)
+- [Designing ML Systems](../book-summaries/designing-ml-systems/index)

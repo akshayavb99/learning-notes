@@ -1,6 +1,7 @@
 [project]
 site_name = "Akshaya's Learning Notes"
 site_url = "https://akshayavb99.github.io/learning-notes/"
+base_url = "/learning-notes/"
 repo_url = "https://github.com/akshayavb99/learning-notes"
 repo_name = "akshayavb99/learning-notes"
 site_description = "Akshaya's Learning Notes"

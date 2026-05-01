@@ -11,8 +11,8 @@ Notes on data structures, algorithms, and programming languages.
 
 ## Data Structures and Algorithms
 
-- [DSA Patterns Revision Sheet](/concept-notes/dsa-patterns-revision-sheet)
-- [Leetcode Practice Tracker](/concept-notes/leetcode-tracker)
+- [DSA Patterns Revision Sheet](../concept-notes/dsa-patterns-revision-sheet)
+- [Leetcode Practice Tracker](../concept-notes/leetcode-tracker)
 
 ## Python
 
