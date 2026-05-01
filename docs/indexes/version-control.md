@@ -14,3 +14,4 @@ Notes on Git and GitHub.
 ## Notes
 
 - [Push to GitHub with a Personal Access Token (PAT)](../concept-notes/github-push-with-PAT)
+- [Conventional Commits Quick Reference](../concept-notes/conventional-commits-quick-ref)
