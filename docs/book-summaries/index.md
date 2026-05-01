@@ -9,4 +9,4 @@ tags:
 
 This page is the index for the summary notes and thoughts compiled by reading various books
 
-1. [Designing ML Systems by Chip Huyen](/book-summaries/designing-ml-systems/)
+1. [Designing ML Systems by Chip Huyen](./book-summaries/designing-ml-systems/)
