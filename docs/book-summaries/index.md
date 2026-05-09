@@ -55,7 +55,7 @@ This page is the index for the summary notes and thoughts compiled by reading va
   <div class="pd-header">
     <div>
       <div class="pd-label">Book Summaries</div>
-      <div class="pd-updated">updated May 7, 2026</div>
+      <div class="pd-updated">updated May 9, 2026</div>
     </div>
     <div class="pd-stats">
       <div class="pd-stat">
@@ -106,7 +106,7 @@ This page is the index for the summary notes and thoughts compiled by reading va
                     <li class="prob">
             <div class="prob-title-row">
               <a href="./designing-ml-systems/" class="prob-link">Designing ML Systems</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">book-summary</span><span class="tag tag-t">machine-learning</span><span class="tag tag-t">system-design</span></div>
           </li>

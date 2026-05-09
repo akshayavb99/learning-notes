@@ -64,7 +64,7 @@ A collection of my learning notes across ML, data science and systems.
   <div class="pd-header">
     <div>
       <div class="pd-label">Concept Notes</div>
-      <div class="pd-updated">updated May 7, 2026</div>
+      <div class="pd-updated">updated May 9, 2026</div>
     </div>
     <div class="pd-stats">
       <div class="pd-stat">
@@ -115,21 +115,21 @@ A collection of my learning notes across ML, data science and systems.
                     <li class="prob">
             <div class="prob-title-row">
               <a href="concept-notes/conventional-commits-quick-ref/" class="prob-link">Conventional Commits Quick Reference</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">git</span><span class="tag tag-t">github</span><span class="tag tag-t">version-control</span><span class="tag tag-t">best-practices</span></div>
           </li>
           <li class="prob">
             <div class="prob-title-row">
               <a href="concept-notes/dsa-patterns-revision-sheet/" class="prob-link">DSA Patterns Revision Sheet</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">dsa</span><span class="tag tag-t">interview-preparation</span></div>
           </li>
           <li class="prob">
             <div class="prob-title-row">
               <a href="concept-notes/github-push-with-PAT/" class="prob-link">How to push changes from local git repo to GitHub with Finegrained Personal Access Token (PAT)</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"></div>
           </li>
@@ -190,7 +190,7 @@ A collection of my learning notes across ML, data science and systems.
   <div class="pd-header">
     <div>
       <div class="pd-label">Indexes</div>
-      <div class="pd-updated">updated May 7, 2026</div>
+      <div class="pd-updated">updated May 9, 2026</div>
     </div>
     <div class="pd-stats">
       <div class="pd-stat">
@@ -241,21 +241,21 @@ A collection of my learning notes across ML, data science and systems.
                     <li class="prob">
             <div class="prob-title-row">
               <a href="indexes/artificial-intelligence/" class="prob-link">Artificial Intelligence Index</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">artificial-intelligence</span><span class="tag tag-t">index</span></div>
           </li>
           <li class="prob">
             <div class="prob-title-row">
               <a href="indexes/programming/" class="prob-link">Programming Index</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"></div>
           </li>
           <li class="prob">
             <div class="prob-title-row">
               <a href="indexes/system-design/" class="prob-link">System Design Index</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">system-design</span><span class="tag tag-t">index</span></div>
           </li>
@@ -316,7 +316,7 @@ A collection of my learning notes across ML, data science and systems.
   <div class="pd-header">
     <div>
       <div class="pd-label">Book Summaries</div>
-      <div class="pd-updated">updated May 7, 2026</div>
+      <div class="pd-updated">updated May 9, 2026</div>
     </div>
     <div class="pd-stats">
       <div class="pd-stat">
@@ -367,7 +367,7 @@ A collection of my learning notes across ML, data science and systems.
                     <li class="prob">
             <div class="prob-title-row">
               <a href="book-summaries/designing-ml-systems/" class="prob-link">Designing ML Systems</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">book-summary</span><span class="tag tag-t">machine-learning</span><span class="tag tag-t">system-design</span></div>
           </li>

@@ -52,7 +52,7 @@ Topic-area indexes. Use to browse notes by theme.
   <div class="pd-header">
     <div>
       <div class="pd-label">Indexes</div>
-      <div class="pd-updated">updated May 7, 2026</div>
+      <div class="pd-updated">updated May 9, 2026</div>
     </div>
     <div class="pd-stats">
       <div class="pd-stat">
@@ -103,21 +103,21 @@ Topic-area indexes. Use to browse notes by theme.
                     <li class="prob">
             <div class="prob-title-row">
               <a href="./artificial-intelligence/" class="prob-link">Artificial Intelligence Index</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">artificial-intelligence</span><span class="tag tag-t">index</span></div>
           </li>
           <li class="prob">
             <div class="prob-title-row">
               <a href="./programming/" class="prob-link">Programming Index</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"></div>
           </li>
           <li class="prob">
             <div class="prob-title-row">
               <a href="./system-design/" class="prob-link">System Design Index</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">system-design</span><span class="tag tag-t">index</span></div>
           </li>

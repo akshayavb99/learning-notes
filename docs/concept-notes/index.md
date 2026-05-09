@@ -53,7 +53,7 @@ Notes live here regardless of which areas they touch.
   <div class="pd-header">
     <div>
       <div class="pd-label">Concept Notes</div>
-      <div class="pd-updated">updated May 7, 2026</div>
+      <div class="pd-updated">updated May 9, 2026</div>
     </div>
     <div class="pd-stats">
       <div class="pd-stat">
@@ -104,21 +104,21 @@ Notes live here regardless of which areas they touch.
                     <li class="prob">
             <div class="prob-title-row">
               <a href="./conventional-commits-quick-ref/" class="prob-link">Conventional Commits Quick Reference</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">git</span><span class="tag tag-t">github</span><span class="tag tag-t">version-control</span><span class="tag tag-t">best-practices</span></div>
           </li>
           <li class="prob">
             <div class="prob-title-row">
               <a href="./dsa-patterns-revision-sheet/" class="prob-link">DSA Patterns Revision Sheet</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"><span class="tag tag-t">dsa</span><span class="tag tag-t">interview-preparation</span></div>
           </li>
           <li class="prob">
             <div class="prob-title-row">
               <a href="./github-push-with-PAT/" class="prob-link">How to push changes from local git repo to GitHub with Finegrained Personal Access Token (PAT)</a>
-              <span class="prob-date">May 7, 2026</span>
+              <span class="prob-date">May 9, 2026</span>
             </div>
             <div class="prob-tags"></div>
           </li>

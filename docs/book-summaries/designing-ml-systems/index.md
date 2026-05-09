@@ -1,10 +1,11 @@
 ---
 title: Designing ML Systems
 author: Chip Huyen
-tags: 
+tags:
   - book-summary
   - machine-learning
   - system-design
+updated_date: 2026-05-09
 ---
 
 # Designing ML Systems
@@ -16,10 +17,11 @@ tags:
 
 ## Changelog
 
-| Date           | Change Description        |
-| -------------- | ------------------------- |
-| April 20, 2026 | Added notes for Chapter 1 |
-| April 21, 2026 | Added notes for Chapter 2 |
+| Date           | Change Description                                    |
+| -------------- | ----------------------------------------------------- |
+| April 20, 2026 | Added notes for Chapter 1                             |
+| April 21, 2026 | Added notes for Chapter 2                             |
+| May 09, 2026   | Added notes for Chapter 3 (Data Sources, Data Models) |
 
 ## Chapter-wise Notes
 
@@ -45,7 +47,7 @@ It is important to identify if the objective needs an ML solution or simpler sol
 - The cost of incorrect predictions, on average, is worth the tradeoff of the benefits of correct predictions
 - The solution is being applied to get a large number of predictions, which helps better utilization of large compute and memory provisioning, and collection of large amounts of data
 
-ML in research vs production have different requirements
+#### ML in research vs production have different requirements
 
 | Aspect                 | Research                                                                         | Production                                                                                                            |
 | ---------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -55,7 +57,7 @@ ML in research vs production have different requirements
 | Fairness               | Not high in objectives (Focus is on achieving SOTA results)                      | Important in objectives since it can impact the results for different groups of end users                             |
 | Interpretability       | Not high in objectives (Focus is on achieving SOTA results)                      | Important in objectives since model working and predictions must be explainable to developers, stakeholders and users |
 
-Considerations to keep in mind when deploying ML models to production:
+#### Considerations to keep in mind when deploying ML models to production
 
 - Need methods for version control and testing of code, data and models
 - Need effective measures to deploy models as they increase in size (number of parameters) at scale
@@ -65,25 +67,25 @@ Considerations to keep in mind when deploying ML models to production:
 
 In the industry, improving ML metrics alone is not enough to guarantee the success of a ML project. There must be an increase in business metrics (increase in revenue through direct or indirect reasons) which is possible due to the ML project's success
 
-**Relationship between ML adoption maturity and returns on investment**
+#### Relationship between ML adoption maturity and returns on investment
 
 - The longer the ML solution is implemented or adopted, the greater the returns will be.
 - Longer adoption = More efficient pipeline runs = Less engineering time = Fast development cycle = Lower cloud bills
 - Initially, there will be a large investment in terms of capital, time and energy in collecting data, training and improving models etc, but the longer this cyclic process continues, the lesser the engineering costs become over time and the results also gradually improve over time if the data is modeled correctly.
 
-**Main requirements of ML systems**
+#### Main requirements of ML systems
 
 | Aspect                                              | Reliability                                                                                                                                     | Scalability                                                                                                                                                                                                                                                                                                                                                        | Maintainability                                                                                                                                                                           | Adaptability                                                                                                               |
 | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | **System Significance**                             | The system must provide the correct answer at required performance, even when there are hardware or software errors or even human errors        | The system should be able up-scale (expand resources needed) and down-scale(reduce resources needed) as and when required -> This becomes easy with the automatic scaling provided by cloud services<br><br>The system needs to be able to scale the monitoring, retraining, code generation etc. for data, models and other artifacts                             | Is the system implementation and infrastructure designed so that different team members like Data Scientists, ML Engineers, DevOps Engineers etc., can all work on the system seamlessly? | Can the system adapt to changing data distributions and business requirements?<br><br>This ties together with maintability |
 | **Things to keep note of when building ML systems** | ML systems can fail silently. For example: The model can predict a wrong value, but the end user may use it without knowing it is wrong<br><br> | Scaling up for complexity (Move from simpler to more complex model with larger feature set and more complex pre-processing)<br><br>Scaling up in traffic volume (100,000 requests per day to 1 million requests every hour)<br><br>Scaling up in number of models (1 model for the sample use case to 100s of models where each model is for a dedicated customer) | Code should be well-documented<br><br>Models should be reproducible<br><br>Easy debugging of problems and solution implementation                                                         | Capacity for discovering performance improvement aspects and services upgrades without interruption                        |
 
-**Iterative Process of developing ML systems**
+#### Iterative Process of developing ML systems
 
 ![ch2_iterative_process_ml_systems](ch2_iterative_process_ml_systems.png)
 **Source: Adapted from Chapter 2 in Designing ML Systems by Chip Huyen**
 
-**Common ML task types**
+#### Common ML task types
 
 - Regression
 - Classification
@@ -91,7 +93,76 @@ In the industry, improving ML metrics alone is not enough to guarantee the succe
   - Multiclass
   - Multilabel
 
-**Framing ML problems and objective functions**
+#### Framing ML problems and objective functions
 
 - When the ML problem is complex, it typically cannot be represented with a single objective function. There must be multiple decoupled objective functions for minimization.
 - Decoupling multiple objectives makes ML model development and maintenance easier.
+
+### Chapter 3 - Introduction to Machine Learning System Design
+
+#### Different types of data sources
+
+##### User input data
+
+- Direct user input which includes text, images, audio etc.
+- It is often not formatted consistently and thus needs thorough checking and processing before further use.
+- Collection of user data is regulated by strict rules and regulations.
+
+##### System generated data
+
+- Includes logs, application outputs, model predictions etc.
+- Often well-formatted data and useful for debugging the system and applications.
+- Quickly grows in volume — need to think about how to effectively search in and store growing data volumes.
+- Sometimes includes user behavior data like user clicks, scrolls, zoom-in and zoom-out etc., but such data are collected based on rules and regulations.
+
+##### Internal databases
+
+- Data collected within an organization, which can include inventory, customer relationships etc.
+- Used often for ML model feature engineering.
+
+##### First-party data
+
+- Data collected by a company directly from customers.
+
+##### Second-party data
+
+- Data obtained by buying the data collected by another company from their customers.
+
+##### Third-party data
+
+- Data obtained from the public from a wide variety of sources.
+- This data is largely used for applications like targeted ads.
+
+#### Row-wise versus Column-wise Storage
+
+| Aspect               | Row-wise                                    | Column-wise                                    |
+| -------------------- | ------------------------------------------- | ---------------------------------------------- |
+| Storage              | Consecutive rows stored close to each other | Consecutive columns stored close to each other |
+| Example formats      | CSV                                         | Parquet                                        |
+| Typical applications | - Write-heavy                               | Column read-heavy                              |
+| Read speed           | Faster in row-wise reads                    | Faster in column-wise reads                    |
+
+#### Text versus Binary Format storage
+
+| Aspect          | Text                                                                            | Binary                                                                                   |
+| --------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Storage         | Needs more storage                                                              | Needs less storage                                                                       |
+| Use             | Used when program can parse text and convert into binary for further processing | Used when program knows how to open the binary format and directly work with binary data |
+| Human readable  | Yes                                                                             | No                                                                                       |
+| Example formats | CSV, JSON                                                                       | Parquet, Protobuf                                                                        |
+
+#### Types of Data Models
+
+1. Relational
+2. NoSQL
+   - Document
+   - Graph
+
+#### Document Data Model Versus Graph Data Models
+
+| Aspect             | Document Data Models                                                                                                                                                                                                                                                                                                                                                                                                    | Graph Data Models                                                                                    |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Requirements**   | Used when the data is more important and common as compared to relationships between data                                                                                                                                                                                                                                                                                                                               | Used when the relationships between data is more important and common as compared to the data itself |
+| **Data Structure** | Stored in formats like JSON, XML and binary JSON (BSON) as a single long string                                                                                                                                                                                                                                                                                                                                         | Data is stored in nodes and the relationship between the data is represented by edges                |
+| **Advantages**     | **Better locality than relational models** - Data in a given document is stored close together providing better physical and access locality as compared to relational data models<br><br>**Schemaless flexibility** - In the same collection, different documents can have different schemas, and the responsibility of assuming the schema falls on the data reading application and not the data writing application | Faster to access data which are connected or related                                                 |
+| **Disadvantages**  | Hard to use filters and complex joins since every document in the collection needs to be read                                                                                                                                                                                                                                                                                                                           |                                                                                                      |

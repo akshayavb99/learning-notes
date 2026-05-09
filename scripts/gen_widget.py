@@ -482,7 +482,3 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
-    
-'''
-claude --resume 0ecab798-eb82-4465-81d4-44d596df2d46
-'''
