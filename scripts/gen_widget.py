@@ -3,7 +3,7 @@
 
 import re
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from datetime import datetime, date, timedelta
 from collections import defaultdict
 import subprocess
@@ -183,56 +183,94 @@ def load_notes(section_cfg):
 # STATS
 # ----------------------------
 
-def get_git_sparkline(section_dir, glob, weeks=13):
+def is_section_note_path(path, section_cfg, repo_root):
+    """Return True when a git path is a real note for the section."""
+    section_path = section_cfg['dir'].relative_to(repo_root).as_posix()
+    git_path = PurePosixPath(path)
+
+    try:
+        rel_path = git_path.relative_to(section_path)
+    except ValueError:
+        return False
+
+    if not rel_path.match(section_cfg['glob']):
+        return False
+
+    if rel_path.name == "index.md" and not section_cfg['parent_stem']:
+        return False
+
+    return True
+
+
+def get_git_sparkline(section_cfg, weeks=13):
     """Return list of (week_start, created_count, updated_count) from git log.
 
-    Uses --diff-filter=A for new files (created) and =M for modifications (updated).
-    Each file is counted at most once per week per category to avoid commit-frequency noise.
+    Uses per-commit name-status data: A means created, M means updated.
+    Counts notes per commit, so one commit that updates three notes contributes three
+    updates. Generated index pages are excluded using the same section rules as
+    load_notes().
     Falls back to all-zero data if git is unavailable.
     """
     repo_root = DOCS_DIR.parent
-    pattern = str(section_dir.relative_to(repo_root) / glob).replace('\\', '/')
+    section_path = section_cfg['dir'].relative_to(repo_root).as_posix()
+    created = defaultdict(int)
+    updated = defaultdict(int)
 
-    def fetch(diff_filter):
-        try:
-            r = subprocess.run(
-                ['git', 'log', f'--since={weeks + 1} weeks ago',
-                 f'--diff-filter={diff_filter}', '--name-only',
-                 '--pretty=format:%ci', '--', pattern],
-                capture_output=True, text=True, cwd=str(repo_root), timeout=10,
-            )
-            weekly = defaultdict(set)
-            current_date = None
-            for line in r.stdout.split('\n'):
-                line = line.strip()
-                if not line:
-                    continue
-                if len(line) >= 10 and line[4:5] == '-' and line[7:8] == '-':
+    try:
+        r = subprocess.run(
+            ['git', 'log', f'--since={weeks + 1} weeks ago',
+             '--name-status', '--date=short',
+             '--pretty=format:commit:%H%x09%ad', '--', section_path],
+            capture_output=True, text=True, cwd=str(repo_root), timeout=10,
+        )
+
+        current_week = None
+        for line in r.stdout.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+
+            if line.startswith('commit:'):
+                parts = line.split('\t')
+                if len(parts) >= 2:
                     try:
-                        current_date = datetime.strptime(line[:10], '%Y-%m-%d').date()
-                        continue
+                        commit_date = datetime.strptime(parts[1], '%Y-%m-%d').date()
+                        current_week = get_week_start(*get_iso_week(commit_date))
                     except ValueError:
-                        pass
-                if current_date:
-                    weekly[get_week_start(*get_iso_week(current_date))].add(line)
-            return weekly
-        except Exception:
-            return {}
+                        current_week = None
+                continue
 
-    added = fetch('A')
-    modified = fetch('M')
+            if current_week is None:
+                continue
+
+            parts = line.split('\t')
+            if len(parts) < 2:
+                continue
+
+            status = parts[0]
+            path = parts[-1]
+
+            if not is_section_note_path(path, section_cfg, repo_root):
+                continue
+
+            if status == 'A':
+                created[current_week] += 1
+            elif status == 'M':
+                updated[current_week] += 1
+    except Exception:
+        pass
 
     result = []
     for week_offset in range(weeks - 1, -1, -1):
         ws = get_week_start(*get_iso_week(TODAY - timedelta(weeks=week_offset)))
-        result.append((ws, len(added.get(ws, set())), len(modified.get(ws, set()))))
+        result.append((ws, created.get(ws, 0), updated.get(ws, 0)))
     return result
 
 
 def compute_stats(notes, section_cfg):
     total = len(notes)
 
-    sparkline_data = get_git_sparkline(section_cfg['dir'], section_cfg['glob'])
+    sparkline_data = get_git_sparkline(section_cfg)
 
     this_week_start = get_week_start(*get_iso_week(TODAY))
     this_week = sum(c + u for ws, c, u in sparkline_data if ws == this_week_start)
@@ -451,7 +489,7 @@ def main():
         widget_section = generate_widget_html(stats, section_cfg['label'], '.', section_cfg['desc'])
         inject_widget(widget_section, si['file'], si['start'], si['end'])
 
-        print(f"  ✓ Done ({len(notes)} notes)")
+        print(f"  Done ({len(notes)} notes)")
 
     print("\nSUCCESS")
     return 0

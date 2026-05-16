@@ -83,10 +83,10 @@ This page is the index for the summary notes and thoughts compiled by reading va
 <rect x="75" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="90" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="105" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
-<rect x="120" y="10" width="12" height="40" rx="2" fill="#3b82f6" opacity="0.77"/>
+<rect x="120" y="30" width="12" height="20" rx="2" fill="#3b82f6" opacity="0.77"/>
 <rect x="135" y="10" width="12" height="40" rx="2" fill="#a78bfa" opacity="0.82"/>
-<rect x="150" y="10" width="12" height="40" rx="2" fill="#a78bfa" opacity="0.88"/>
-<rect x="165" y="10" width="12" height="40" rx="2" fill="#a78bfa" opacity="0.94"/>
+<rect x="150" y="30" width="12" height="20" rx="2" fill="#a78bfa" opacity="0.88"/>
+<rect x="165" y="30" width="12" height="20" rx="2" fill="#a78bfa" opacity="0.94"/>
 <rect x="180" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
           <text x="6" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W8</text>
 <text x="6" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Feb</text>
@@ -99,13 +99,13 @@ This page is the index for the summary notes and thoughts compiled by reading va
 <text x="96" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W14</text>
 <text x="111" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W15</text>
 <text x="111" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Apr</text>
-<text x="126" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
+<text x="126" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="126" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W16</text>
-<text x="141" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
+<text x="141" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">2</text>
 <text x="141" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W17</text>
-<text x="156" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
+<text x="156" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="156" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W18</text>
-<text x="171" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
+<text x="171" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="171" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W19</text>
 <text x="171" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">May</text>
 <text x="186" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W20</text>

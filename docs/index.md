@@ -72,7 +72,7 @@ A collection of my learning notes across ML, data science and systems.
         <span class="pd-stat-l">total</span>
       </div>
       <div class="pd-stat">
-        <span class="pd-stat-n">0</span>
+        <span class="pd-stat-n">2</span>
         <span class="pd-stat-l">this week</span>
       </div>
     </div>
@@ -94,10 +94,11 @@ A collection of my learning notes across ML, data science and systems.
 <rect x="105" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="120" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="135" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
-<rect x="150" y="17" width="12" height="33" rx="2" fill="#3b82f6" opacity="0.88"/>
-<rect x="150" y="11" width="12" height="6" rx="2" fill="#a78bfa" opacity="0.88"/>
-<rect x="165" y="44" width="12" height="6" rx="2" fill="#a78bfa" opacity="0.94"/>
-<rect x="180" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
+<rect x="150" y="18" width="12" height="32" rx="2" fill="#3b82f6" opacity="0.88"/>
+<rect x="150" y="10" width="12" height="8" rx="2" fill="#a78bfa" opacity="0.88"/>
+<rect x="165" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
+<rect x="180" y="42" width="12" height="8" rx="2" fill="#3b82f6" opacity="1.00"/>
+<rect x="180" y="34" width="12" height="8" rx="2" fill="#a78bfa" opacity="1.00"/>
           <text x="6" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W8</text>
 <text x="6" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Feb</text>
 <text x="21" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W9</text>
@@ -111,7 +112,7 @@ A collection of my learning notes across ML, data science and systems.
 <text x="111" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Apr</text>
 <text x="126" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W16</text>
 <text x="141" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W17</text>
-<text x="156" y="36" text-anchor="middle" font-size="6" fill="white" font-weight="500">5</text>
+<text x="156" y="37" text-anchor="middle" font-size="6" fill="white" font-weight="500">4</text>
 <text x="156" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W18</text>
 <text x="171" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W19</text>
 <text x="171" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">May</text>
@@ -127,7 +128,7 @@ A collection of my learning notes across ML, data science and systems.
         <ul style="list-style:none;margin:0;padding:0">
         <li class="prob">
           <div class="prob-title-row">
-            <a href="concept-notes/json-grammar/" class="prob-link">JSON Grammar Rules - McKeenan Form</a>
+            <a href="concept-notes/json-grammar/" class="prob-link">JSON Grammar Rules - McKeeman Form</a>
             <span class="prob-date">May 11, 2026</span>
           </div>
           <div class="prob-tags"><span class="tag tag-t">json</span></div>
@@ -234,9 +235,9 @@ A collection of my learning notes across ML, data science and systems.
 <rect x="105" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="120" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="135" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
-<rect x="150" y="30" width="12" height="20" rx="2" fill="#3b82f6" opacity="0.88"/>
-<rect x="150" y="10" width="12" height="20" rx="2" fill="#a78bfa" opacity="0.88"/>
-<rect x="165" y="46" width="12" height="4" rx="2" fill="#a78bfa" opacity="0.94"/>
+<rect x="150" y="34" width="12" height="16" rx="2" fill="#3b82f6" opacity="0.88"/>
+<rect x="150" y="10" width="12" height="24" rx="2" fill="#a78bfa" opacity="0.88"/>
+<rect x="165" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="180" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
           <text x="6" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W8</text>
 <text x="6" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Feb</text>
@@ -251,8 +252,8 @@ A collection of my learning notes across ML, data science and systems.
 <text x="111" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Apr</text>
 <text x="126" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W16</text>
 <text x="141" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W17</text>
-<text x="156" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">5</text>
-<text x="156" y="23" text-anchor="middle" font-size="6" fill="white" font-weight="500">5</text>
+<text x="156" y="45" text-anchor="middle" font-size="6" fill="white" font-weight="500">4</text>
+<text x="156" y="25" text-anchor="middle" font-size="6" fill="white" font-weight="500">6</text>
 <text x="156" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W18</text>
 <text x="171" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W19</text>
 <text x="171" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">May</text>
@@ -373,10 +374,10 @@ A collection of my learning notes across ML, data science and systems.
 <rect x="75" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="90" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="105" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
-<rect x="120" y="10" width="12" height="40" rx="2" fill="#3b82f6" opacity="0.77"/>
+<rect x="120" y="30" width="12" height="20" rx="2" fill="#3b82f6" opacity="0.77"/>
 <rect x="135" y="10" width="12" height="40" rx="2" fill="#a78bfa" opacity="0.82"/>
-<rect x="150" y="10" width="12" height="40" rx="2" fill="#a78bfa" opacity="0.88"/>
-<rect x="165" y="10" width="12" height="40" rx="2" fill="#a78bfa" opacity="0.94"/>
+<rect x="150" y="30" width="12" height="20" rx="2" fill="#a78bfa" opacity="0.88"/>
+<rect x="165" y="30" width="12" height="20" rx="2" fill="#a78bfa" opacity="0.94"/>
 <rect x="180" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
           <text x="6" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W8</text>
 <text x="6" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Feb</text>
@@ -389,13 +390,13 @@ A collection of my learning notes across ML, data science and systems.
 <text x="96" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W14</text>
 <text x="111" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W15</text>
 <text x="111" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Apr</text>
-<text x="126" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
+<text x="126" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="126" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W16</text>
-<text x="141" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
+<text x="141" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">2</text>
 <text x="141" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W17</text>
-<text x="156" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
+<text x="156" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="156" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W18</text>
-<text x="171" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
+<text x="171" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="171" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W19</text>
 <text x="171" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">May</text>
 <text x="186" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W20</text>

@@ -82,9 +82,9 @@ Topic-area indexes. Use to browse notes by theme.
 <rect x="105" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="120" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="135" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
-<rect x="150" y="30" width="12" height="20" rx="2" fill="#3b82f6" opacity="0.88"/>
-<rect x="150" y="10" width="12" height="20" rx="2" fill="#a78bfa" opacity="0.88"/>
-<rect x="165" y="46" width="12" height="4" rx="2" fill="#a78bfa" opacity="0.94"/>
+<rect x="150" y="34" width="12" height="16" rx="2" fill="#3b82f6" opacity="0.88"/>
+<rect x="150" y="10" width="12" height="24" rx="2" fill="#a78bfa" opacity="0.88"/>
+<rect x="165" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="180" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
           <text x="6" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W8</text>
 <text x="6" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Feb</text>
@@ -99,8 +99,8 @@ Topic-area indexes. Use to browse notes by theme.
 <text x="111" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Apr</text>
 <text x="126" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W16</text>
 <text x="141" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W17</text>
-<text x="156" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">5</text>
-<text x="156" y="23" text-anchor="middle" font-size="6" fill="white" font-weight="500">5</text>
+<text x="156" y="45" text-anchor="middle" font-size="6" fill="white" font-weight="500">4</text>
+<text x="156" y="25" text-anchor="middle" font-size="6" fill="white" font-weight="500">6</text>
 <text x="156" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W18</text>
 <text x="171" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W19</text>
 <text x="171" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">May</text>
