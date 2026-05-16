@@ -5,6 +5,7 @@ tags:
   - github
   - version-control
   - best-practices
+updated_date: 2026-05-01
 ---
 
 # Conventional Commits Quick Reference
