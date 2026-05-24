@@ -13,6 +13,10 @@ import frontmatter
 DOCS_DIR = Path(__file__).parent.parent / "docs"
 INDEX_FILE = DOCS_DIR / "index.md"
 TODAY = date.today()
+PAGE_SIZE = 15
+
+RECENT_START = '<!-- pd-recent:start -->'
+RECENT_END   = '<!-- pd-recent:end -->'
 
 SECTIONS = [
     {
@@ -63,8 +67,8 @@ SECTIONS = [
     
     {
         'dir': DOCS_DIR / 'paper-summaries',
-        'glob': '*/index.md',
-        'parent_stem': True,
+        'glob': '*.md',
+        'parent_stem': False,
         'url_prefix': 'paper-summaries',
         'label': 'Paper Summaries',
         'desc': "Notes and summaries from papers I have read.",
@@ -119,6 +123,26 @@ WIDGET_CSS = """<style>
 .pd-footer { padding: 10px 18px; border-top: 0.5px solid var(--pd-border); background: var(--pd-surface); text-align: right; }
 .pd-footer a { font-size: 11px; color: var(--pd-accent); text-decoration: none; font-weight: 500; letter-spacing: 0.03em; }
 .pd-footer a:hover { text-decoration: underline; }
+</style>"""
+
+SECTION_INDEX_CSS = """<style>
+.ni-list { border: 1px solid var(--md-default-fg-color--lightest); border-radius: 8px; overflow: hidden; }
+.ni { display: flex; flex-direction: column; gap: 0.45rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--md-default-fg-color--lightest); transition: background-color 0.15s ease; }
+.ni:hover { background-color: var(--md-code-bg-color); }
+.ni:last-child { border-bottom: none; }
+.ni-header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.ni-title { font-size: 0.92rem; font-weight: 600; color: var(--md-default-fg-color); text-decoration: none; flex: 1; }
+.ni-title:hover { color: var(--md-primary-fg-color); }
+.ni-date { font-size: 0.72rem; color: var(--md-default-fg-color--light); white-space: nowrap; flex-shrink: 0; }
+.ni-desc { margin: 0; font-size: 0.84rem; color: var(--md-default-fg-color--light); line-height: 1.5; }
+.ni-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.ni-tag { display: inline-flex; padding: 0.18rem 0.55rem; background: var(--md-default-bg-color); border: 1px solid var(--md-default-fg-color--lightest); border-radius: 999px; font-size: 0.68rem; color: var(--md-default-fg-color--light); font-weight: 500; text-decoration: none; }
+.ni a { text-decoration: none; }
+.ni-pagination { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.25rem; border-top: 1px solid var(--md-default-fg-color--lightest); }
+.ni-page-btn { padding: 0.3rem 0.8rem; background: var(--md-default-bg-color); border: 1px solid var(--md-default-fg-color--lightest); border-radius: 4px; cursor: pointer; font-size: 0.8rem; color: var(--md-default-fg-color); }
+.ni-page-btn:hover:not(:disabled) { border-color: var(--md-primary-fg-color); color: var(--md-primary-fg-color); }
+.ni-page-btn:disabled { opacity: 0.35; cursor: default; }
+.ni-page-info { font-size: 0.78rem; color: var(--md-default-fg-color--light); }
 </style>"""
 
 
@@ -185,11 +209,16 @@ def load_notes(section_cfg):
 
         stem = md_file.parent.name if section_cfg['parent_stem'] else md_file.stem
 
+        description = fm.get('description', '') or ''
+        if not isinstance(description, str):
+            description = str(description)
+
         notes.append({
             'title': title,
             'tags': tags,
             'updated_date': updated_date,
             'stem': stem,
+            'description': description.strip(),
         })
 
     return notes
@@ -281,6 +310,48 @@ def get_git_sparkline(section_cfg, weeks=13):
         ws = get_week_start(*get_iso_week(TODAY - timedelta(weeks=week_offset)))
         result.append((ws, created.get(ws, 0), updated.get(ws, 0)))
     return result
+
+
+def get_git_dates(sections):
+    """Return {abs_path: last_commit_date} for all note files across sections."""
+    repo_root = DOCS_DIR.parent
+    path_set = set()
+    for section_cfg in sections:
+        for md_file in section_cfg['dir'].glob(section_cfg['glob']):
+            if md_file.name == "index.md" and not section_cfg['parent_stem']:
+                continue
+            path_set.add(md_file.resolve())
+
+    if not path_set:
+        return {}
+
+    try:
+        r = subprocess.run(
+            ['git', 'log', '--pretty=format:COMMIT:%ad', '--date=short', '--name-only'],
+            capture_output=True, text=True, cwd=str(repo_root), timeout=15,
+        )
+    except Exception:
+        return {}
+
+    dates = {}
+    current_date = None
+    for line in r.stdout.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith('COMMIT:'):
+            try:
+                current_date = datetime.strptime(line[7:], '%Y-%m-%d').date()
+            except ValueError:
+                current_date = None
+            continue
+        if current_date is None:
+            continue
+        abs_path = (repo_root / line).resolve()
+        if abs_path in path_set and abs_path not in dates:
+            dates[abs_path] = current_date
+
+    return dates
 
 
 def compute_stats(notes, section_cfg):
@@ -453,6 +524,78 @@ def generate_widget_html(stats, label, section_url, desc):
     return html
 
 
+def generate_section_index_html(notes, section_url):
+    """Generate section index HTML with Material CSS vars, sorted by git date (recent first)."""
+    sorted_notes = sorted(notes, key=lambda n: (-n['updated_date'].toordinal(), n['title']))
+    rows = []
+    for note in sorted_notes:
+        date_label = format_date_label(note['updated_date'])
+        url = f"{section_url}/{note['stem']}/"
+        desc_html = f'  <p class="ni-desc">{note["description"]}</p>\n' if note.get('description') else ''
+        tags_html = ''.join(f'<span class="ni-tag">{tag}</span>' for tag in note['tags'])
+        rows.append(
+            f'<div class="ni">\n'
+            f'  <div class="ni-header">\n'
+            f'    <a href="{url}" class="ni-title">{note["title"]}</a>\n'
+            f'    <span class="ni-date">{date_label}</span>\n'
+            f'  </div>\n'
+            + desc_html
+            + f'  <div class="ni-tags">{tags_html}</div>\n'
+            f'</div>'
+        )
+
+    notes_html = '\n'.join(rows)
+
+    if len(sorted_notes) > PAGE_SIZE:
+        pagination_html = (
+            f'    <div class="ni-pagination">\n'
+            f'      <button class="ni-page-btn ni-prev">&#8592; Prev</button>\n'
+            f'      <span class="ni-page-info"></span>\n'
+            f'      <button class="ni-page-btn ni-next">Next &#8594;</button>\n'
+            f'    </div>\n'
+        )
+        pagination_script = '''
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.ni-paged').forEach(function(paged) {
+    var PAGE_SIZE = 15;
+    var items = Array.from(paged.querySelectorAll('.ni-list > .ni'));
+    var total = items.length;
+    if (total <= PAGE_SIZE) return;
+    var pages = Math.ceil(total / PAGE_SIZE);
+    var page = 0;
+    var prevBtn = paged.querySelector('.ni-prev');
+    var nextBtn = paged.querySelector('.ni-next');
+    var info = paged.querySelector('.ni-page-info');
+    function render() {
+      items.forEach(function(item, i) {
+        item.style.display = (i >= page * PAGE_SIZE && i < (page + 1) * PAGE_SIZE) ? '' : 'none';
+      });
+      info.textContent = 'Page ' + (page + 1) + ' of ' + pages;
+      prevBtn.disabled = (page === 0);
+      nextBtn.disabled = (page === pages - 1);
+    }
+    prevBtn.addEventListener('click', function() { page--; render(); });
+    nextBtn.addEventListener('click', function() { page++; render(); });
+    render();
+  });
+});
+</script>
+'''
+        return (
+            SECTION_INDEX_CSS + '\n'
+            f'<div class="ni-paged">\n'
+            f'  <div class="ni-list">\n'
+            f'    {notes_html}\n'
+            f'{pagination_html}'
+            f'  </div>\n'
+            f'</div>\n'
+            f'{pagination_script}'
+        )
+    else:
+        return SECTION_INDEX_CSS + '\n<div class="ni-list">\n' + notes_html + '\n</div>\n'
+
+
 # ----------------------------
 # INJECTION
 # ----------------------------
@@ -475,37 +618,116 @@ def inject_widget(widget_html, target_file, start_marker, end_marker):
 
 
 # ----------------------------
+# RECENT NOTES (homepage)
+# ----------------------------
+
+def get_git_recent_notes(sections, n=4):
+    """Return the n most recently committed note files across all sections."""
+    repo_root = DOCS_DIR.parent
+
+    path_to_section = {}
+    for section_cfg in sections:
+        for md_file in section_cfg['dir'].glob(section_cfg['glob']):
+            if md_file.name == "index.md" and not section_cfg['parent_stem']:
+                continue
+            path_to_section[md_file.resolve()] = section_cfg
+
+    if not path_to_section:
+        return []
+
+    try:
+        r = subprocess.run(
+            ['git', 'log', '--pretty=format:COMMIT:%ad', '--date=short', '--name-only'],
+            capture_output=True, text=True, cwd=str(repo_root), timeout=15,
+        )
+    except Exception:
+        return []
+
+    seen = {}
+    current_date = None
+    for line in r.stdout.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith('COMMIT:'):
+            try:
+                current_date = datetime.strptime(line[7:], '%Y-%m-%d').date()
+            except ValueError:
+                current_date = None
+            continue
+        if current_date is None:
+            continue
+        abs_path = (repo_root / line).resolve()
+        if abs_path in path_to_section and abs_path not in seen:
+            seen[abs_path] = current_date
+
+    sorted_paths = sorted(seen.items(), key=lambda x: -x[1].toordinal())[:n]
+
+    notes = []
+    for abs_path, commit_date in sorted_paths:
+        section_cfg = path_to_section[abs_path]
+        fm = parse_frontmatter(abs_path)
+        title = fm.get('title', abs_path.stem)
+        tags = fm.get('tags', [])
+        if not isinstance(tags, list):
+            tags = [tags] if tags else []
+        stem = abs_path.parent.name if section_cfg['parent_stem'] else abs_path.stem
+        notes.append({
+            'title': title,
+            'tags': tags,
+            'updated_date': commit_date,
+            'stem': stem,
+            'url_prefix': section_cfg['url_prefix'],
+        })
+    return notes
+
+
+def generate_recent_html(notes):
+    rows = []
+    for note in notes:
+        date_label = format_date_label(note['updated_date'])
+        tags_html = ''.join(f'<span class="rn-tag">{tag}</span>' for tag in note['tags'])
+        url = f"{note['url_prefix']}/{note['stem']}/"
+        rows.append(
+            f'  <div class="recent-note">\n'
+            f'    <div class="recent-note-main">\n'
+            f'      <a href="{url}" class="recent-note-title">{note["title"]}</a>\n'
+            f'      <span class="recent-note-date">{date_label}</span>\n'
+            f'    </div>\n'
+            f'    <div class="recent-note-tags">{tags_html}</div>\n'
+            f'  </div>'
+        )
+    return '<div class="recent-notes-list">\n' + '\n'.join(rows) + '\n</div>\n'
+
+
+# ----------------------------
 # MAIN
 # ----------------------------
 
 def main():
     print("Generating widgets...")
 
+    git_dates = get_git_dates(SECTIONS)
+
     for section_cfg in SECTIONS:
         print(f"\n{section_cfg['label']}:")
-
         notes = load_notes(section_cfg)
-        stats = compute_stats(notes, section_cfg)
-
-        widget_home = generate_widget_html(
-            stats,
-            section_cfg['label'],
-            section_cfg['url_prefix'],
-            section_cfg['desc'],
-        )
-
-        inject_widget(
-            widget_home,
-            INDEX_FILE,
-            section_cfg['start_marker'],
-            section_cfg['end_marker']
-        )
-
+        for note in notes:
+            abs_path = (section_cfg['dir'] / (note['stem'] + '.md')).resolve()
+            if section_cfg['parent_stem']:
+                abs_path = (section_cfg['dir'] / note['stem'] / 'index.md').resolve()
+            if abs_path in git_dates:
+                note['updated_date'] = git_dates[abs_path]
         si = section_cfg['section_index']
-        widget_section = generate_widget_html(stats, section_cfg['label'], '.', section_cfg['desc'])
-        inject_widget(widget_section, si['file'], si['start'], si['end'])
-
+        section_html = generate_section_index_html(notes, '.')
+        inject_widget(section_html, si['file'], si['start'], si['end'])
         print(f"  Done ({len(notes)} notes)")
+
+    print("\nRecent notes (homepage):")
+    recent_notes = get_git_recent_notes(SECTIONS, n=4)
+    recent_html = generate_recent_html(recent_notes)
+    inject_widget(recent_html, INDEX_FILE, RECENT_START, RECENT_END)
+    print(f"  Done ({len(recent_notes)} notes shown)")
 
     print("\nSUCCESS")
     return 0
