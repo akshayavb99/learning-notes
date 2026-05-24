@@ -60,6 +60,22 @@ SECTIONS = [
             'end': '<!-- pd:end -->',
         },
     },
+    
+    {
+        'dir': DOCS_DIR / 'paper-summaries',
+        'glob': '*/index.md',
+        'parent_stem': True,
+        'url_prefix': 'paper-summaries',
+        'label': 'Paper Summaries',
+        'desc': "Notes and summaries from papers I have read.",
+        'start_marker': '<!-- pd-ps:start -->',
+        'end_marker': '<!-- pd-ps:end -->',
+        'section_index': {
+            'file': DOCS_DIR / 'paper-summaries' / 'index.md',
+            'start': '<!-- pd:start -->',
+            'end': '<!-- pd:end -->',
+        },
+    },
 ]
 
 

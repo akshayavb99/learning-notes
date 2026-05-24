@@ -1,13 +1,10 @@
 ---
-title: Book Summaries MoC
-tags: 
-  - book-summary
-  - index
+title: Paper Summaries
 ---
 
-# Book Summaries Map Of Contents
+# Paper Summaries
 
-This page is the index for the summary notes and thoughts compiled by reading various books
+The paper summaries are inspired by [Fan Pu Zeng's ML Paper Summaries](https://fanpu.io/summaries/)
 
 <!-- pd:start -->
 <style>
@@ -54,12 +51,12 @@ This page is the index for the summary notes and thoughts compiled by reading va
 <div class="pd">
   <div class="pd-header">
     <div>
-      <a href="./" class="pd-label">Book Summaries</a>
-      <div class="pd-updated">updated May 9, 2026</div>
+      <a href="./" class="pd-label">Paper Summaries</a>
+      <div class="pd-updated">updated May 24, 2026</div>
     </div>
     <div class="pd-stats">
       <div class="pd-stat">
-        <span class="pd-stat-n">1</span>
+        <span class="pd-stat-n">0</span>
         <span class="pd-stat-l">total</span>
       </div>
       <div class="pd-stat">
@@ -69,7 +66,7 @@ This page is the index for the summary notes and thoughts compiled by reading va
     </div>
   </div>
 
-  <div class="pd-desc">Notes and summaries from books I've read, focusing on key ideas, takeaways, and personal insights.</div>
+  <div class="pd-desc">Notes and summaries from papers I have read.</div>
 
   <div class="pd-body">
     <div style="display:grid;grid-template-columns:1fr 1fr;">
@@ -82,10 +79,10 @@ This page is the index for the summary notes and thoughts compiled by reading va
 <rect x="60" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="75" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="90" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
-<rect x="105" y="30" width="12" height="20" rx="2" fill="#3b82f6" opacity="0.71"/>
-<rect x="120" y="10" width="12" height="40" rx="2" fill="#a78bfa" opacity="0.77"/>
-<rect x="135" y="30" width="12" height="20" rx="2" fill="#a78bfa" opacity="0.82"/>
-<rect x="150" y="30" width="12" height="20" rx="2" fill="#a78bfa" opacity="0.88"/>
+<rect x="105" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
+<rect x="120" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
+<rect x="135" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
+<rect x="150" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="165" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
 <rect x="180" y="48" width="12" height="2" rx="1" fill="#3b82f6" opacity="0.15"/>
           <text x="6" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W9</text>
@@ -98,13 +95,9 @@ This page is the index for the summary notes and thoughts compiled by reading va
 <text x="81" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W14</text>
 <text x="96" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W15</text>
 <text x="96" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">Apr</text>
-<text x="111" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="111" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W16</text>
-<text x="126" y="33" text-anchor="middle" font-size="6" fill="white" font-weight="500">2</text>
 <text x="126" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W17</text>
-<text x="141" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="141" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W18</text>
-<text x="156" y="43" text-anchor="middle" font-size="6" fill="white" font-weight="500">1</text>
 <text x="156" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W19</text>
 <text x="156" y="71" text-anchor="middle" font-size="7" fill="#94a3b8">May</text>
 <text x="171" y="61" text-anchor="middle" font-size="6" fill="#94a3b8">W20</text>
@@ -114,18 +107,10 @@ This page is the index for the summary notes and thoughts compiled by reading va
           <span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--pd-muted)"><span style="width:8px;height:8px;border-radius:2px;background:#3b82f6;display:inline-block"></span> created</span>
           <span style="display:inline-flex;align-items:center;gap:3px;font-size:10px;color:var(--pd-muted)"><span style="width:8px;height:8px;border-radius:2px;background:#a78bfa;display:inline-block"></span> updated</span>
         </div>
-        <div style="display:flex;flex-wrap:wrap;gap:4px"><span class="tag tag-t">book-summary</span><span class="tag tag-t">machine-learning</span><span class="tag tag-t">system-design</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px"></div>
       </div>
       <div style="padding:14px 18px">
-        <ul style="list-style:none;margin:0;padding:0">
-        <li class="prob">
-          <div class="prob-title-row">
-            <a href="./designing-ml-systems/" class="prob-link">Designing ML Systems</a>
-            <span class="prob-date">May 9, 2026</span>
-          </div>
-          <div class="prob-tags"><span class="tag tag-t">book-summary</span><span class="tag tag-t">machine-learning</span><span class="tag tag-t">system-design</span></div>
-        </li>
-        </ul>
+        <ul style="list-style:none;margin:0;padding:0"></ul>
       </div>
     </div>
   </div>
@@ -133,4 +118,6 @@ This page is the index for the summary notes and thoughts compiled by reading va
 
 <!-- pd:end -->
 
-1. [Designing ML Systems by Chip Huyen](./designing-ml-systems/)
+## May 2026
+
+1. [Reasoning Models Struggle to Control Chain of Thought](./reasoning-models-struggle-to-control-CoT)
