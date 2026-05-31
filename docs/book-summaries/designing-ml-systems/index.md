@@ -17,11 +17,12 @@ updated_date: 2026-05-09
 
 ## Changelog
 
-| Date           | Change Description                                    |
-| -------------- | ----------------------------------------------------- |
-| April 20, 2026 | Added notes for Chapter 1                             |
-| April 21, 2026 | Added notes for Chapter 2                             |
-| May 09, 2026   | Added notes for Chapter 3 (Data Sources, Data Models) |
+| Date           | Change Description                                               |
+| -------------- | ---------------------------------------------------------------- |
+| April 20, 2026 | Added notes for Chapter 1                                        |
+| April 21, 2026 | Added notes for Chapter 2                                        |
+| May 09, 2026   | Added notes for Chapter 3 (Data Sources, Data Models)            |
+| June 03, 2026  | Added Notes for Modes of Dataflow (By Databases and by services) |
 
 ## Chapter-wise Notes
 
@@ -166,3 +167,11 @@ In the industry, improving ML metrics alone is not enough to guarantee the succe
 | **Data Structure** | Stored in formats like JSON, XML and binary JSON (BSON) as a single long string                                                                                                                                                                                                                                                                                                                                         | Data is stored in nodes and the relationship between the data is represented by edges                |
 | **Advantages**     | **Better locality than relational models** - Data in a given document is stored close together providing better physical and access locality as compared to relational data models<br><br>**Schemaless flexibility** - In the same collection, different documents can have different schemas, and the responsibility of assuming the schema falls on the data reading application and not the data writing application | Faster to access data which are connected or related                                                 |
 | **Disadvantages**  | Hard to use filters and complex joins since every document in the collection needs to be read                                                                                                                                                                                                                                                                                                                           |                                                                                                      |
+
+#### Different Modes of Dataflow
+
+| Aspect                                                                                                                                                         | By Databases                                                                                                                                           | By Services                                                                                                                                                         |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Dataflow between 2 processes                                                                                                                                   | Both processes have read and write access to a database                                                                                                | A process A is exposed to another process B as a service. A can send requests to B in REST (Representational State Transfer) or RPC (Remote Procedure Call) formats |
+| Architecture                                                                                                                                                   | No special architecture needed. As long as the processes have the right accesses and permissions for the database, they can share data with each other | The services can be present in same application, or in different applications even across different organizations.                                                  |
+| Architecture where each component of the application is a service which is independently developed, tested and maintained is called microservice architecture. |

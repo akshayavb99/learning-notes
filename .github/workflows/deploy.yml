@@ -28,8 +28,7 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install zensical python-frontmatter
-      - run: python scripts/gen_widget.py
-      - run: zensical build --clean 
+      - run: make build 
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site

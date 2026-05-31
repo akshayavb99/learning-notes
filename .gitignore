@@ -1,16 +1,8 @@
 # Node dependencies
 node_modules/
 
-# VitePress output
-docs/.vitepress/dist/
-
-# VitePress build cache
-docs/.vitepress/cache
-
-# Generated indexes
-docs/.vitepress/slug-map.json
-docs/.vitepress/tag-map.json
-docs/tags/index.md
+# Build cache
+.cache/
 
 # IDE / OS
 .vscode/
@@ -23,8 +15,14 @@ Thumbs.db
 
 # env files
 .env
+.venv
 
-# Zensical site
+# Local Claude settings
+.claude.yaml
+.claude.json
+.claude
+
+# Zensical site build output
 site/
 
 

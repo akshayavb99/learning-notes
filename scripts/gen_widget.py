@@ -80,6 +80,36 @@ SECTIONS = [
             'end': '<!-- pd:end -->',
         },
     },
+    {
+        'dir': DOCS_DIR / 'course-summaries',
+        'glob': '*/index.md',
+        'parent_stem': True,
+        'url_prefix': 'course-summaries',
+        'label': 'Course Summaries',
+        'desc': "Notes and summaries from courses I have taken.",
+        'start_marker': '<!-- pd-cs:start -->',
+        'end_marker': '<!-- pd-cs:end -->',
+        'section_index': {
+            'file': DOCS_DIR / 'course-summaries' / 'index.md',
+            'start': '<!-- pd:start -->',
+            'end': '<!-- pd:end -->',
+        },
+    },
+    {
+        'dir': DOCS_DIR / 'practice-problems',
+        'glob': '*.md',
+        'parent_stem': False,
+        'url_prefix': 'practice-problems',
+        'label': 'Leetcode Solutions',
+        'desc': "Solutions, approaches, and complexity analysis for Leetcode problems.",
+        'start_marker': '<!-- pd-lc:start -->',
+        'end_marker': '<!-- pd-lc:end -->',
+        'section_index': {
+            'file': DOCS_DIR / 'practice-problems' / 'index.md',
+            'start': '<!-- pd:start -->',
+            'end': '<!-- pd:end -->',
+        },
+    },
 ]
 
 
@@ -637,7 +667,8 @@ def get_git_recent_notes(sections, n=4):
 
     try:
         r = subprocess.run(
-            ['git', 'log', '--pretty=format:COMMIT:%ad', '--date=short', '--name-only'],
+            ['git', 'log', '--pretty=format:COMMIT:%ad', '--date=short',
+             '--diff-filter=AMR', '--name-only'],
             capture_output=True, text=True, cwd=str(repo_root), timeout=15,
         )
     except Exception:
@@ -701,6 +732,73 @@ def generate_recent_html(notes):
 
 
 # ----------------------------
+# HOMEPAGE COUNTS
+# ----------------------------
+
+def update_homepage_counts(sections):
+    """Update category counts and stats in the main index.md."""
+    section_counts = {}
+    total_notes = 0
+
+    for section_cfg in sections:
+        notes = load_notes(section_cfg)
+        count = len(notes)
+        section_counts[section_cfg['label']] = count
+        total_notes += count
+
+    # Map section labels to their marker keys
+    section_map = {
+        'Concept Notes': ('concept-notes', count_label(section_counts.get('Concept Notes', 0), 'note')),
+        'Book Summaries': ('book-summaries', count_label(section_counts.get('Book Summaries', 0), 'book')),
+        'Paper Summaries': ('paper-summaries', count_label(section_counts.get('Paper Summaries', 0), 'paper')),
+        'Indexes': ('indexes', count_label(section_counts.get('Indexes', 0), 'index')),
+        'Course Summaries': ('course-summaries', count_label(section_counts.get('Course Summaries', 0), 'course')),
+        'Leetcode Solutions': ('practice-problems', count_label(section_counts.get('Leetcode Solutions', 0), 'solution')),
+    }
+
+    content = INDEX_FILE.read_text(encoding='utf-8')
+
+    # Update category counts
+    for label, (key, count_text) in section_map.items():
+        pattern = rf'(<!-- cat-count:{key} -->).*?(<!-- /cat-count -->)'
+        replacement = lambda m: m.group(1) + count_text + m.group(2)
+        content = re.sub(pattern, replacement, content)
+
+    # Update stat values
+    stat_updates = {
+        'total-notes': str(total_notes),
+        'sections': '6',
+        'concept-notes': str(section_counts.get('Concept Notes', 0)),
+        'book-summaries': str(section_counts.get('Book Summaries', 0)),
+        'paper-summaries': str(section_counts.get('Paper Summaries', 0)),
+        'indexes': str(section_counts.get('Indexes', 0)),
+        'course-summaries': str(section_counts.get('Course Summaries', 0)),
+        'practice-problems': str(section_counts.get('Leetcode Solutions', 0)),
+    }
+
+    for stat_key, value in stat_updates.items():
+        pattern = rf'(<!-- stat:{stat_key} -->).*?(<!-- /stat -->)'
+        replacement = lambda m, v=value: m.group(1) + v + m.group(2)
+        content = re.sub(pattern, replacement, content)
+
+    INDEX_FILE.write_text(content, encoding='utf-8')
+
+
+def count_label(count, singular):
+    """Generate plural label for count."""
+    if count == 1:
+        return f"1 {singular}"
+    else:
+        # Handle special cases
+        if singular == 'index':
+            return f"{count} indexes"
+        elif singular.endswith('y'):
+            return f"{count} {singular[:-1]}ies"
+        else:
+            return f"{count} {singular}s"
+
+
+# ----------------------------
 # MAIN
 # ----------------------------
 
@@ -724,10 +822,14 @@ def main():
         print(f"  Done ({len(notes)} notes)")
 
     print("\nRecent notes (homepage):")
-    recent_notes = get_git_recent_notes(SECTIONS, n=4)
+    recent_notes = get_git_recent_notes(SECTIONS, n=5)
     recent_html = generate_recent_html(recent_notes)
     inject_widget(recent_html, INDEX_FILE, RECENT_START, RECENT_END)
     print(f"  Done ({len(recent_notes)} notes shown)")
+
+    print("\nUpdating homepage counts...")
+    update_homepage_counts(SECTIONS)
+    print("  Done")
 
     print("\nSUCCESS")
     return 0

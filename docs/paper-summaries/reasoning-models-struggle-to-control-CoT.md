@@ -39,7 +39,7 @@ url: https://arxiv.org/abs/2603.05706
 - Reinforcement-learning-trained reasoning models also tended to have lower controllability than expected. 
 - This suggests that current reasoning behavior is not fully deliberate or strategically editable; instead, reasoning traces emerge in ways that models themselves cannot tightly regulate.
 
-## Most Glaring Deficiency
+## Potential Missing Considerations
 
 - The paper’s biggest weakness is that its evaluation setup may not reflect true adversarial deception. 
 - The models are tested on artificial constraints like “do not use this word” or “avoid mentioning this concept,” but real-world deceptive behavior could involve much more strategic planning.

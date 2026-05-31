@@ -243,22 +243,32 @@ hide:
       <a href="concept-notes/" class="cat-item">
         <div class="cat-icon">&#128196;</div>
         <div class="cat-name">Concept Notes</div>
-        <div class="cat-count">5 notes</div>
+        <div class="cat-count"><!-- cat-count:concept-notes -->5 notes<!-- /cat-count --></div>
       </a>
       <a href="book-summaries/" class="cat-item">
         <div class="cat-icon">&#128218;</div>
         <div class="cat-name">Book Summaries</div>
-        <div class="cat-count">1 book</div>
+        <div class="cat-count"><!-- cat-count:book-summaries -->1 book<!-- /cat-count --></div>
       </a>
       <a href="paper-summaries/" class="cat-item">
         <div class="cat-icon">&#128203;</div>
         <div class="cat-name">Paper Summaries</div>
-        <div class="cat-count">1 paper</div>
+        <div class="cat-count"><!-- cat-count:paper-summaries -->2 papers<!-- /cat-count --></div>
       </a>
       <a href="indexes/" class="cat-item">
         <div class="cat-icon">&#128270;</div>
         <div class="cat-name">Indexes</div>
-        <div class="cat-count">4 indexes</div>
+        <div class="cat-count"><!-- cat-count:indexes -->4 indexes<!-- /cat-count --></div>
+      </a>
+      <a href="course-summaries/" class="cat-item">
+        <div class="cat-icon">&#127891;</div>
+        <div class="cat-name">Course Summaries</div>
+        <div class="cat-count"><!-- cat-count:course-summaries -->0 courses<!-- /cat-count --></div>
+      </a>
+      <a href="practice-problems/" class="cat-item">
+        <div class="cat-icon">&#128187;</div>
+        <div class="cat-name">Practice Problems</div>
+        <div class="cat-count"><!-- cat-count:practice-problems -->1 solution<!-- /cat-count --></div>
       </a>
     </div>
   </div>
@@ -269,33 +279,43 @@ hide:
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Notes</div>
-        <div class="stat-value">11</div>
+        <div class="stat-value"><!-- stat:total-notes -->13<!-- /stat --></div>
         <div class="stat-detail">across all sections</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Sections</div>
-        <div class="stat-value">4</div>
+        <div class="stat-value"><!-- stat:sections -->6<!-- /stat --></div>
         <div class="stat-detail">topic areas</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Concept Notes</div>
-        <div class="stat-value">5</div>
+        <div class="stat-value"><!-- stat:concept-notes -->5<!-- /stat --></div>
         <div class="stat-detail">quick references</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Book Summaries</div>
-        <div class="stat-value">1</div>
+        <div class="stat-value"><!-- stat:book-summaries -->1<!-- /stat --></div>
         <div class="stat-detail">deep dives</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Paper Summaries</div>
-        <div class="stat-value">1</div>
+        <div class="stat-value"><!-- stat:paper-summaries -->2<!-- /stat --></div>
         <div class="stat-detail">research notes</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Indexes</div>
-        <div class="stat-value">4</div>
+        <div class="stat-value"><!-- stat:indexes -->4<!-- /stat --></div>
         <div class="stat-detail">topic maps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Course Summaries</div>
+        <div class="stat-value"><!-- stat:course-summaries -->0<!-- /stat --></div>
+        <div class="stat-detail">courses</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Practice Problems</div>
+        <div class="stat-value"><!-- stat:practice-problems -->1<!-- /stat --></div>
+        <div class="stat-detail">problems solved</div>
       </div>
     </div>
   </div>
@@ -307,10 +327,24 @@ hide:
 <div class="recent-notes-list">
   <div class="recent-note">
     <div class="recent-note-main">
+      <a href="practice-problems/leetcode-74/" class="recent-note-title">Leetcode 74 - Search a 2D Matrix</a>
+      <span class="recent-note-date">Jun 1, 2026</span>
+    </div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">binary-search</span><span class="rn-tag">matrix</span><span class="rn-tag">neetcode-150-list</span></div>
+  </div>
+  <div class="recent-note">
+    <div class="recent-note-main">
       <a href="paper-summaries/reasoning-models-struggle-to-control-CoT/" class="recent-note-title">Reasoning Models Struggle to Control Chain of Thought</a>
-      <span class="recent-note-date">May 24, 2026</span>
+      <span class="recent-note-date">Jun 1, 2026</span>
     </div>
     <div class="recent-note-tags"><span class="rn-tag">paper-summary</span><span class="rn-tag">reasoning-models</span></div>
+  </div>
+  <div class="recent-note">
+    <div class="recent-note-main">
+      <a href="paper-summaries/stress-testing-model-specs-reveals-character-diff-among-LMs/" class="recent-note-title">Stress-Testing Model Specs Reveals Character Differences among Language Models</a>
+      <span class="recent-note-date">Jun 1, 2026</span>
+    </div>
+    <div class="recent-note-tags"><span class="rn-tag">paper-summary</span><span class="rn-tag">reasoning-models</span><span class="rn-tag">model-specifications</span><span class="rn-tag">language-models</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
@@ -325,13 +359,6 @@ hide:
       <span class="recent-note-date">May 16, 2026</span>
     </div>
     <div class="recent-note-tags"><span class="rn-tag">git</span><span class="rn-tag">github</span><span class="rn-tag">version-control</span><span class="rn-tag">best-practices</span></div>
-  </div>
-  <div class="recent-note">
-    <div class="recent-note-main">
-      <a href="book-summaries/designing-ml-systems/" class="recent-note-title">Designing ML Systems</a>
-      <span class="recent-note-date">May 9, 2026</span>
-    </div>
-    <div class="recent-note-tags"><span class="rn-tag">book-summary</span><span class="rn-tag">machine-learning</span><span class="rn-tag">system-design</span></div>
   </div>
 </div>
 
