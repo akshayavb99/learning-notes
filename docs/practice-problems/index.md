@@ -29,10 +29,31 @@ Solutions, approaches, and complexity analysis for practice problems like Leetco
 <div class="ni-list">
 <div class="ni">
   <div class="ni-header">
-    <a href="./leetcode-74/" class="ni-title">Leetcode 74 - Search a 2D Matrix</a>
+    <a href="./time-based-key-value-store/" class="ni-title">Leetcode 981 - Time Based Key-Value Store</a>
+    <span class="ni-date">Jun 3, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">binary-search</span><span class="ni-tag">array</span><span class="ni-tag">hashmap</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./koko-eating-bananas/" class="ni-title">Leetcode 875 - Koko Eating Bananas</a>
+    <span class="ni-date">Jun 2, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">binary-search</span><span class="ni-tag">array</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./mse-vs-mae/" class="ni-title">Loss Functions - MSE vs MAE</a>
+    <span class="ni-date">Jun 2, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">mse</span><span class="ni-tag">mae</span><span class="ni-tag">loss-functions</span><span class="ni-tag">regression</span><span class="ni-tag">machine-learning</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./search-2d-matrix/" class="ni-title">Leetcode 74 - Search a 2D Matrix</a>
     <span class="ni-date">Jun 1, 2026</span>
   </div>
-  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">binary-search</span><span class="ni-tag">matrix</span><span class="ni-tag">neetcode-150-list</span></div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">binary-search</span><span class="ni-tag">matrix</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span></div>
 </div>
 </div>
 

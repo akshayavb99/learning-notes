@@ -235,6 +235,7 @@ def load_notes(section_cfg):
             tags = [tags] if tags else []
 
         raw_date = fm.get('updated_date')
+        has_explicit_date = raw_date is not None
         updated_date = safe_parse_date(raw_date) if raw_date is not None else date.fromtimestamp(md_file.stat().st_mtime)
 
         stem = md_file.parent.name if section_cfg['parent_stem'] else md_file.stem
@@ -249,6 +250,7 @@ def load_notes(section_cfg):
             'updated_date': updated_date,
             'stem': stem,
             'description': description.strip(),
+            'has_explicit_date': has_explicit_date,
         })
 
     return notes
@@ -703,10 +705,12 @@ def get_git_recent_notes(sections, n=4):
         if not isinstance(tags, list):
             tags = [tags] if tags else []
         stem = abs_path.parent.name if section_cfg['parent_stem'] else abs_path.stem
+        fm_date = fm.get('updated_date')
+        note_date = safe_parse_date(fm_date) if fm_date is not None else commit_date
         notes.append({
             'title': title,
             'tags': tags,
-            'updated_date': commit_date,
+            'updated_date': note_date,
             'stem': stem,
             'url_prefix': section_cfg['url_prefix'],
         })
@@ -814,7 +818,7 @@ def main():
             abs_path = (section_cfg['dir'] / (note['stem'] + '.md')).resolve()
             if section_cfg['parent_stem']:
                 abs_path = (section_cfg['dir'] / note['stem'] / 'index.md').resolve()
-            if abs_path in git_dates:
+            if abs_path in git_dates and not note.get('has_explicit_date'):
                 note['updated_date'] = git_dates[abs_path]
         si = section_cfg['section_index']
         section_html = generate_section_index_html(notes, '.')

@@ -243,7 +243,7 @@ hide:
       <a href="concept-notes/" class="cat-item">
         <div class="cat-icon">&#128196;</div>
         <div class="cat-name">Concept Notes</div>
-        <div class="cat-count"><!-- cat-count:concept-notes -->5 notes<!-- /cat-count --></div>
+        <div class="cat-count"><!-- cat-count:concept-notes -->6 notes<!-- /cat-count --></div>
       </a>
       <a href="book-summaries/" class="cat-item">
         <div class="cat-icon">&#128218;</div>
@@ -268,7 +268,7 @@ hide:
       <a href="practice-problems/" class="cat-item">
         <div class="cat-icon">&#128187;</div>
         <div class="cat-name">Practice Problems</div>
-        <div class="cat-count"><!-- cat-count:practice-problems -->1 solution<!-- /cat-count --></div>
+        <div class="cat-count"><!-- cat-count:practice-problems -->4 solutions<!-- /cat-count --></div>
       </a>
     </div>
   </div>
@@ -279,7 +279,7 @@ hide:
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Notes</div>
-        <div class="stat-value"><!-- stat:total-notes -->13<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:total-notes -->17<!-- /stat --></div>
         <div class="stat-detail">across all sections</div>
       </div>
       <div class="stat-card">
@@ -289,7 +289,7 @@ hide:
       </div>
       <div class="stat-card">
         <div class="stat-label">Concept Notes</div>
-        <div class="stat-value"><!-- stat:concept-notes -->5<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:concept-notes -->6<!-- /stat --></div>
         <div class="stat-detail">quick references</div>
       </div>
       <div class="stat-card">
@@ -314,7 +314,7 @@ hide:
       </div>
       <div class="stat-card">
         <div class="stat-label">Practice Problems</div>
-        <div class="stat-value"><!-- stat:practice-problems -->1<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:practice-problems -->4<!-- /stat --></div>
         <div class="stat-detail">problems solved</div>
       </div>
     </div>
@@ -327,38 +327,38 @@ hide:
 <div class="recent-notes-list">
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="practice-problems/leetcode-74/" class="recent-note-title">Leetcode 74 - Search a 2D Matrix</a>
-      <span class="recent-note-date">Jun 1, 2026</span>
+      <a href="book-summaries/designing-ml-systems/" class="recent-note-title">Designing ML Systems</a>
+      <span class="recent-note-date">May 9, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">binary-search</span><span class="rn-tag">matrix</span><span class="rn-tag">neetcode-150-list</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">book-summary</span><span class="rn-tag">machine-learning</span><span class="rn-tag">system-design</span></div>
+  </div>
+  <div class="recent-note">
+    <div class="recent-note-main">
+      <a href="concept-notes/mean-squared-error/" class="recent-note-title">Mean Squared Error</a>
+      <span class="recent-note-date">May 11, 2026</span>
+    </div>
+    <div class="recent-note-tags"><span class="rn-tag">mse</span><span class="rn-tag">loss-function</span><span class="rn-tag">regression</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
       <a href="paper-summaries/reasoning-models-struggle-to-control-CoT/" class="recent-note-title">Reasoning Models Struggle to Control Chain of Thought</a>
-      <span class="recent-note-date">Jun 1, 2026</span>
+      <span class="recent-note-date">May 24, 2026</span>
     </div>
     <div class="recent-note-tags"><span class="rn-tag">paper-summary</span><span class="rn-tag">reasoning-models</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
       <a href="paper-summaries/stress-testing-model-specs-reveals-character-diff-among-LMs/" class="recent-note-title">Stress-Testing Model Specs Reveals Character Differences among Language Models</a>
-      <span class="recent-note-date">Jun 1, 2026</span>
+      <span class="recent-note-date">Jun 6, 2026</span>
     </div>
     <div class="recent-note-tags"><span class="rn-tag">paper-summary</span><span class="rn-tag">reasoning-models</span><span class="rn-tag">model-specifications</span><span class="rn-tag">language-models</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="concept-notes/json-grammar/" class="recent-note-title">JSON Grammar Rules - McKeeman Form</a>
-      <span class="recent-note-date">May 16, 2026</span>
+      <a href="practice-problems/koko-eating-bananas/" class="recent-note-title">Leetcode 875 - Koko Eating Bananas</a>
+      <span class="recent-note-date">Jun 2, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">json</span></div>
-  </div>
-  <div class="recent-note">
-    <div class="recent-note-main">
-      <a href="concept-notes/conventional-commits-quick-ref/" class="recent-note-title">Conventional Commits Quick Reference</a>
-      <span class="recent-note-date">May 16, 2026</span>
-    </div>
-    <div class="recent-note-tags"><span class="rn-tag">git</span><span class="rn-tag">github</span><span class="rn-tag">version-control</span><span class="rn-tag">best-practices</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">binary-search</span><span class="rn-tag">array</span></div>
   </div>
 </div>
 

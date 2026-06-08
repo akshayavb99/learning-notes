@@ -30,17 +30,25 @@ Notes live here regardless of which areas they touch.
 <div class="ni-list">
 <div class="ni">
   <div class="ni-header">
-    <a href="./conventional-commits-quick-ref/" class="ni-title">Conventional Commits Quick Reference</a>
-    <span class="ni-date">May 16, 2026</span>
+    <a href="./json-grammar/" class="ni-title">JSON Grammar Rules - McKeeman Form</a>
+    <span class="ni-date">May 11, 2026</span>
   </div>
-  <div class="ni-tags"><span class="ni-tag">git</span><span class="ni-tag">github</span><span class="ni-tag">version-control</span><span class="ni-tag">best-practices</span></div>
+  <div class="ni-tags"><span class="ni-tag">json</span></div>
 </div>
 <div class="ni">
   <div class="ni-header">
-    <a href="./json-grammar/" class="ni-title">JSON Grammar Rules - McKeeman Form</a>
-    <span class="ni-date">May 16, 2026</span>
+    <a href="./mean-squared-error/" class="ni-title">Mean Squared Error</a>
+    <span class="ni-date">May 11, 2026</span>
   </div>
-  <div class="ni-tags"><span class="ni-tag">json</span></div>
+  <p class="ni-desc">Concept Note for Mean Squared Error</p>
+  <div class="ni-tags"><span class="ni-tag">mse</span><span class="ni-tag">loss-function</span><span class="ni-tag">regression</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./conventional-commits-quick-ref/" class="ni-title">Conventional Commits Quick Reference</a>
+    <span class="ni-date">May 1, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">git</span><span class="ni-tag">github</span><span class="ni-tag">version-control</span><span class="ni-tag">best-practices</span></div>
 </div>
 <div class="ni">
   <div class="ni-header">
