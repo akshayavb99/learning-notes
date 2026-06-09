@@ -1,7 +1,7 @@
 ---
 title: LLM Zoomcamp 2026
 description: This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub
-updated_date: 2026-06-04
+updated_date: 2026-06-09
 tags:
   - artificial-intelligence
   - course-summary
@@ -18,15 +18,15 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 
 | Lecture                     | Notes                                                                | Homework |
 | --------------------------- | -------------------------------------------------------------------- | -------- |
-| **Lecture 1 - Agentic RAG** | [1. Agentic Rag](#1-agentic-rag)                                     |
+| **Lecture 1 - Agentic RAG** | [1. Agentic Rag](#1-agentic-rag)                                     |          |
 | 1.1 Introduction            | [1-1 Introduction](#1-1-introduction)                                |          |
 | 1.2 Environment             | [1-2 Environment](#1-2-environment)                                  |          |
 | 1.3 What is RAG             | [1-3 What is RAG (Retrieval-Augmented Generation)](#1-3-what-is-rag) |          |
 | 1.4 The Course FAQ dataset  | [1-4 The Course FAQ Dataset](#1-4-the-course-faq-dataset)            |          |
-| 1.5 Search                  |                                                                      |          |
-| 1.6 Building Prompt         |                                                                      |          |
-| 1.7 LLM                     |                                                                      |          |
-| 1.8 RAG Helper              |                                                                      |          |
+| 1.5 Search                  | [1-5 Search](#1-5-search)                                            |          |
+| 1.6 Building a Prompt       | [1-6 Building a Prompt](#1-6-building-a-prompt)                      |          |
+| 1.7 RAG Pipeline            | [1-7 RAG Pipeline](#1-7-rag-pipeline)                                |          |
+| 1.8 RAG Helper              | [1-8 RAG Helper](#1-8-rag-helper)                                    |          |
 | 1.9 Data Ingestion          |                                                                      |          |
 | 1.10 RAG Next Steps         |                                                                      |          |
 | 1.11 Agents Intro           |                                                                      |          |
@@ -211,6 +211,351 @@ len(documents)
 ```
 
 > Note: In real-world implementations, you will spend a lot of time ingesting and cleaning data which we need
+
+### 1-5 Search
+
+For a simplified search engine use `minsearch`, so that you can send a subset of the documents as context instead of all the documents for more effective responses. Other search engine options include lucene, elastic search etc. Many of these search engines are heavy and can need docker containers to run.
+
+`minsearch` is a lightweight toy implementation of a search engine that can be used for small datasets.
+
+**Step 1: Index the documents**
+
+```python
+from minsearch import Index
+
+index = Index(
+	text_fields=['question', 'section', 'answer'], # Fields to use for searching
+	keyword_fields=['course'] # Looks for exact match inside the course, acts as a filter which restricts the search space for further search with text_fields
+	)
+index.fit(documents) # Fitting the index to make it ready for search
+```
+
+**Step 2: Search the index for relevant documents for the given question**
+
+```python
+search_results = index.search(
+	query='How do I run Docker on Windows?',
+	num_results=5, #Restrict to 5 results
+	boost_dict={'question':3.0, 'section':0.5} # During search 'question' is given 3.0 weightage (more importance) when looking for relevant documents, 'section' is given 0.5 weightage. Default boost is 1.0 for all fields
+)
+```
+
+**Step 3: Define a `search` function for use by the RAG assistant**
+
+```python
+def search(question, course="llm-zoomcamp"):
+    boost_dict = {"question": 2.0, "section": 0.5}
+    filter_dict = {"course": course}
+
+    return index.search(
+        query=question,
+        boost_dict=boost_dict,
+        filter_dict=filter_dict,
+        num_results=5
+    )
+
+search_results = search(question)
+```
+
+### 1-6 Building a Prompt
+
+When building AI systems, we often have prompts consisting of 2 parts
+
+1. **Instructions** - Never changes
+2. **User prompt** - Changes with user input
+
+**Step 1: Define the instructions for the LLM**
+
+```python
+INSTRUCTIONS = """
+Your task is to answer questions from the course participants
+based on the provided context.
+
+Use the context to find relevant information and provide accurate
+answers. If the answer is not found in the context,
+respond with "I don't know."
+"""
+```
+
+**Step 2: Define the user prompt template that dynamically updates the user input**
+
+```python
+USER_PROMPT_TEMPLATE = """
+Question:
+{question}
+
+Context:
+{context}
+"""
+```
+
+**Step 3: Define function to build the context string**
+
+The documents are present as items in a dictionary. The context information needs to be presented as a string to include it in the user prompt
+
+```python
+def build_context(search_results):
+    lines = []
+
+    for doc in search_results:
+        lines.append(doc["section"])
+        lines.append("Q: " + doc["question"])
+        lines.append("A: " + doc["answer"])
+        lines.append("")
+
+    return "\n".join(lines).strip()
+```
+
+**Step 4: Building the full prompt**
+
+```python
+def build_prompt(question, search_results):
+    context = build_context(search_results)
+    prompt = USER_PROMPT_TEMPLATE.format(
+        question=question,
+        context=context
+    )
+    return prompt.strip()
+
+prompt = build_prompt(question, search_results)
+print(prompt)
+```
+
+### 1-7 RAG Pipeline
+
+The last part of the RAG pipeline is the LLM which takes the prompt as input and generates an output.
+
+OpenAI has 2 APIs:
+
+1. ChatCompletion (older API, considered legacy)
+2. Responses (newer API, more convenient, what we will use)
+
+```python
+response = openai_client.responses.create(
+    model="gpt-5.4-mini", # Can use other models if needed
+    input=prompt
+)
+```
+
+**Response exploration**
+
+```python
+print(response.output) # List of output items
+print(response.output[0]) # Output message is the 1st list item
+print(response.output[0].content[0].text) # Text message is the 1st item inside the content
+
+print(response.output_text) # Shortcut to get the text message
+print(response.usage) # Tokens consumed by response in a ResponseUsage object, provide counts of input, output tokens splitup as well
+```
+
+**Calculating the price**
+
+```python
+input_price = 0.75 / 1_000_000 # From model card
+output_price = 4.50 / 1_000_000 # from model card
+
+cost = (
+    response.usage.input_tokens * input_price +
+    response.usage.output_tokens * output_price
+)
+
+print(cost)
+```
+
+**Sending message history as input to LLM**
+
+We can send historical messages as a list of dictionaries (each dictionary contains the role of the message sender and the message text) as input to the LLM
+
+```python
+message_history = [
+    {"role": "developer", "content": INSTRUCTIONS}, # System prompt instructions
+    {"role": "user", "content": prompt} # User input
+]
+
+response = openai_client.responses.create(
+    model="gpt-5.4-mini",
+    input=message_history
+)
+```
+
+**Define final LLM function with message history**
+
+```python
+def llm(instructions, user_prompt, model="gpt-5.4-mini"):
+    message_history = [
+        {"role": "developer", "content": instructions}, #Can replace developer with 'system' to pass instructions, not too much of a difference in the case of Responses API
+        {"role": "user", "content": user_prompt}
+    ]
+
+    response = openai_client.responses.create(
+        model=model,
+        input=message_history
+    )
+
+    return response.output_text
+```
+
+**Full RAG pipeline function**
+
+```python
+def rag(query, model="gpt-5.4-mini"):
+    search_results = search(query)
+    prompt = build_prompt(query, search_results)
+    answer = llm(INSTRUCTIONS, prompt, model=model)
+    return answer
+```
+
+### 1-8 RAG Helper
+
+We take all the functions we have written and put them into reusable helper files.
+
+```python
+# ingest.py
+# Used for loading FAQ data, building search index
+
+import requests
+from minsearch import Index
+
+def load_faq_data():
+    docs_url = "https://datatalks.club/faq/json/courses.json"
+    response = requests.get(docs_url)
+    courses_raw = response.json()
+
+    documents = []
+    url_prefix = "https://datatalks.club/faq"
+
+    for course in courses_raw:
+        course_url = f"""{url_prefix}{course["path"]}"""
+        course_response = requests.get(course_url)
+        course_response.raise_for_status()
+        course_data = course_response.json()
+
+        documents.extend(course_data)
+
+    return documents
+
+def build_index(documents):
+    index = Index(
+        text_fields=["question", "section", "answer"],
+        keyword_fields=["course"]
+    )
+    index.fit(documents)
+    return index
+```
+
+```python
+# rag_helper.py
+
+INSTRUCTIONS = """
+Your task is to answer questions from the course participants
+based on the provided context.
+
+Use the context to find relevant information and provide accurate
+answers. If the answer is not found in the context,
+respond with "I don't know."
+"""
+
+PROMPT_TEMPLATE = """
+QUESTION:
+{question}
+
+CONTEXT:
+{context}
+""".strip()
+
+class RAGHelper:
+
+    def __init__(
+        self,
+        index,
+        llm_client,
+        instructions=INSTRUCTIONS,
+        prompt_template=PROMPT_TEMPLATE,
+        course="llm-zoomcamp",
+        model="gpt-5.4-mini"
+    ):
+        self.index = index
+        self.llm_client = llm_client
+        self.instructions = instructions
+        self.course = course
+        self.prompt_template = prompt_template
+        self.model = model
+
+    def search(self, query, num_results=5):
+        boost_dict = {"question": 3.0, "section": 0.5}
+        filter_dict = {"course": self.course}
+
+        return self.index.search(
+            query,
+            num_results=num_results,
+            boost_dict=boost_dict,
+            filter_dict=filter_dict
+        )
+
+    def build_context(self, search_results):
+        lines = []
+
+        for doc in search_results:
+            lines.append(doc["section"])
+            lines.append("Q: " + doc["question"])
+            lines.append("A: " + doc["answer"])
+            lines.append("")
+
+        return "\n".join(lines).strip()
+
+    def build_prompt(self, query, search_results):
+        context = self.build_context(search_results)
+        return self.prompt_template.format(
+            question=query, context=context
+        )
+
+    def llm(self, prompt):
+        input_messages = [
+            {"role": "developer", "content": self.instructions},
+            {"role": "user", "content": prompt}
+        ]
+
+        response = self.llm_client.responses.create(
+            model=self.model,
+            input=input_messages
+        )
+
+        return response.output_text
+
+    def rag(self, query):
+        search_results = self.search(query)
+        prompt = self.build_prompt(query, search_results)
+        answer = self.llm(prompt)
+        return answer
+```
+
+**Using the helper functions**
+
+```python
+from dotenv import load_dotenv
+load_dotenv()
+
+from ingest import load_faq_data, build_index
+from rag_helper import RAGBase
+from openai import OpenAI
+
+documents = load_faq_data()
+index = build_index(documents)
+
+openai_client = OpenAI()
+
+custom_instructions = """
+You're a course teaching assistant.
+Answer the QUESTION based on the CONTEXT from the FAQ database.
+Use only the facts from the CONTEXT when answering the QUESTION.
+""".strip() # Can skip this in favor of the default instructions in rag_helper.py
+
+assistant = RAGBase(
+    index=index,
+    llm_client=openai_client,
+    instructions=custom_instructions,
+)
+```
 
 ## 2. Vector Search
 
