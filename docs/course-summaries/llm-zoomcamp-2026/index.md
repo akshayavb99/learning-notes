@@ -1,7 +1,7 @@
 ---
 title: LLM Zoomcamp 2026
 description: This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub
-updated_date: 2026-06-09
+updated_date: 2026-06-10
 tags:
   - artificial-intelligence
   - course-summary
@@ -27,11 +27,11 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 | 1.6 Building a Prompt       | [1-6 Building a Prompt](#1-6-building-a-prompt)                      |          |
 | 1.7 RAG Pipeline            | [1-7 RAG Pipeline](#1-7-rag-pipeline)                                |          |
 | 1.8 RAG Helper              | [1-8 RAG Helper](#1-8-rag-helper)                                    |          |
-| 1.9 Data Ingestion          |                                                                      |          |
-| 1.10 RAG Next Steps         |                                                                      |          |
-| 1.11 Agents Intro           |                                                                      |          |
+| 1.9 Data Ingestion          | [1-9 Data Ingestion](#1-9-data-ingestion)                            |          |
+| 1.10 RAG Next Steps         | [1-10 RAG Next Steps](#1-10-wrap-up-of-part-1)                       |          |
+| 1.11 Agents Intro           | [1-11 Agents Intro](#1-11-agents)                                    |          |
 | 1.12 RAG Revision           |                                                                      |          |
-| 1.13 Function Calling       |                                                                      |          |
+| 1.13 Function Calling       | [1-13 Function Calling](#1-13-function-calling)                      |          |
 | 1.14 Agentic Loop           |                                                                      |          |
 | 1.15 Frameworks             |                                                                      |          |
 | 1.16 Other Frameworks       |                                                                      |          |
@@ -555,6 +555,181 @@ assistant = RAGBase(
     llm_client=openai_client,
     instructions=custom_instructions,
 )
+```
+
+### 1-9 Data Ingestion
+
+- `minsearch` is in-memory and bound to the process it is running in. This means, if the notebook kernel it is running is shut down, the search index is lost.
+- This is not ideal when the dataset is large and you want to persist your dataset index across sessions
+- Examples of persistent search engines include elastic search
+
+**Step 1: Split the ingestion from knowledge base querying**
+
+- We split the data ingestion and the RAG querying to run independently, so that they are connected by the persistent storage for the knowledge base
+- We use `sqlitesearch` which stores the data in `sqlite` database and has a default full text search (FTSS) extension with BM25 ranking
+
+Install the library - `uv add sqlitesearch`
+
+Next we write a notebook `persistent_rag_ingest.ipynb` for the data ingestion
+
+```python
+from ingest import load_faq_data
+import time
+
+documents = load_faq_data()
+
+docs_llm = [doc for doc in documents if doc['course'] == 'llm-zoomcamp']
+
+from sqlitesearch import TextSearchIndex
+index = TextSearchIndex(
+    text_fields=["question", "section", "answer"],
+    keyword_fields=["course"],
+    db_path="faq.db"
+)
+
+for doc in docs_llm:
+    index.add(doc)
+    print(f"""Added: {doc["question"][:60]}...""")
+    time.sleep(0.5) # Delay to ensure time gaps between writing data to DB
+
+index.close()
+print("Done. Index saved to faq.db")
+
+```
+
+Ensure to add the DB files to `gitignore` to avoid committing the data to git
+
+```text
+# .gitignore file
+
+.venv
+.env
+
+faq.db*
+*.db
+*.db-shm
+*.db-wal
+```
+
+**Step 2: Switch to `sqlitesearch` from `minsearch`**
+
+We write a notebook `persistent_rag.ipynb` for the data loading and querying
+
+```python
+from sqlitesearch import TextSearchIndex
+
+sqlite_index = TextSearchIndex(
+    text_fields=["question", "section", "answer"],
+    keyword_fields=["course"],
+    db_path="faq.db"
+)
+
+print(sqlite_index.count()) # Number of documents in the index
+
+results = sqlite_index.search("Can I still join the course after it started?", num_results=5)
+[doc["question"] for doc in results]
+```
+
+### 1-10 Wrap-up of Part 1
+
+Things to try:
+
+- Replace text search with vector search
+- Replace OpenAI API with Anthropic, Gemini APIs etc
+- Replace `minsearch` with Elasticsearch
+
+### 1-11 Agents
+
+- Current RAG pipeline's flow is fixed - search the knowledge base, build prompt with context and then LLM generates answer for user query with given context. This can have some issues:
+  - Text search is lexical - it looks for exact word matches, so queries with spelling errors can have missed out search results
+- Agents can go one step further by allowing the LLM to parse the user query, and take decisions on whether a search function is needed at all. This makes the flow of the program more flexible. - This is the concept behind Agentic RAG
+
+### 1-13 Function Calling
+
+- In Agentic RAG, the LLM can decide the best available course of action including calling functions or stopping.
+
+**Step 1: Define function to search the index**
+
+```python
+def search(query):
+    boost_dict = {"question": 3.0, "section": 0.5}
+    filter_dict = {"course": "llm-zoomcamp"}
+
+    return index.search(
+        query,
+        num_results=5,
+        boost_dict=boost_dict,
+        filter_dict=filter_dict
+    )
+```
+
+**Step 2: Write some description in JSON format (dictionary in python) for the `search` function**
+
+```python
+search_tool = {
+    "type": "function",
+    "name": "search",
+    "description": "Search the FAQ database for entries matching the given query.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "query": {
+                "type": "string",
+                "description": "Search query text to look up in the course FAQ."
+            }
+        },
+        "required": ["query"],
+        "additionalProperties": False
+    }
+}
+```
+
+**Step 3: Pass the `search` function as a tool the LLM can choose to call**
+
+```python
+response = openai_client.responses.create(
+    model="gpt-5.4-mini",
+    input=messages, #Historical messages
+    tools=[search_tool],
+)
+
+print(response.output)
+```
+
+The response is expected to be a `ResponseFunctionToolCall` object of type `function_call`. We can use this to initiate the index search
+
+**Step 4: Search the index based on LLM response**
+
+```python
+import json
+
+call = response.output[0]
+args = json.loads(call.arguments)
+
+results = search(**args)
+result_json = json.dumps(results, indent=2) # Indentation is to make it more human-readable, doesn't affect the LLM's response
+```
+
+**Step 5: Send search result back to the LLM**
+
+LLMs is stateless, so it needs the entire history (original query -> Function call request -> Searching index results) to be sent in each call
+
+```python
+messages.extend(response.output)
+
+messages.append({
+    "type": "function_call_output",
+    "call_id": call.call_id, # call_id links the tool result to the function call requested by the model
+    "output": result_json,
+})
+
+response = openai_client.responses.create(
+    model="gpt-5.4-mini",
+    input=messages,
+    tools=[search_tool],
+)
+
+response.output_text
 ```
 
 ## 2. Vector Search
