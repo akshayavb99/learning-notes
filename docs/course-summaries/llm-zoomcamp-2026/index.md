@@ -1,7 +1,7 @@
 ---
 title: LLM Zoomcamp 2026
 description: This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub
-updated_date: 2026-06-10
+updated_date: 2026-06-12
 tags:
   - artificial-intelligence
   - course-summary
@@ -32,10 +32,14 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 | 1.11 Agents Intro           | [1-11 Agents Intro](#1-11-agents)                                    |          |
 | 1.12 RAG Revision           |                                                                      |          |
 | 1.13 Function Calling       | [1-13 Function Calling](#1-13-function-calling)                      |          |
-| 1.14 Agentic Loop           |                                                                      |          |
-| 1.15 Frameworks             |                                                                      |          |
+| 1.14 Agentic Loop           | [1-14 The Agentic Loop](#1-14-the-agentic-loop)                      |          |
+| 1.15 ToyAIKit               | [1-15 ToyAIKit](#1-15-toyaikit)                                      |          |
 | 1.16 Other Frameworks       |                                                                      |          |
-| 2. Vector Search            | [2. Vector Search](#2-vector-search)                                 |          |
+| **2. Vector Search**        | [2. Vector Search](#2-vector-search)                                 |          |
+| 2.1 What is Vector Search   | [2-1 What is Vector Search](#2-1-what-is-vector-search)              |          |
+| 2.2 Embeddings              | [2-2 Embeddings](#2-2-embeddings)                                    |          |
+| 2.3 Embedding Our Dataset   | [2-3 Embedding Our Dataset](#2-3-embedding-our-dataset)              |          |
+| 2.4 Vector Search           | [2-4 Vector Search](#2-4-vector-search)                              |          |
 | 3. Orchestration            | [3. Orchestration](#3-orchestration)                                 |          |
 | 4. Evaluation               | [4. Evaluation](#4-evaluation)                                       |          |
 | 5. Monitoring               | [5. Monitoring](#5-monitoring)                                       |          |
@@ -732,9 +736,210 @@ response = openai_client.responses.create(
 response.output_text
 ```
 
+### 1-14 The Agentic Loop
+
+- Till now, we are manually calling the LLM once we get the function call results. But it is possible that the LLM may choose to call the tools multiple (unknown) number of times.
+- This brings the concept of Agentic Loop, where the LLM continues processing by calling for tools until it decides to not call them anymore.
+
+**Step 1: Write developer instructions to guide the behavior of the agent**
+
+```python
+instructions = """
+You're a course teaching assistant.
+You're given a question from a course student and your task is to answer it.
+
+If you want to look up information, use the search function.
+Use as many keywords from the user question as possible when making first requests.
+
+Make multiple searches.
+
+Try to expand your search by using new keywords
+based on the results you get from the search.
+
+At the end, ask if there are other areas that the user wants to explore.
+""".strip()
+```
+
+We can improve the details given in the instructions for specific behaviors like:
+
+1. Restricting answers to only be from the knowledge base
+2. Input guardrails by specifying in-scope and out-of-scope etc.
+
+**Step 2: Define helper function which will help make function calls if the LLM asks to use tools**
+
+```python
+def make_call(call):
+    args = json.loads(call.arguments)
+
+    if call.name == "search":
+        result = search(**args)
+
+    result_json = json.dumps(result, indent=2)
+
+    return {
+        "type": "function_call_output",
+        "call_id": call.call_id,
+        "output": result_json,
+    }
+```
+
+**Step 3: Iteratively processing LLM inputs and outputs**
+
+In every iteration:
+
+1. Model chooses the next action
+2. The code executes the action and returns result to the model
+
+The loop stops when there are no more tool calls.
+
+```python
+def agent_loop(instructions, question, model="gpt-5.4-mini") -> str:
+    messages = [
+        {"role": "developer", "content": instructions},
+        {"role": "user", "content": question}
+    ]
+
+    it = 1
+
+    while True:
+        print(f"iteration #{it}...")
+        has_function_calls = False
+
+        response = openai_client.responses.create(
+            model=model,
+            input=messages,
+            tools=[search_tool]
+        )
+
+        messages.extend(response.output)
+
+        for item in response.output:
+            if item.type == "function_call":
+                print("function_call:", item.name, item.arguments)
+                call_output = make_call(item)
+                messages.append(call_output)
+                has_function_calls = True
+
+            elif item.type == "message":
+                print("ASSISTANT:")
+                last_answer = item.content[0].text
+                print(item.content[0].text)
+
+        it = it + 1
+        if has_function_calls == False:
+            break
+
+    return last_answer
+
+agent_loop(instructions, "How do I run Olama locally?")
+```
+
+### 1-15 ToyAIKit
+
+- To replicate the step-by-step agentic loop in the previous section, there is a framework `ToyAIKit` which is for learning purposes.
+- Some other frameworks used in the industry includes Langchain, OpenAI Agent SDK, PydanticAI etc
+
+To install it - `uv add toyaikit`
+
 ## 2. Vector Search
 
-Semantic search with embeddings, minsearch, sqlitesearch, and PGVector
+### 2-1 What is Vector Search
+
+- Text search / Lexical search - Take the query, break it down into meaningful words, and look for documents which contains at least one of the words
+- Different text search techniques - TF-IDF, BM25 etc
+- Issue with text search - The search is for exact word matches, which means we could miss out on documents which has semantically similar words
+
+### 2-2 Embeddings
+
+- The concept of vectors for text search was introduced in Word2Vec. The main intuition is that words which are semantically similar have vectors which are closer to each other in the vector space (cosine of the angle between them is small)
+- Word Embedding = Converting words to vectors
+- Similar to word embeddings, phrases and sentences can also be converted to embedding vectors
+- In vector search, we take the documents, convert them into embedding vectors in the vector space. When the user gives a question, the question is also converted to a vector, and the question's vector is used to select documents whose vectors are close in the vector space. In this process, we need to ensure the method of conversion to vectors for documents and questions is the same (For example: `sentence-transformers` library)
+
+**Step 1: Initialize the Sentence Transformer for embedding**
+
+```python
+from sentence-transformers import SentenceTransformer
+
+model = SentenceTransformer('all-MiniLM-L6-v2') # For first time runs, the model can take some time to be downloaded from HuggingFace to local
+```
+
+**Step 2: Encode the text query**
+
+```python
+query = "your-query-here"
+q_vec = model.encode(query)
+print(vector.shape) # Embedding vector shape
+
+doc = "your-doc-text-here"
+d_vect = model.encode(doc)
+```
+
+**Step 3: Compare the similarity between query and document**
+
+```python
+print(q_vec.dot(d_vect)) # Dot product gives a measure of the closeness between the vectors
+```
+
+### 2-3 Embedding Our Dataset
+
+**Step 1: Ingest the data**
+
+We use the same helper scripts and FAQ data as before (Refer to [1-8 RAG Helper](#1-8-rag-helper))
+
+```python
+from ingest import load_faq_data
+
+documents = load_faq_data()
+```
+
+**Step 2: Generate embeddings per document**
+
+One document = 1 pair of question and answer from the FAQ
+
+```python
+from tqdm.auto import tqdm
+import numpy as np
+
+texts = []
+
+for doc in documents:
+    text = doc["question"] + " " + doc["answer"]
+    texts.append(text)
+
+batch_size = 50 # Process the text in batches to avoid bulk processing all documents
+vectors = []
+
+for i in tqdm(range(0, len(texts), batch_size)):
+    batch = texts[i:i + batch_size]
+    batch_vectors = model.encode(batch) # Embedding happens faster if you have GPU
+    vectors.extend(batch_vectors)
+
+print(len(vectors)) # Total number of embeddings
+X = np.array(vectors) # Convert the embeddings from list of embeddings to 2D numpy matrix of shape (number of documents x number of embedding dimensions)
+```
+
+### 2-4 Vector Search
+
+Continuing from previous section,
+
+**Step 3: Compare the query embedding with document embeddings to select top closest documents to query**
+
+```python
+query = "Can I still join the course after the start date?"
+v_query = model.encode(query)
+scores = X.dot(v_query)
+
+idx = np.argmax(scores) # Find the index of the closest or most similar matrix
+print(idx, scores[idx])
+
+top5 = np.argsort(scores)[-5:]
+top5 = top5[::-1] # Reverse to get highest first
+for idx in top5:
+    print(scores[idx])
+    print(documents[idx])
+    print()
+```
 
 ## 3. Orchestration
 
