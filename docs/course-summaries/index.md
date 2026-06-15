@@ -27,7 +27,14 @@ Notes and summaries from courses I have taken.
 .ni-page-info { font-size: 0.78rem; color: var(--md-default-fg-color--light); }
 </style>
 <div class="ni-list">
-
+<div class="ni">
+  <div class="ni-header">
+    <a href="./llm-zoomcamp-2026/" class="ni-title">LLM Zoomcamp 2026</a>
+    <span class="ni-date">Jun 9, 2026</span>
+  </div>
+  <p class="ni-desc">This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub</p>
+  <div class="ni-tags"><span class="ni-tag">artificial-intelligence</span><span class="ni-tag">course-summary</span><span class="ni-tag">git</span><span class="ni-tag">large-language-models</span><span class="ni-tag">agentic-ai</span></div>
+</div>
 </div>
 
 <!-- pd:end -->

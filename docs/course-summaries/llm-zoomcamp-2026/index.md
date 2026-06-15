@@ -16,36 +16,36 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 
 ## Index
 
-| Lecture                     | Notes                                                                | Homework |
-| --------------------------- | -------------------------------------------------------------------- | -------- |
-| **Lecture 1 - Agentic RAG** | [1. Agentic Rag](#1-agentic-rag)                                     |          |
-| 1.1 Introduction            | [1-1 Introduction](#1-1-introduction)                                |          |
-| 1.2 Environment             | [1-2 Environment](#1-2-environment)                                  |          |
-| 1.3 What is RAG             | [1-3 What is RAG (Retrieval-Augmented Generation)](#1-3-what-is-rag) |          |
-| 1.4 The Course FAQ dataset  | [1-4 The Course FAQ Dataset](#1-4-the-course-faq-dataset)            |          |
-| 1.5 Search                  | [1-5 Search](#1-5-search)                                            |          |
-| 1.6 Building a Prompt       | [1-6 Building a Prompt](#1-6-building-a-prompt)                      |          |
-| 1.7 RAG Pipeline            | [1-7 RAG Pipeline](#1-7-rag-pipeline)                                |          |
-| 1.8 RAG Helper              | [1-8 RAG Helper](#1-8-rag-helper)                                    |          |
-| 1.9 Data Ingestion          | [1-9 Data Ingestion](#1-9-data-ingestion)                            |          |
-| 1.10 RAG Next Steps         | [1-10 RAG Next Steps](#1-10-wrap-up-of-part-1)                       |          |
-| 1.11 Agents Intro           | [1-11 Agents Intro](#1-11-agents)                                    |          |
-| 1.12 RAG Revision           |                                                                      |          |
-| 1.13 Function Calling       | [1-13 Function Calling](#1-13-function-calling)                      |          |
-| 1.14 Agentic Loop           | [1-14 The Agentic Loop](#1-14-the-agentic-loop)                      |          |
-| 1.15 ToyAIKit               | [1-15 ToyAIKit](#1-15-toyaikit)                                      |          |
-| 1.16 Other Frameworks       |                                                                      |          |
-| **2. Vector Search**        | [2. Vector Search](#2-vector-search)                                 |          |
-| 2.1 What is Vector Search   | [2-1 What is Vector Search](#2-1-what-is-vector-search)              |          |
-| 2.2 Embeddings              | [2-2 Embeddings](#2-2-embeddings)                                    |          |
-| 2.3 Embedding Our Dataset   | [2-3 Embedding Our Dataset](#2-3-embedding-our-dataset)              |          |
-| 2.4 Vector Search           | [2-4 Vector Search](#2-4-vector-search)                              |          |
-| 3. Orchestration            | [3. Orchestration](#3-orchestration)                                 |          |
-| 4. Evaluation               | [4. Evaluation](#4-evaluation)                                       |          |
-| 5. Monitoring               | [5. Monitoring](#5-monitoring)                                       |          |
-| 6. Best Practices           | [6. Best Practices](#6-best-practices)                               |          |
-| 7. End-to-End Project       | [7. End-to-End Project](#7-end-to-end-project)                       |          |
-| Capstone Project            | [Capstone Project](#capstone-project)                                |          |
+| Lecture                     | Notes                                                                | Homework                                                                                |
+| --------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Lecture 1 - Agentic RAG** | [1. Agentic Rag](#1-agentic-rag)                                     | [Homework 1](https://github.com/akshayavb99/llm-zoomcamp-2026-hw/tree/main/homework-01) |
+| 1.1 Introduction            | [1-1 Introduction](#1-1-introduction)                                |                                                                                         |
+| 1.2 Environment             | [1-2 Environment](#1-2-environment)                                  |                                                                                         |
+| 1.3 What is RAG             | [1-3 What is RAG (Retrieval-Augmented Generation)](#1-3-what-is-rag) |                                                                                         |
+| 1.4 The Course FAQ dataset  | [1-4 The Course FAQ Dataset](#1-4-the-course-faq-dataset)            |                                                                                         |
+| 1.5 Search                  | [1-5 Search](#1-5-search)                                            |                                                                                         |
+| 1.6 Building a Prompt       | [1-6 Building a Prompt](#1-6-building-a-prompt)                      |                                                                                         |
+| 1.7 RAG Pipeline            | [1-7 RAG Pipeline](#1-7-rag-pipeline)                                |                                                                                         |
+| 1.8 RAG Helper              | [1-8 RAG Helper](#1-8-rag-helper)                                    |                                                                                         |
+| 1.9 Data Ingestion          | [1-9 Data Ingestion](#1-9-data-ingestion)                            |                                                                                         |
+| 1.10 RAG Next Steps         | [1-10 RAG Next Steps](#1-10-wrap-up-of-part-1)                       |                                                                                         |
+| 1.11 Agents Intro           | [1-11 Agents Intro](#1-11-agents)                                    |                                                                                         |
+| 1.12 RAG Revision           |                                                                      |                                                                                         |
+| 1.13 Function Calling       | [1-13 Function Calling](#1-13-function-calling)                      |                                                                                         |
+| 1.14 Agentic Loop           | [1-14 The Agentic Loop](#1-14-the-agentic-loop)                      |                                                                                         |
+| 1.15 ToyAIKit               | [1-15 ToyAIKit](#1-15-toyaikit)                                      |                                                                                         |
+| 1.16 Other Frameworks       |                                                                      |                                                                                         |
+| **2. Vector Search**        | [2. Vector Search](#2-vector-search)                                 |                                                                                         |
+| 2.1 What is Vector Search   | [2-1 What is Vector Search](#2-1-what-is-vector-search)              |                                                                                         |
+| 2.2 Embeddings              | [2-2 Embeddings](#2-2-embeddings)                                    |                                                                                         |
+| 2.3 Embedding Our Dataset   | [2-3 Embedding Our Dataset](#2-3-embedding-our-dataset)              |                                                                                         |
+| 2.4 Vector Search           | [2-4 Vector Search](#2-4-vector-search)                              |                                                                                         |
+| 3. Orchestration            | [3. Orchestration](#3-orchestration)                                 |                                                                                         |
+| 4. Evaluation               | [4. Evaluation](#4-evaluation)                                       |                                                                                         |
+| 5. Monitoring               | [5. Monitoring](#5-monitoring)                                       |                                                                                         |
+| 6. Best Practices           | [6. Best Practices](#6-best-practices)                               |                                                                                         |
+| 7. End-to-End Project       | [7. End-to-End Project](#7-end-to-end-project)                       |                                                                                         |
+| Capstone Project            | [Capstone Project](#capstone-project)                                |                                                                                         |
 
 ## 1. Agentic RAG
 
@@ -939,6 +939,129 @@ for idx in top5:
     print(scores[idx])
     print(documents[idx])
     print()
+```
+
+### 2-5 Vector Search with minsearch
+
+We can use `minsearch` for vector search of the index
+
+**Step 4: Use `VectorSearch` in `minsearch`**
+
+```python
+from minsearch import VectorSearch
+
+vindex = VectorSearch(keyword_fields=["course"])
+vindex.fit(X, documents) # X is the vector
+
+query = "I just discovered the course. Can I still join it?"
+query_vector = model.encode(query)
+
+results = vindex.search(query_vector, num_results=5)
+
+results = vindex.search(
+    query_vector,
+    filter_dict={"course": "llm-zoomcamp"},
+    num_results=5
+)
+```
+
+### 2-6 RAG with Vector Search
+
+Now we can build the entire RAG pipeline similar to [1-7 RAG Pipeline](#1-7-rag-pipeline). We use the same `rag_helper.py` and `ingest.py`
+
+```python
+from dotenv import load_dotenv
+from openai import OpenAI
+from ingest import load_faq_data, build_index
+from rag_helper import RAGBase
+
+
+class RAGVector(RAGBase):
+
+    def __init__(self, embedder, **kwargs):
+        super().__init__(**kwargs)
+        self.embedder = embedder
+
+    def search(self, query, num_results=5):
+	    # Overrides the search method in RAGBase class
+        query_vector = self.embedder.encode(query)
+        filter_dict = {"course": self.course}
+
+        return self.index.search(
+            query_vector,
+            num_results=num_results,
+            filter_dict=filter_dict
+        )
+
+load_dotenv()
+openai_client = OpenAI()
+documents = load_faq_data()
+index = build_index(documents)
+
+assistant = RAGVector(
+    embedder=model,
+    index=vindex,
+    llm_client=openai_client,
+)
+
+query = "I just found out about the program, can I still sign up?"
+assistant.rag(query)
+```
+
+### 2-7 Vector Search with sqlitesearch
+
+Using vector search in `minsearch` has 3 issues:
+
+1. The index is rebuilt every time the program is started (index is not persistent)
+2. Index, vectors are in-memory
+3. Brute force search - query embedded vector is compared with every embedded document vector.
+
+The brute force search can be approximated with approximate nearest neighbor (ANN). We narrow down to a region of possible matches, and then performs the comparisons only with vectors in that region
+
+We can use `sqlitesearch` to implement vector search with ANN
+
+```python
+from sqlitesearch import VectorSearchIndex
+from rag_helper import RAGBase
+from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv()
+openai_client = OpenAI()
+
+class RAGVector(RAGBase):
+
+    def __init__(self, embedder, **kwargs):
+        super().__init__(**kwargs)
+        self.embedder = embedder
+
+    def search(self, query, num_results=5):
+        query_vector = self.embedder.encode(query)
+        filter_dict = {"course": self.course}
+
+        return self.index.search(
+            query_vector,
+            num_results=num_results,
+            filter_dict=filter_dict
+        )
+
+vs_index = VectorSearchIndex(
+    keyword_fields=["course"],
+    mode="ivf",
+    db_path="faq_vectors2.db"
+)
+
+vs_index.fit(vectors, documents)
+
+vector_assistant = RAGVector(
+    embedder=model,
+    index=vs_index,
+    llm_client=openai_client,
+)
+
+vector_assistant.rag("the program has already begun, can I still sign up?")
+
+vs_index.close() # Close the index when done, but the data is persiste in the sqlite DB faq_vectors2.db
 ```
 
 ## 3. Orchestration

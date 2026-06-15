@@ -29,6 +29,13 @@ Solutions, approaches, and complexity analysis for practice problems like Leetco
 <div class="ni-list">
 <div class="ni">
   <div class="ni-header">
+    <a href="./copy-list-with-random-pointer/" class="ni-title">Leetcode 138 - Copy List with Random Pointer</a>
+    <span class="ni-date">Jun 8, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">linked-list</span><span class="ni-tag">hashmap</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
     <a href="./time-based-key-value-store/" class="ni-title">Leetcode 981 - Time Based Key-Value Store</a>
     <span class="ni-date">Jun 3, 2026</span>
   </div>
