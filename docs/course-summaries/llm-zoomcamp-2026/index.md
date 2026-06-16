@@ -16,36 +16,41 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 
 ## Index
 
-| Lecture                     | Notes                                                                | Homework                                                                                |
-| --------------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| **Lecture 1 - Agentic RAG** | [1. Agentic Rag](#1-agentic-rag)                                     | [Homework 1](https://github.com/akshayavb99/llm-zoomcamp-2026-hw/tree/main/homework-01) |
-| 1.1 Introduction            | [1-1 Introduction](#1-1-introduction)                                |                                                                                         |
-| 1.2 Environment             | [1-2 Environment](#1-2-environment)                                  |                                                                                         |
-| 1.3 What is RAG             | [1-3 What is RAG (Retrieval-Augmented Generation)](#1-3-what-is-rag) |                                                                                         |
-| 1.4 The Course FAQ dataset  | [1-4 The Course FAQ Dataset](#1-4-the-course-faq-dataset)            |                                                                                         |
-| 1.5 Search                  | [1-5 Search](#1-5-search)                                            |                                                                                         |
-| 1.6 Building a Prompt       | [1-6 Building a Prompt](#1-6-building-a-prompt)                      |                                                                                         |
-| 1.7 RAG Pipeline            | [1-7 RAG Pipeline](#1-7-rag-pipeline)                                |                                                                                         |
-| 1.8 RAG Helper              | [1-8 RAG Helper](#1-8-rag-helper)                                    |                                                                                         |
-| 1.9 Data Ingestion          | [1-9 Data Ingestion](#1-9-data-ingestion)                            |                                                                                         |
-| 1.10 RAG Next Steps         | [1-10 RAG Next Steps](#1-10-wrap-up-of-part-1)                       |                                                                                         |
-| 1.11 Agents Intro           | [1-11 Agents Intro](#1-11-agents)                                    |                                                                                         |
-| 1.12 RAG Revision           |                                                                      |                                                                                         |
-| 1.13 Function Calling       | [1-13 Function Calling](#1-13-function-calling)                      |                                                                                         |
-| 1.14 Agentic Loop           | [1-14 The Agentic Loop](#1-14-the-agentic-loop)                      |                                                                                         |
-| 1.15 ToyAIKit               | [1-15 ToyAIKit](#1-15-toyaikit)                                      |                                                                                         |
-| 1.16 Other Frameworks       |                                                                      |                                                                                         |
-| **2. Vector Search**        | [2. Vector Search](#2-vector-search)                                 |                                                                                         |
-| 2.1 What is Vector Search   | [2-1 What is Vector Search](#2-1-what-is-vector-search)              |                                                                                         |
-| 2.2 Embeddings              | [2-2 Embeddings](#2-2-embeddings)                                    |                                                                                         |
-| 2.3 Embedding Our Dataset   | [2-3 Embedding Our Dataset](#2-3-embedding-our-dataset)              |                                                                                         |
-| 2.4 Vector Search           | [2-4 Vector Search](#2-4-vector-search)                              |                                                                                         |
-| 3. Orchestration            | [3. Orchestration](#3-orchestration)                                 |                                                                                         |
-| 4. Evaluation               | [4. Evaluation](#4-evaluation)                                       |                                                                                         |
-| 5. Monitoring               | [5. Monitoring](#5-monitoring)                                       |                                                                                         |
-| 6. Best Practices           | [6. Best Practices](#6-best-practices)                               |                                                                                         |
-| 7. End-to-End Project       | [7. End-to-End Project](#7-end-to-end-project)                       |                                                                                         |
-| Capstone Project            | [Capstone Project](#capstone-project)                                |                                                                                         |
+| Lecture                             | Notes                                                                       | Homework                                                                                |
+| ----------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Lecture 1 - Agentic RAG**         | [1. Agentic Rag](#1-agentic-rag)                                            | [Homework 1](https://github.com/akshayavb99/llm-zoomcamp-2026-hw/tree/main/homework-01) |
+| 1.1 Introduction                    | [1-1 Introduction](#1-1-introduction)                                       |                                                                                         |
+| 1.2 Environment                     | [1-2 Environment](#1-2-environment)                                         |                                                                                         |
+| 1.3 What is RAG                     | [1-3 What is RAG (Retrieval-Augmented Generation)](#1-3-what-is-rag)        |                                                                                         |
+| 1.4 The Course FAQ dataset          | [1-4 The Course FAQ Dataset](#1-4-the-course-faq-dataset)                   |                                                                                         |
+| 1.5 Search                          | [1-5 Search](#1-5-search)                                                   |                                                                                         |
+| 1.6 Building a Prompt               | [1-6 Building a Prompt](#1-6-building-a-prompt)                             |                                                                                         |
+| 1.7 RAG Pipeline                    | [1-7 RAG Pipeline](#1-7-rag-pipeline)                                       |                                                                                         |
+| 1.8 RAG Helper                      | [1-8 RAG Helper](#1-8-rag-helper)                                           |                                                                                         |
+| 1.9 Data Ingestion                  | [1-9 Data Ingestion](#1-9-data-ingestion)                                   |                                                                                         |
+| 1.10 RAG Next Steps                 | [1-10 RAG Next Steps](#1-10-wrap-up-of-part-1)                              |                                                                                         |
+| 1.11 Agents Intro                   | [1-11 Agents Intro](#1-11-agents)                                           |                                                                                         |
+| 1.12 RAG Revision                   |                                                                             |                                                                                         |
+| 1.13 Function Calling               | [1-13 Function Calling](#1-13-function-calling)                             |                                                                                         |
+| 1.14 Agentic Loop                   | [1-14 The Agentic Loop](#1-14-the-agentic-loop)                             |                                                                                         |
+| 1.15 ToyAIKit                       | [1-15 ToyAIKit](#1-15-toyaikit)                                             |                                                                                         |
+| 1.16 Other Frameworks               |                                                                             |                                                                                         |
+| **2. Vector Search**                | [2. Vector Search](#2-vector-search)                                        |                                                                                         |
+| 2.1 What is Vector Search           | [2-1 What is Vector Search](#2-1-what-is-vector-search)                     |                                                                                         |
+| 2.2 Embeddings                      | [2-2 Embeddings](#2-2-embeddings)                                           |                                                                                         |
+| 2.3 Embedding Our Dataset           | [2-3 Embedding Our Dataset](#2-3-embedding-our-dataset)                     |                                                                                         |
+| 2.4 Vector Search                   | [2-4 Vector Search](#2-4-vector-search)                                     |                                                                                         |
+| 2.5 Vector Search with minsearch    | [2-5 Vector Search with minsearch](#2-5-vector-search-with-minsearch)       |                                                                                         |
+| 2.6 RAG with vector search          | [2-6 RAG with vector search](#2-6-rag-with-vector-search)                   |                                                                                         |
+| 2.7 Vector Search with sqlitesearch | [2-7 Vector Search with sqlitesearch](#2-7-vector-search-with-sqlitesearch) |                                                                                         |
+| 2.8 Vector Search with PGVector     | [2-8 Vector Search with PGVector](#2-8-vector-search-with-pgvector)         |                                                                                         |
+| 2.9 ONNX Embedder                   | [2-9 ONNX Embedder](#2-9-onnx-embedder)                                     |                                                                                         |
+| **3. Orchestration**                | [3. Orchestration](#3-orchestration)                                        |                                                                                         |
+| 4. Evaluation                       | [4. Evaluation](#4-evaluation)                                              |                                                                                         |
+| 5. Monitoring                       | [5. Monitoring](#5-monitoring)                                              |                                                                                         |
+| 6. Best Practices                   | [6. Best Practices](#6-best-practices)                                      |                                                                                         |
+| 7. End-to-End Project               | [7. End-to-End Project](#7-end-to-end-project)                              |                                                                                         |
+| Capstone Project                    | [Capstone Project](#capstone-project)                                       |                                                                                         |
 
 ## 1. Agentic RAG
 
@@ -1062,6 +1067,351 @@ vector_assistant = RAGVector(
 vector_assistant.rag("the program has already begun, can I still sign up?")
 
 vs_index.close() # Close the index when done, but the data is persiste in the sqlite DB faq_vectors2.db
+```
+
+### 2-8 Vector Search with PGVector
+
+PGVector allows us to store the embedded vectors inside PostgreSQL, which is a popular SQL DB.
+
+**Step 1: Start Postgres with pgvector in Docker container**
+
+Ensure you have Docker set up
+
+```bash
+docker run -it \
+    --name pgvector \
+    -e POSTGRES_USER=user \
+    -e POSTGRES_PASSWORD=pswd \
+    -e POSTGRES_DB=faq \
+    -v pgvector_data:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    pgvector/pgvector:pg17
+```
+
+**Step 2: Setup the `psycopg` Python client for PostgreSQL**
+
+```bash
+uv add psycopg[binary]
+```
+
+**Step 3: Preparing the data**
+
+We use the same FAQ data as before
+
+```python
+from tqdm.auto import tqdm
+
+from ingest import load_faq_data
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+documents = load_faq_data()
+texts = [doc["question"] + " " + doc["answer"] for doc in documents]
+
+batch_size = 50
+vectors = []
+
+for i in tqdm(range(0, len(texts), batch_size)):
+    batch = texts[i:i + batch_size]
+    batch_vectors = model.encode(batch)
+    vectors.extend(batch_vectors)
+```
+
+**Step 4: Connect to PostgreSQL**
+
+```python
+import psycopg
+
+conn = psycopg.connect(
+    "postgresql://user:pswd@localhost:5432/faq"
+)
+conn.execute("CREATE EXTENSION IF NOT EXISTS vector")
+```
+
+**Step 5: Create table to store the embeddings**
+
+```python
+conn.execute("""DROP TABLE IF EXISTS documents""")
+
+conn.execute("""
+    CREATE TABLE documents (
+        id SERIAL PRIMARY KEY,
+        course TEXT,
+        section TEXT,
+        question TEXT,
+        answer TEXT,
+        embedding vector(384)
+    )
+""")
+```
+
+**Step 6: Insert the documents with embeddings**
+
+```python
+def vec_to_str(vector):
+    return "[" + ",".join(str(x) for x in vector) + "]"
+
+for doc, vec in tqdm(zip(documents, vectors), total=len(documents)):
+    conn.execute(
+        """
+        INSERT INTO documents (course, section, question, answer, embedding)
+        VALUES (%s, %s, %s, %s, %s::vector)
+        """,
+        (doc["course"], doc["section"], doc["question"], doc["answer"],
+         vec_to_str(vec))
+    )
+
+conn.commit()
+```
+
+**Step 7: Search for relevant documents with cosine similarity**
+
+```python
+query = "I just discovered the course. Can I still join it?"
+query_vector = model.encode(query)
+query_str = vec_to_str(query_vector)
+
+results = conn.execute(
+    """
+    SELECT course, question, answer,
+           1 - (embedding <=> %s::vector) AS similarity
+    FROM documents
+    ORDER BY embedding <=> %s::vector
+    LIMIT 5
+    """,
+    (query_str, query_str)
+).fetchall()
+
+for row in results:
+    print(f"[{row[0]}] {row[1]} (similarity: {row[3]:.4f})")
+```
+
+**Step 8: Create index for faster search instead of simpe brute force**
+
+```python
+conn.execute("""
+    CREATE INDEX ON documents
+    USING hnsw (embedding vector_cosine_ops)
+""")
+```
+
+**Step 9: Final search function**
+
+```python
+def pgvector_search(query, course="llm-zoomcamp", num_results=5):
+    query_vector = model.encode(query)
+    query_str = vec_to_str(query_vector)
+    rows = conn.execute(
+        """
+        SELECT course, section, question, answer
+        FROM documents
+        WHERE course = %s
+        ORDER BY embedding <=> %s::vector
+        LIMIT %s
+        """,
+        (course, query_str, num_results)
+    ).fetchall()
+
+    return [
+        {"course": r[0], "section": r[1], "question": r[2], "answer": r[3]}
+        for r in rows
+    ]
+```
+
+**Step 10: Using the final search function with RAG Pipeline**
+
+```python
+from rag_helper import RAGBase
+from dotenv import load_dotenv
+from openai import OpenAI
+
+class RAGPgVector(RAGBase):
+
+    def __init__(self, embedder, conn, **kwargs):
+        super().__init__(index=None, **kwargs)
+        self.embedder = embedder
+        self.conn = conn
+
+    def search(self, query, num_results=5):
+        query_vector = self.embedder.encode(query)
+        query_str = vec_to_str(query_vector)
+
+        rows = self.conn.execute(
+            """
+            SELECT course, section, question, answer
+            FROM documents
+            WHERE course = %s
+            ORDER BY embedding <=> %s::vector
+            LIMIT %s
+            """,
+            (self.course, query_str, num_results)
+        ).fetchall()
+
+        return [
+            {"course": r[0], "section": r[1], "question": r[2], "answer": r[3]}
+            for r in rows
+        ]
+
+
+load_dotenv()
+openai_client = OpenAI()
+
+vector_assistant = RAGPgVector(
+    embedder=model,
+    conn=conn,
+    llm_client=openai_client,
+)
+
+print(vector_assistant.rag("the program has already begun, can I still sign up?"))
+```
+
+### 2-9 ONNX Embedder
+
+The previous method of embedding documents into vectors uses PyTorch models. Setting up an environment for this can drastically increase the size of the overall deployment. We can reduce that by using ONNX Runtime based serving which can serve the same model, but without additional weight
+
+**Step 1: Create a separate project**
+
+```bash
+mkdir llm-zoomcamp-onnx && cd llm-zoomcamp-onnx
+uv init --no-workspace
+uv add onnxruntime tokenizers numpy tqdm minsearch
+uv add --dev huggingface-hub jupyter
+uv run python -m ipykernel install --user --name llm-zoomcamp-onnx --display-name "llm-zoomcamp-onnx"
+```
+
+**Step 2: Download the ONNX model from Huggingface**
+
+```python
+# download.py
+import os
+import shutil
+import logging
+from pathlib import Path
+from huggingface_hub import hf_hub_download, list_repo_files
+
+os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
+logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+
+ONNX_CANDIDATES = [
+    "onnx/model.onnx",
+    "onnx/encoder_model.onnx",
+    "model.onnx",
+]
+
+def download(repo, dest="models"):
+    dest = Path(dest) / repo
+    dest.mkdir(parents=True, exist_ok=True)
+
+    files = list_repo_files(repo_id=repo)
+    onnx_file = next((c for c in ONNX_CANDIDATES if c in files), None)
+    if not onnx_file:
+        raise FileNotFoundError(f"No ONNX model found in {repo}")
+
+    for remote, local in [
+        ("tokenizer.json", "tokenizer.json"),
+        (onnx_file, "model.onnx"),
+    ]:
+        src = hf_hub_download(repo_id=repo, filename=remote)
+        dst = dest / local
+        if not dst.exists():
+            shutil.copy2(src, dst)
+            print(f"  saved {dst}")
+        else:
+            print(f"  exists {dst}")
+
+    onnx_ext = onnx_file + "_data"
+    if onnx_ext in files:
+        src = hf_hub_download(repo_id=repo, filename=onnx_ext)
+        dst = dest / "model.onnx_data"
+        if not dst.exists():
+            shutil.copy2(src, dst)
+            print(f"  saved {dst}")
+        else:
+            print(f"  exists {dst}")
+
+if __name__ == "__main__":
+    download("Xenova/all-MiniLM-L6-v2")
+```
+
+```bash
+uv run python download.py
+```
+
+We only download once - after that the downloaded model files can be used locally. Ensure the models directory is added to .gitignore to avoid committing.
+
+**Step 3: Generate embeddings using the ONNX Runtime model**
+
+```python
+# embedder.py
+import numpy as np
+import onnxruntime as ort
+from tokenizers import Tokenizer
+from pathlib import Path
+
+
+class Embedder:
+    def __init__(self, path="models/Xenova/all-MiniLM-L6-v2"):
+        path = Path(path)
+        self.tokenizer = Tokenizer.from_file(str(path / "tokenizer.json"))
+        self.session = ort.InferenceSession(
+            str(path / "model.onnx"), providers=["CPUExecutionProvider"]
+        )
+        self.input_names = {inp.name for inp in self.session.get_inputs()}
+
+    def encode(self, text, normalize=True):
+        return self.encode_batch([text], normalize=normalize)[0]
+
+    def encode_batch(self, texts, normalize=True):
+        self.tokenizer.enable_padding()
+        encoded = self.tokenizer.encode_batch(texts)
+        feed = {}
+        if "input_ids" in self.input_names:
+            feed["input_ids"] = np.array([e.ids for e in encoded], dtype=np.int64)
+        if "attention_mask" in self.input_names:
+            feed["attention_mask"] = np.array(
+                [e.attention_mask for e in encoded], dtype=np.int64
+            )
+        if "token_type_ids" in self.input_names:
+            feed["token_type_ids"] = np.array(
+                [e.type_ids for e in encoded], dtype=np.int64
+            )
+        hidden = self.session.run(None, feed)[0]
+        mask = feed["attention_mask"][..., None]
+        pooled = (hidden * mask).sum(axis=1) / mask.sum(axis=1)
+        if normalize:
+            pooled = pooled / np.linalg.norm(pooled, axis=1, keepdims=True)
+        return pooled
+```
+
+```python
+from embedder import Embedder
+from ingest import load_faq_data
+from tqdm.auto import tqdm
+import numpy as np
+
+documents = load_faq_data()
+texts = [doc["question"] + " " + doc["answer"] for doc in documents]
+
+embed = Embedder()
+
+batch_size = 50
+X = []
+
+for i in tqdm(range(0, len(texts), batch_size)):
+    batch = texts[i:i + batch_size]
+    batch_vectors = embed.encode_batch(batch)
+    X.extend(batch_vectors)
+
+X = np.array(X)
+
+query = "Can I still join the course after the start date?"
+v_query = embed.encode(query)
+
+scores = X.dot(v_query)
+idx = np.argmax(scores)
+
+print(documents[idx])
 ```
 
 ## 3. Orchestration

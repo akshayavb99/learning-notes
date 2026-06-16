@@ -29,6 +29,34 @@ Solutions, approaches, and complexity analysis for practice problems like Leetco
 <div class="ni-list">
 <div class="ni">
   <div class="ni-header">
+    <a href="./balanced-binary-tree/" class="ni-title">Leetcode 110 - Balanced Binary Tree</a>
+    <span class="ni-date">Jun 15, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">tree</span><span class="ni-tag">dfs</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./lru_cache/" class="ni-title">Leetcode 146 - LRU Cache</a>
+    <span class="ni-date">Jun 15, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">linked-list</span><span class="ni-tag">hashmap</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./diameter-of-binary-tree/" class="ni-title">Leetcode 543 - Diameter of Binary Tree</a>
+    <span class="ni-date">Jun 15, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">tree</span><span class="ni-tag">dfs</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./add-two-numbers/" class="ni-title">Leetcode 2 - Add Two Numbers</a>
+    <span class="ni-date">Jun 10, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">linked-list</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
     <a href="./copy-list-with-random-pointer/" class="ni-title">Leetcode 138 - Copy List with Random Pointer</a>
     <span class="ni-date">Jun 8, 2026</span>
   </div>
@@ -47,13 +75,6 @@ Solutions, approaches, and complexity analysis for practice problems like Leetco
     <span class="ni-date">Jun 2, 2026</span>
   </div>
   <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">binary-search</span><span class="ni-tag">array</span></div>
-</div>
-<div class="ni">
-  <div class="ni-header">
-    <a href="./mse-vs-mae/" class="ni-title">Loss Functions - MSE vs MAE</a>
-    <span class="ni-date">Jun 2, 2026</span>
-  </div>
-  <div class="ni-tags"><span class="ni-tag">mse</span><span class="ni-tag">mae</span><span class="ni-tag">loss-functions</span><span class="ni-tag">regression</span><span class="ni-tag">machine-learning</span></div>
 </div>
 <div class="ni">
   <div class="ni-header">

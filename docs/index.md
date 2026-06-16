@@ -263,12 +263,12 @@ hide:
       <a href="course-summaries/" class="cat-item">
         <div class="cat-icon">&#127891;</div>
         <div class="cat-name">Course Summaries</div>
-        <div class="cat-count"><!-- cat-count:course-summaries -->0 courses<!-- /cat-count --></div>
+        <div class="cat-count"><!-- cat-count:course-summaries -->1 course<!-- /cat-count --></div>
       </a>
       <a href="practice-problems/" class="cat-item">
         <div class="cat-icon">&#128187;</div>
         <div class="cat-name">Practice Problems</div>
-        <div class="cat-count"><!-- cat-count:practice-problems -->4 solutions<!-- /cat-count --></div>
+        <div class="cat-count"><!-- cat-count:practice-problems -->8 solutions<!-- /cat-count --></div>
       </a>
     </div>
   </div>
@@ -279,7 +279,7 @@ hide:
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Notes</div>
-        <div class="stat-value"><!-- stat:total-notes -->17<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:total-notes -->22<!-- /stat --></div>
         <div class="stat-detail">across all sections</div>
       </div>
       <div class="stat-card">
@@ -309,12 +309,12 @@ hide:
       </div>
       <div class="stat-card">
         <div class="stat-label">Course Summaries</div>
-        <div class="stat-value"><!-- stat:course-summaries -->0<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:course-summaries -->1<!-- /stat --></div>
         <div class="stat-detail">courses</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Practice Problems</div>
-        <div class="stat-value"><!-- stat:practice-problems -->4<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:practice-problems -->8<!-- /stat --></div>
         <div class="stat-detail">problems solved</div>
       </div>
     </div>
@@ -327,38 +327,38 @@ hide:
 <div class="recent-notes-list">
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="book-summaries/designing-ml-systems/" class="recent-note-title">Designing ML Systems</a>
-      <span class="recent-note-date">May 9, 2026</span>
+      <a href="course-summaries/llm-zoomcamp-2026/" class="recent-note-title">LLM Zoomcamp 2026</a>
+      <span class="recent-note-date">Jun 12, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">book-summary</span><span class="rn-tag">machine-learning</span><span class="rn-tag">system-design</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">artificial-intelligence</span><span class="rn-tag">course-summary</span><span class="rn-tag">git</span><span class="rn-tag">large-language-models</span><span class="rn-tag">agentic-ai</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="concept-notes/mean-squared-error/" class="recent-note-title">Mean Squared Error</a>
-      <span class="recent-note-date">May 11, 2026</span>
+      <a href="practice-problems/balanced-binary-tree/" class="recent-note-title">Leetcode 110 - Balanced Binary Tree</a>
+      <span class="recent-note-date">Jun 15, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">mse</span><span class="rn-tag">loss-function</span><span class="rn-tag">regression</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">tree</span><span class="rn-tag">dfs</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="paper-summaries/reasoning-models-struggle-to-control-CoT/" class="recent-note-title">Reasoning Models Struggle to Control Chain of Thought</a>
-      <span class="recent-note-date">May 24, 2026</span>
+      <a href="practice-problems/diameter-of-binary-tree/" class="recent-note-title">Leetcode 543 - Diameter of Binary Tree</a>
+      <span class="recent-note-date">Jun 15, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">paper-summary</span><span class="rn-tag">reasoning-models</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">tree</span><span class="rn-tag">dfs</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="paper-summaries/stress-testing-model-specs-reveals-character-diff-among-LMs/" class="recent-note-title">Stress-Testing Model Specs Reveals Character Differences among Language Models</a>
-      <span class="recent-note-date">Jun 6, 2026</span>
+      <a href="practice-problems/lru_cache/" class="recent-note-title">Leetcode 146 - LRU Cache</a>
+      <span class="recent-note-date">Jun 15, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">paper-summary</span><span class="rn-tag">reasoning-models</span><span class="rn-tag">model-specifications</span><span class="rn-tag">language-models</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">linked-list</span><span class="rn-tag">hashmap</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="practice-problems/koko-eating-bananas/" class="recent-note-title">Leetcode 875 - Koko Eating Bananas</a>
-      <span class="recent-note-date">Jun 2, 2026</span>
+      <a href="practice-problems/add-two-numbers/" class="recent-note-title">Leetcode 2 - Add Two Numbers</a>
+      <span class="recent-note-date">Jun 10, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">binary-search</span><span class="rn-tag">array</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">linked-list</span></div>
   </div>
 </div>
 

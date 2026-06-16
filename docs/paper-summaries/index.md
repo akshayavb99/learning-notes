@@ -30,7 +30,7 @@ The paper summaries are inspired by [Fan Pu Zeng's ML Paper Summaries](https://f
 <div class="ni">
   <div class="ni-header">
     <a href="./stress-testing-model-specs-reveals-character-diff-among-LMs/" class="ni-title">Stress-Testing Model Specs Reveals Character Differences among Language Models</a>
-    <span class="ni-date">Jun 9, 2026</span>
+    <span class="ni-date">Jun 16, 2026</span>
   </div>
   <div class="ni-tags"><span class="ni-tag">paper-summary</span><span class="ni-tag">reasoning-models</span><span class="ni-tag">model-specifications</span><span class="ni-tag">language-models</span></div>
 </div>
