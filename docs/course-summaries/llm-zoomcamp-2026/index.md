@@ -1,13 +1,14 @@
 ---
 title: LLM Zoomcamp 2026
 description: This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub
-updated_date: 2026-06-12
+updated_date: 2026-06-25
 tags:
   - artificial-intelligence
   - course-summary
   - git
   - large-language-models
   - agentic-ai
+  - kestra
 ---
 
 # LLM Zoomcamp 2026
@@ -46,6 +47,15 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 | 2.8 Vector Search with PGVector     | [2-8 Vector Search with PGVector](#2-8-vector-search-with-pgvector)         |                                                                                         |
 | 2.9 ONNX Embedder                   | [2-9 ONNX Embedder](#2-9-onnx-embedder)                                     |                                                                                         |
 | **3. Orchestration**                | [3. Orchestration](#3-orchestration)                                        |                                                                                         |
+| 3.1 Introduction                    |                                                                             |                                                                                         |
+| 3.2 Context Engineering             |                                                                             |                                                                                         |
+| 3.3 Setting up Kestra               | [3-3 Setting up Kestra](#3-3-setting-up-kestra)                             |                                                                                         |
+| 3.4 AI Copilot                      |                                                                             |                                                                                         |
+| 3.5 Retrieval Augmented Generation  | [3-5 Retrieval Augmented Generation](#3-5-retreival-augmented-generation)   |                                                                                         |
+| 3.6 AI Agents                       | [3-6 Agents](#3-6-agents)                                                   |                                                                                         |
+| 3.7 Multi-Agent Systems             | [3-7 Multi-Agent Systems](#3-7-multi-agent-systems)                         |                                                                                         |
+| 3.8 Best Practices                  | [3-8 Best Practices](#3-8-best-practices)                                   |                                                                                         |
+| 3.9 Next Steps                      |                                                                             |                                                                                         |
 | 4. Evaluation                       | [4. Evaluation](#4-evaluation)                                              |                                                                                         |
 | 5. Monitoring                       | [5. Monitoring](#5-monitoring)                                              |                                                                                         |
 | 6. Best Practices                   | [6. Best Practices](#6-best-practices)                                      |                                                                                         |
@@ -1416,11 +1426,576 @@ print(documents[idx])
 
 ## 3. Orchestration
 
-AI orchestration with Kestra
+### 3-3 Setting up Kestra
 
-## Workshop - Data Ingestion
+**Prerequisites:**
 
-Pull traces from a monitoring service for analytics with dlt
+- Docker with Docker Compose (Setup Docker Desktop to get both on Windows)
+
+**Write the Kestra setup in `docker-compose.yml`**
+
+```yaml
+volumes:
+  kestra_postgres_data:
+    driver: local
+  kestra_data:
+    driver: local
+  kestra_tmp:
+    driver: local
+
+services:
+  kestra_postgres:
+    image: postgres:18
+    volumes:
+      - kestra_postgres_data:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: kestra
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: k3str4
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  kestra:
+    image: kestra/kestra:v1.3.21
+    pull_policy: always
+    user: "root"
+    command: server standalone
+    volumes:
+      - kestra_data:/app/storage
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/kestra-wd:/tmp/kestra-wd
+    environment:
+      SECRET_GEMINI_API_KEY: ${SECRET_GEMINI_API_KEY}
+      SECRET_TAVILY_API_KEY: ${SECRET_TAVILY_API_KEY}
+      SECRET_OPENAI_API_KEY: ${SECRET_OPENAI_API_KEY}
+      KESTRA_CONFIGURATION: |
+        datasources:
+          postgres:
+            url: jdbc:postgresql://kestra_postgres:5432/kestra
+            driverClassName: org.postgresql.Driver
+            username: kestra
+            password: k3str4
+        kestra:
+          server:
+            basicAuth:
+              username: "admin@kestra.io"
+              password: Admin1234!
+          repository:
+            type: postgres
+          storage:
+            type: local
+            local:
+              basePath: "/app/storage"
+          queue:
+            type: postgres
+          tasks:
+            tmpDir:
+              path: /tmp/kestra-wd/tmp
+          url: http://localhost:8080/
+          ai:
+            type: gemini
+            gemini:
+              model-name: gemini-2.5-flash
+              api-key: ${GEMINI_API_KEY}
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      kestra_postgres:
+        condition: service_started
+```
+
+The `docker-compose.yml` file contains all the configuration needed to setup kestra and any supporting tools like the PostgreSQL DB
+
+`volumes`: There are 3 volumes to store 3 kinds of data and all are stored and managed by using the built-in default storage driver. A dedicated directory for the volume is created on the host computer's hard drive. Storing data in this form helps persist data even after the container is deleted.
+
+- `kestra_postgres_data`: Stores the actual DB records from PostgreSQL
+- `kestra_data`: Stores Kestra’s internal local storage files like uploaded assets, execution artifacts, etc.
+- `kestra_tmp`: Configured as a local volume, though notably, it isn't explicitly attached under the services.kestra.volumes block in this specific file (a minor detail, but the other two are fully utilized).
+
+`kestra_postgres`: This is the DB container with PostgreSQL service for Kestra.
+
+- Uses the `postgres:18` image of official PostgreSQL
+- `volumes`: Mounts the named volume `kestra_postgres_data` into the container's standard DB directory to ensure data persistence
+- `environment`: Stores all the `env` variables needed to work with the DB like DB name, username and password. For more secure operations, it is recommended to store sensitive information like passwords in a separate `.env` file
+- `healthcheck`: Periodically runs the `pg_isready` command inside the container to make sure the database is fully up, initialized, and accepting connections before other services try to use it.
+
+`kestra`: Kestra service
+
+- `pull_policy`: Ensures Docker checks for updated image on every launch
+- `user: "root"`: Container runs with root permissions since Kestra needs to interact with the host system's Docker socket to launch task runners
+- `command: server standalone`: Start Kestra in standalone mode - all components like the Web UI, executor, worker etc run inside one container
+
+`volumes`: Volume mounts for all the services
+
+- `kestra_data:/app/storage`: Maps the named volume to Kestra's internal storage path.
+- `/var/run/docker.sock:/var/run/docker.sock`: Crucial step. This allows Kestra to talk to the host's Docker daemon. If a Kestra workflow requires running a task inside a separate Docker container (e.g., a Python or Node.js script container), it uses this socket to spin them up.
+- `/tmp/kestra-wd:/tmp/kestra-wd`: Mounts a host directory to act as a working directory for tasks executing on the host.
+
+`environment`: All ENV variables like the LLM API Keys and Kestra Configuration settings
+
+- `datasources.postgres`: Configures Kestra's database connection string using the credentials specified in the PostgreSQL service. Note that the URL host is `kestra_postgres`, leveraging Docker's internal DNS network.
+- `kestra.server.basicAuth`: Sets up the basic Web UI login credentials (User: `admin@kestra.io`, Password: `Admin1234!`).
+- `repository / queue / storage`: Instructs Kestra to use PostgreSQL for storing workflow states and message queuing, and to use the local disk for file storage.
+- `ai`: Sets up native AI assistants within Kestra utilizing Google's gemini-2.5-flash model.
+
+`ports`: Exposes port `8080` (the main Kestra Web UI) and `8081` (typically used for internal management or metrics endpoints) to your host computer. Kestra UI access via `http://localhost:8080`.
+
+`depends_on`: Instruction to Docker Compose to ensure Kestra container starts only after Kestra PostgreSQL container has successfully started.
+
+### 3-5 Retreival Augmented Generation
+
+Kestra allows us to use the capabilities of LLMs to answer questions, with and wihout context from RAG.
+
+To perform a series of one or more steps, Kestra allows us to implement flows which can determine the steps and the order to complete them, defined in `yml` files.
+
+#### Case 1: Without RAG
+
+This Kestra blueprint demonstrates the limitations of using a Large Language Model (LLM) **without** Retrieval-Augmented Generation (RAG). It asks the model about specific, recent software features ("Kestra 1.1") that likely fall outside or beyond its static training data, resulting in a hallucinated or outdated response.
+
+**1. Workflow Metadata**
+
+```yaml
+id: 1_chat_without_rag
+namespace: zoomcamp
+description: |
+  This flow demonstrates what happens when you query an LLM WITHOUT RAG.
+  The model can only rely on its training data, which may be outdated or incomplete.
+
+  After running this, check out 2_chat_with_rag.yaml to see how RAG fixes these issues!
+```
+
+- **`id`**: The unique identifier for this specific workflow (`1_chat_without_rag`).
+- **`namespace`**: Used to logically group workflows. Here, it belongs to the `zoomcamp` project or course folder.
+- **`description`**: Contextual documentation explaining that this flow serves as a baseline comparison against a RAG-enabled flow (`2_chat_with_rag.yaml`).
+
+**2. Task 1: Querying the LLM (`chat_without_rag`)**
+
+```yaml
+- id: chat_without_rag
+  type: io.kestra.plugin.ai.completion.ChatCompletion
+  description: Query about Kestra 1.1 features WITHOUT RAG
+  provider:
+    type: io.kestra.plugin.ai.provider.OpenAI
+    modelName: gpt-5-nano
+    apiKey: "{{ secret('OPENAI_API_KEY') }}"
+  messages:
+    - type: USER
+      content: |
+        Which features were released in Kestra 1.1? 
+        Please list at least 5 major features with brief descriptions.
+```
+
+- **`type`**: Uses Kestra's official AI plugin (`ChatCompletion`) to interact with an LLM.
+- **`provider`**: Connects to OpenAI using the `gpt-5-nano` model. It securely retrieves the required authentication token via Kestra's internal secrets manager (`{{ secret('OPENAI_API_KEY') }}`).
+- **`messages`**: Sends a prompt directly to the model asking for specific technical release notes regarding "Kestra 1.1". Because no external documentation or search context is provided, the model must rely purely on its pre-trained knowledge base.
+
+**3. Task 2: Logging the Output (`log_results`)**
+
+```yaml
+- id: log_results
+  type: io.kestra.plugin.core.log.Log
+  message: |
+    ❌ Response WITHOUT RAG (no retrieved context):
+    {{ outputs.chat_without_rag.textOutput }}
+
+    🤔 Did you notice that this response seems to be:
+    - Incorrect?
+    - Vague/generic?
+    - Listing features that haven't been added in exactly this version but rather a long time ago?
+
+    👉 This is why context matters! Run `2_chat_with_rag.yaml` to see the accurate, context-grounded response.
+```
+
+- **`type`**: Uses Kestra's core logging engine to print data to the execution console.
+- **`{{ outputs.chat_without_rag.textOutput }}`**: This uses Kestra's dynamic Pebble templating engine. It references the exact text output generated by the previous `chat_without_rag` task and prints it out.
+- **Educational Note**: The log concludes with a prompt to help you realize that without real-time data or explicit context documents (RAG), the LLM's response is likely vague, incorrect, or entirely hallucinated.
+
+Sample logs of executing this flow on Kestra is shown below
+
+![Kestra Output: Chat without RAG](kestra_chat_without_rag_output.png)
+
+#### Case 2: With RAG
+
+The following Kestra flow shows how the chat will work with the help of context through RAG. By programmatically pulling the specific documentation, transforming it into a searchable format, and passing it alongside the prompt, it grounds the Large Language Model (LLM) in facts—ensuring an accurate response instead of a guess or hallucination.
+
+**1. Workflow Metadata**
+
+```yaml
+id: 2_chat_with_rag
+namespace: zoomcamp
+description: |
+  This flow demonstrates RAG (Retrieval Augmented Generation) by ingesting Kestra release documentation and using it to answer questions accurately.
+
+  Compare this with 1_chat_without_rag.yaml to see the difference RAG makes!
+```
+
+- **`id`**: The unique identifier for this specific workflow (`2_chat_with_rag`).
+- **`namespace`**: The logical grouping container, matching the `zoomcamp` folder or project layer.
+- **`description`**: Explicit documentation explaining the structural objective: showcasing how RAG solves the data limitations exposed in the first baseline flow.
+
+**2. Task 1: Ingesting the Documentation (`ingest_release_notes`)**
+
+```yaml
+- id: ingest_release_notes
+  type: io.kestra.plugin.ai.rag.IngestDocument
+  description: Ingest Kestra 1.1 release notes to create embeddings
+  provider:
+    type: io.kestra.plugin.ai.provider.GoogleGemini
+    modelName: gemini-embedding-001
+    apiKey: "{{ secret('GEMINI_API_KEY') }}"
+  embeddings:
+    type: io.kestra.plugin.ai.embeddings.KestraKVStore
+  drop: true
+  fromExternalURLs:
+    - https://raw.githubusercontent.com/kestra-io/docs/refs/heads/main/src/contents/blogs/release-1-1/index.md
+```
+
+- **`type`**: Deploys the RAG engine's document ingest plugin (`IngestDocument`).
+- **`provider`**: Leverages Google Gemini's `gemini-embedding-001` model to calculate vector embeddings (numerical meaning maps) from the text data. It pulls your credentials securely using `{{ secret('GEMINI_API_KEY') }}`.
+- **`embeddings`**: Identifies where to store those calculated vectors. It uses Kestra's local, built-in key-value storage engine (`KestraKVStore`).
+- **`drop: true`**: Tells Kestra to clear out any old data sitting in that KV bucket before saving the new ones, preventing stale information mix-ups.
+- **`fromExternalURLs`**: Points directly to the source of truth—the raw markdown release notes for Kestra 1.1 hosted on GitHub.
+
+**3. Task 2: Context-Anchored Generation (`chat_with_rag`)**
+
+```yaml
+- id: chat_with_rag
+  type: io.kestra.plugin.ai.rag.ChatCompletion
+  description: Query about Kestra 1.1 features with RAG context
+  chatProvider:
+    type: io.kestra.plugin.ai.provider.GoogleGemini
+    modelName: gemini-2.5-flash
+    apiKey: "{{ secret('GEMINI_API_KEY') }}"
+  embeddingProvider:
+    type: io.kestra.plugin.ai.provider.GoogleGemini
+    modelName: gemini-embedding-001
+    apiKey: "{{ secret('GEMINI_API_KEY') }}"
+  embeddings:
+    type: io.kestra.plugin.ai.embeddings.KestraKVStore
+  systemMessage: |
+    You are a helpful assistant that answers questions about Kestra.
+    Use the provided documentation to give accurate, specific answers.
+    If you don't find the information in the context, say so.
+  prompt: |
+    Which features were released in Kestra 1.1? 
+    Please list at least 5 major features with brief descriptions.
+```
+
+- **`type`**: Uses the specialized RAG-focused `ChatCompletion` variant, which combines vector lookups with conversational text generation.
+- **`chatProvider` & `embeddingProvider**`: Splitting the duties. `gemini-2.5-flash`acts as the analytical brain generating the final words, while`gemini-embedding-001` parses the search index to find matched document snippets.
+- **`embeddings`**: Binds this query step back to the same `KestraKVStore` populated during Task 1.
+- **`systemMessage`**: Imposes strict boundaries on the model. It commands the AI to stay within the text provided and explicitly order it to admit when it doesn't know something rather than guessing.
+- **`prompt`**: The exact same product question asked in Case 1. This time, however, the text from the GitHub URL is quietly attached to it under the hood.
+
+**4. Task 3: Logging the Grounded Results (`log_results`)**
+
+```yaml
+- id: log_results
+  type: io.kestra.plugin.core.log.Log
+  message: |
+    ✅ RAG Response (with retrieved context):
+    {{ outputs.chat_with_rag.textOutput }}
+     
+    🎉 Note that this response is detailed, accurate, and grounded in the actual release documentation. Compare this with the output from 1_chat_without_rag.yaml!
+```
+
+- **`type`**: Standard execution logger utility.
+- **`{{ outputs.chat_with_rag.textOutput }}`**: Evaluated dynamically at runtime via Kestra's Pebble templating. It catches the output of the RAG step and prints it out.
+
+#### Case 3: Extending RAG with websearch
+
+- The example above shows the implementation of static RAG - documents containing information are ingested and then used to answer user queries.
+- With web search as another information retriever, we can have the latest information from the internet acting as the context for the LLM response.
+
+### 3-6 Agents
+
+#### Case 1: Simple AI Agent Chaining
+
+This Kestra blueprint demonstrates how to build and orchestrate a multi-step AI agent pipeline. It highlights how to pass structured inputs to an agent, chain the output of one agent into another, use global plugin defaults to eliminate repetitive configuration, and monitor performance via token tracking metrics.
+
+**1. Workflow Metadata & Inputs**
+
+```yaml
+id: 4_simple_agent
+namespace: zoomcamp
+description: |
+  This flow demonstrates a basic AI agent that summarizes text with controllable length and language. It shows:
+  - How to structure agent prompts
+  - How to chain multiple agent tasks
+  - How to use pluginDefaults to avoid repetition
+  - How to track token usage for cost monitoring
+```
+
+- **`id` & `namespace**`: Uniquely identifies this flow as `4_simple_agent`inside the`zoomcamp` workspace group.
+- **`inputs`**: Outlines three runtime configurations that parameters can adjust:
+- `summary_length`: A dropdown menu (`SELECT`) offering `short`, `medium`, or `long` targets.
+- `language`: A dropdown selection supporting multiple language locales (e.g., `en`, `fr`, `ja`).
+- `text`: A string parameter containing the default multi-paragraph background text about Kestra and LLM Zoomcamp to process.
+
+**2. Task 1: Conditional Multi-Lingual Summary (`multilingual_agent`)**
+
+```yaml
+- id: multilingual_agent
+  type: io.kestra.plugin.ai.agent.AIAgent
+  description: Generate summary in requested language and length
+  systemMessage: |
+    You are a precise technical assistant.
+    Produce a {{ inputs.summary_length }} summary in {{ inputs.language }}.
+    Keep it factual, remove fluff, and avoid marketing language.
+    If the input is empty or non-text, return a one-sentence explanation.
+
+    Output format guidelines:
+    - For 'short': 1-2 sentences
+    - For 'medium': 2-5 sentences  
+    - For 'long': 1-3 paragraphs
+  prompt: |
+    Summarize the following content: {{ inputs.text }}
+```
+
+- **`type`**: Deploys Kestra's specialized `AIAgent` plugin class designed for structured prompt engineering.
+- **`systemMessage`**: Sets strict formatting and constraints. It references dynamic inputs using Pebble templates (`{{ inputs.summary_length }}` and `{{ inputs.language }}`) to inject user configuration directly into the agent's foundational behavior rules before looking at the dataset.
+- **`prompt`**: Passes the core target string data payload dynamically.
+
+**3. Task 2: Linear Task Chaining (`english_brevity`)**
+
+```yaml
+- id: english_brevity
+  type: io.kestra.plugin.ai.agent.AIAgent
+  prompt: |
+    Generate exactly 1 sentence English summary of the following:
+    "{{ outputs.multilingual_agent.textOutput }}"
+```
+
+- **Agent Chaining**: This step demonstrates how Kestra coordinates sequential dependencies. Instead of processing raw user inputs a second time, it listens for the upstream text payload via `{{ outputs.multilingual_agent.textOutput }}`.
+- **Downstream Reduction**: It instructs the LLM to rewrite whatever text the first agent produced (even if it was a long summary in German or Japanese) into a highly concise, single-sentence English overview.
+
+**4. Task 3: Token Monitoring & Cost Analytics (`log_token_usage`)**
+
+```yaml
+- id: log_token_usage
+  type: io.kestra.plugin.core.log.Log
+  message: |
+    📊 Token Usage Summary:
+
+    Multilingual Agent:
+    - Input tokens: {{ outputs.multilingual_agent.tokenUsage.inputTokenCount }}
+    - Output tokens: {{ outputs.multilingual_agent.tokenUsage.outputTokenCount }}
+    - Total tokens: {{ outputs.multilingual_agent.tokenUsage.totalTokenCount }}
+
+    English Brevity Agent:
+    - Input tokens: {{ outputs.english_brevity.tokenUsage.inputTokenCount }}
+    - Output tokens: {{ outputs.english_brevity.tokenUsage.outputTokenCount }}
+    - Total tokens: {{ outputs.english_brevity.tokenUsage.totalTokenCount }}
+```
+
+- **Cost Tracking**: AI API workloads incur usage costs per token. Kestra's AI plugin automatically captures granular usage data from the underlying provider's payload response meta metadata.
+- **Metadata Inspection**: Accesses specific properties within the `.tokenUsage` output object mapped to individual metrics (`inputTokenCount`, `outputTokenCount`, `totalTokenCount`) to output operational logging visibility into console histories.
+
+**5. Global Optimization (`pluginDefaults`)**
+
+```yaml
+pluginDefaults:
+  - type: io.kestra.plugin.ai.agent.AIAgent
+    values:
+      provider:
+        type: io.kestra.plugin.ai.provider.GoogleGemini
+        modelName: gemini-2.5-flash
+        apiKey: "{{ secret('GEMINI_API_KEY') }}"
+```
+
+- **DRY Compliance (Don't Repeat Yourself)**: Instead of manually duplicating the `provider`, `modelName`, and `apiKey` properties within both `multilingual_agent` and `english_brevity`, this block applies them globally.
+- **Inheritance Mechanism**: Any task throughout this entire file matching `type: io.kestra.plugin.ai.agent.AIAgent` automatically inherits these configuration values implicitly behind the scenes, keeping the individual task code blocks minimal and secure.
+
+Here are the step-by-step markdown notes for Case 4, detailing the advanced web research agent configuration in Kestra.
+
+#### Case 2: Autonomous Web Research Agent with Tools
+
+**1. Workflow Metadata & Dynamic Inputs**
+
+```yaml
+id: 5_web_research_agent
+namespace: zoomcamp
+description: |
+  This flow demonstrates an advanced AI agent that uses tools autonomously.
+  The agent:
+  - Decides when to use the web search tool
+  - Gathers information from multiple sources
+  - Synthesizes findings into a structured report
+  - Saves the output as a markdown file
+  Key concept: You specify the GOAL, the agent decides HOW to achieve it.
+```
+
+- **`id` & `namespace**`: Tracks this workflow under the unique identifier `5_web_research_agent`within the`zoomcamp` cluster.
+- **`inputs`**: Establishes a flexible runtime configuration string variable called `research_topic`. This allows users to alter the entire focus of the research project from the UI menu, with a comprehensive default topic focused on data orchestration trends, AI patterns, and technical innovations.
+
+**2. Task 1: Empowering the Autonomous Agent (`research_agent`)**
+
+```yaml
+- id: research_agent
+  type: io.kestra.plugin.ai.agent.AIAgent
+  description: Autonomous research agent with web search capabilities
+  provider:
+    type: io.kestra.plugin.ai.provider.GoogleGemini
+    apiKey: "{{ secret('GEMINI_API_KEY') }}"
+    modelName: gemini-2.5-flash
+  prompt: "{{ inputs.research_topic }}"
+```
+
+- **`provider`**: Powered directly by Google Gemini's `gemini-2.5-flash` engine, authenticated using Kestra's secure backend secrets manager.
+- **`systemMessage`**: Acts as a strict execution playbook for the agent. It lays out a step-by-step operational loop: loop queries through search tools until information is dense enough, format a specific markdown template structure, write to disk, and mandate zero hallucinations.
+
+**3. Extending capabilities with Content Retrievers and Tools**
+
+The magic of this task lies within its internal tool accessories:
+
+```yaml
+contentRetrievers:
+  - type: io.kestra.plugin.ai.retriever.TavilyWebSearch
+    apiKey: "{{ secret('TAVILY_API_KEY') }}"
+    maxResults: 10
+tools:
+  - type: io.kestra.plugin.ai.tool.DockerMcpClient
+    image: mcp/filesystem
+    command: ["/tmp"]
+    binds: ["{{workingDir}}:/tmp"]
+outputFiles:
+  - research_report.md
+```
+
+- **`contentRetrievers` (Web Intelligence)**: Plugs in `TavilyWebSearch`, a search engine optimized for LLM RAG queries. It enables the model to issue raw API searches on the web, grab up to 10 relevant page snippets at a time, and analyze current live data before typing a word.
+- **`tools` (Local Operations)**: Leverages a Model Context Protocol (MCP) tool called `mcp/filesystem` isolated inside a secure Docker container. By linking Kestra's unique runtime engine path (`{{workingDir}}`) to the container's internal `/tmp` folder, the agent gains a physical sandbox to create, write, and alter concrete documents.
+- **`outputFiles`**: Declares that `research_report.md` is a persistent artifact generated by this execution step, exposing the file globally to downline workflows or user downloads inside the Kestra UI.
+
+**4. Task 2: Tracking Execution Outcomes (`log_report`)**
+
+```yaml
+- id: log_report
+  type: io.kestra.plugin.core.log.Log
+  message: |
+    ✅ Research completed!
+    📄 Report saved to: {{ outputs.research_agent.outputFiles['research_report.md'] }}
+    🔍 Agent made autonomous decisions about:
+    - Which searches to perform
+    - How many searches were needed
+    - How to structure the report
+    - When the task was complete
+    📊 Token usage: {{ outputs.research_agent.tokenUsage.totalTokenCount }} tokens
+```
+
+- **Output Validation**: Employs Kestra's core tracking module to log confirmation details safely to the UI execution desk.
+- **Dynamic File Referencing**: Pulls the physical storage address link from the previous step via `{{ outputs.research_agent.outputFiles[...] }}` to show exactly where the generated report artifact lives.
+- **Telemetry Logging**: References the agent's absolute token usage (`.totalTokenCount`) to verify operational resource metrics on complex multi-loop research sessions.
+
+### 3-7 Multi-Agent Systems
+
+#### Case 1: Multi-Agent Research System
+
+**1. Workflow Metadata & Architecture Overview**
+
+```yaml
+id: 6_multi_agent_research
+namespace: zoomcamp
+description: |
+  This flow demonstrates a multi-agent system where specialized agents collaborate.
+  Architecture:
+  - Main Agent (Analyst): Synthesizes findings and creates structured reports
+  - Research Agent (Tool): Gathers web data using Tavily search
+  The main agent uses the research agent as a TOOL, demonstrating how agents can delegate specialized work to other agents.
+```
+
+- **`id` & `namespace**`: Registers this workflow under the identifier `6_multi_agent_research`inside the`zoomcamp` project workspace.
+- **`inputs`**: Dynamically parameterizes the workflow to accept a `company_name` string via the user interface, routing a default value of `kestra.io`.
+
+**2. The Primary Agent Orchestrator (`analysis`)**
+
+```yaml
+- id: analysis
+  type: io.kestra.plugin.ai.agent.AIAgent
+  description: Main analyst agent that orchestrates research
+  configuration:
+    logRequests: false
+    logResponses: false
+  provider:
+    type: io.kestra.plugin.ai.provider.GoogleGemini
+```
+
+- **Role Definition**: The main task acts as a **Main analyst agent**. Its primary function is synthesis, reasoning, and JSON structural layout compilation.
+- **Strict Response Shaping**: The `systemMessage` and `prompt` specify strict data extraction structures. It commands the model to emit a single, valid JSON map—strictly forbidding markdown styling snippets, background chatter, or standard ```json block boundaries. This allows Kestra to safely treat the text response as data payload.
+
+**3. Agent-as-a-Tool Delegation Pattern**
+
+The unique design feature of this flow resides directly inside the analyst's `tools` configurations block:
+
+```yaml
+tools:
+  - type: io.kestra.plugin.ai.tool.AIAgent
+    description: Web research and data gathering
+    systemMessage: |
+      You are a research assistant that searches the web for factual and up-to-date company information as of date {{ now() }}.
+      Look for recent news from this year, funding announcements, blog posts, or competitor mentions.
+      Return concise factual summaries — no markdown, no formatting, no speculation.
+    provider:
+      type: io.kestra.plugin.ai.provider.GoogleGemini
+    contentRetrievers:
+      - type: io.kestra.plugin.ai.retriever.TavilyWebSearch
+        apiKey: "{{ secret('TAVILY_API_KEY') }}"
+```
+
+- **Sub-Agent Spawn**: Rather than exposing a raw API directly to the manager, Kestra mounts a full secondary `AIAgent` wrapped inside a function-calling definition loop.
+- **Time-Aware Search**: The researcher's system template tracks live execution dates using Kestra's temporal variables (`{{ now() }}`). It leverages the `TavilyWebSearch` tool to look up recent data points and filters out long prose, passing only condensed facts back to the supervisor agent.
+
+**4. Advanced Native Object Parsing (`parse_results`)**
+
+Because the primary agent successfully produced a raw string structured as an explicit JSON map, downline tasks can unpack it natively using Pebble templating features:
+
+```yaml
+- id: parse_results
+  type: io.kestra.plugin.core.log.Log
+  message: |
+    🎯 Competitive Intelligence Report
+    =====================================
+
+    Company: {{ json(outputs.analysis.textOutput).company }}
+    Summary: {{ json(outputs.analysis.textOutput).summary }}
+
+    Recent News:
+    {% for news in json(outputs.analysis.textOutput).recent_news %}
+    - {{ news.title }} ({{ news.date }})
+      {{ news.description }}
+    {% endfor %}
+
+    Competitors:
+    {% for competitor in json(outputs.analysis.textOutput).competitors %}
+    - {{ competitor }}
+    {% endfor %}
+```
+
+- **`json()` Function**: Evaluates the raw text block coming out of the analyst workspace (`outputs.analysis.textOutput`) and automatically converts it into a structural Pebble object variable on-the-fly.
+- **Programmatic Iteration**: Leverages standard jinja-like loop blocks (`{% for news in ... %}`) to step through data lists effortlessly, cleanly mapping properties like headlines, dates, and competitors into readable, structured system logs.
+
+**5. Global Provider Shared Inheritance (`pluginDefaults`)**
+
+```yaml
+pluginDefaults:
+  - type: io.kestra.plugin.ai.provider.GoogleGemini
+    values:
+      modelName: gemini-2.5-flash
+      apiKey: "{{ secret('GEMINI_API_KEY') }}"
+```
+
+- **Cascading Properties**: This global variable layout ensures that any configuration referencing the Google Gemini vendor block (including both the outer main supervisor agent **and** the deep nested sub-agent tool) automatically inherits the identical `gemini-2.5-flash` model mapping and credential access keys seamlessly without manual code duplication.
+
+### 3-8 Best Practices
+
+- **Architecture:** Use Traditional Workflows for predictable ETL pipelines, RAG for data-grounded questions, and AI Agents / Multi-Agents for complex, autonomous research.
+- **Cost Control:** Default to the cheaper Gemini 2.5 Flash, cap lengths with maxOutputTokens, and actively monitor token usage logs.
+- **Security:** Never hardcode API keys. Always use Kestra's secure variable injection: {{ secret('SECRET_NAME') }}.
+- **Observability:** Set logRequests: true and logResponses: true during development to audit prompt reasoning and tool execution outputs.
+- **Production:** Implement robust task retries for API failures, cap costs, and heavily test for response consistency across diverse inputs.
 
 ## 4. Evaluation
 

@@ -328,9 +328,9 @@ hide:
   <div class="recent-note">
     <div class="recent-note-main">
       <a href="course-summaries/llm-zoomcamp-2026/" class="recent-note-title">LLM Zoomcamp 2026</a>
-      <span class="recent-note-date">Jun 12, 2026</span>
+      <span class="recent-note-date">Jun 25, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">artificial-intelligence</span><span class="rn-tag">course-summary</span><span class="rn-tag">git</span><span class="rn-tag">large-language-models</span><span class="rn-tag">agentic-ai</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">artificial-intelligence</span><span class="rn-tag">course-summary</span><span class="rn-tag">git</span><span class="rn-tag">large-language-models</span><span class="rn-tag">agentic-ai</span><span class="rn-tag">kestra</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
