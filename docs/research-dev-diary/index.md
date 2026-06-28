@@ -1,12 +1,10 @@
 ---
-title: Paper Summaries
+title: Research and Developer Diary
 ---
 
 # Map of Contents
 
-The paper summaries are inspired by [Fan Pu Zeng's ML Paper Summaries](https://fanpu.io/summaries/)
-
-<!-- pd:start -->
+<!-- pr:start -->
 <style>
 .ni-list { border: 1px solid var(--md-default-fg-color--lightest); border-radius: 8px; overflow: hidden; }
 .ni { display: flex; flex-direction: column; gap: 0.45rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--md-default-fg-color--lightest); transition: background-color 0.15s ease; }
@@ -27,20 +25,7 @@ The paper summaries are inspired by [Fan Pu Zeng's ML Paper Summaries](https://f
 .ni-page-info { font-size: 0.78rem; color: var(--md-default-fg-color--light); }
 </style>
 <div class="ni-list">
-<div class="ni">
-  <div class="ni-header">
-    <a href="./stress-testing-model-specs-reveals-character-diff-among-LMs/" class="ni-title">Stress-Testing Model Specs Reveals Character Differences among Language Models</a>
-    <span class="ni-date">Jun 27, 2026</span>
-  </div>
-  <div class="ni-tags"><span class="ni-tag">paper-summary</span><span class="ni-tag">reasoning-models</span><span class="ni-tag">model-specifications</span><span class="ni-tag">language-models</span></div>
-</div>
-<div class="ni">
-  <div class="ni-header">
-    <a href="./reasoning-models-struggle-to-control-CoT/" class="ni-title">Reasoning Models Struggle to Control Chain of Thought</a>
-    <span class="ni-date">May 24, 2026</span>
-  </div>
-  <div class="ni-tags"><span class="ni-tag">paper-summary</span><span class="ni-tag">reasoning-models</span></div>
-</div>
+
 </div>
 
-<!-- pd:end -->
+<!-- pr:end -->

@@ -265,10 +265,15 @@ hide:
         <div class="cat-name">Course Summaries</div>
         <div class="cat-count"><!-- cat-count:course-summaries -->1 course<!-- /cat-count --></div>
       </a>
+      <a href="research-dev-diary/" class="cat-item">
+        <div class="cat-icon">&#128221;</div>
+        <div class="cat-name">Research and Developer Diary</div>
+        <div class="cat-count"><!-- cat-count:research-dev-diary -->0 entries<!-- /cat-count --></div>
+      </a>
       <a href="practice-problems/" class="cat-item">
         <div class="cat-icon">&#128187;</div>
         <div class="cat-name">Practice Problems</div>
-        <div class="cat-count"><!-- cat-count:practice-problems -->8 solutions<!-- /cat-count --></div>
+        <div class="cat-count"><!-- cat-count:practice-problems -->9 solutions<!-- /cat-count --></div>
       </a>
     </div>
   </div>
@@ -279,12 +284,12 @@ hide:
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Notes</div>
-        <div class="stat-value"><!-- stat:total-notes -->22<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:total-notes -->23<!-- /stat --></div>
         <div class="stat-detail">across all sections</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Sections</div>
-        <div class="stat-value"><!-- stat:sections -->6<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:sections -->7<!-- /stat --></div>
         <div class="stat-detail">topic areas</div>
       </div>
       <div class="stat-card">
@@ -313,8 +318,13 @@ hide:
         <div class="stat-detail">courses</div>
       </div>
       <div class="stat-card">
+        <div class="stat-label">Research and Developer Diary</div>
+        <div class="stat-value"><!-- stat:research-dev-diary -->0<!-- /stat --></div>
+        <div class="stat-detail">research logs</div>
+      </div>
+      <div class="stat-card">
         <div class="stat-label">Practice Problems</div>
-        <div class="stat-value"><!-- stat:practice-problems -->8<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:practice-problems -->9<!-- /stat --></div>
         <div class="stat-detail">problems solved</div>
       </div>
     </div>

@@ -29,6 +29,14 @@ Solutions, approaches, and complexity analysis for practice problems like Leetco
 <div class="ni-list">
 <div class="ni">
   <div class="ni-header">
+    <a href="./arena-ray-tracing/" class="ni-title">ARENA - 0.1 Ray Tracing</a>
+    <span class="ni-date">Jun 27, 2026</span>
+  </div>
+  <p class="ni-desc">My notes and explanation about the exercises for Ray Tracing Exercises in the ARENA curriculum</p>
+  <div class="ni-tags"><span class="ni-tag">pytorch</span><span class="ni-tag">numpy</span><span class="ni-tag">linear-algebra</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
     <a href="./balanced-binary-tree/" class="ni-title">Leetcode 110 - Balanced Binary Tree</a>
     <span class="ni-date">Jun 15, 2026</span>
   </div>
