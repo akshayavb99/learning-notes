@@ -312,6 +312,156 @@ result[:, 1, 2] = z_grid.flatten()
 Every result ray consists of 2 points. The first is already defined during initialization - the origin. For the destination point, we know all X coordinates are equal to 1.
 Finally we then set the Y and Z coordinates by flattening the Y and Z coordinate grids to get 1D sequences of numbers
 
+## Triangles
+
+### Implement `triangle_ray_intersects`
+
+The objective here is to find if there is a valid intersection point between a triangle and a ray. In the [previous section](#batched-operations), we looked at the intersection of multiple rays with a plane. Now we restrict the plane to a triangle and check for the same validations.
+
+We use a variation of the Möller–Trumbore intersection algorithm to determine if a 3D ray intersects the 3 D triangle.
+
+Let the 3 vertices of the triangle be &A, B, C$. To identify a point within the triangle, we can use the concept of barycentric coordinates such that
+
+$$
+\begin{aligned}
+& P(w, u, v) = wA + uB + vC \\
+& \text{s.t.} \quad w + u + v = 1 \\
+& \quad \quad w, u, v \ge 0
+\end{aligned}
+$$
+
+We can reduce this further by substituting $w = 1 - u - v$ to get the equation
+
+$$
+\begin{aligned}
+P(u, v) &= (1 - u - v)A + uB + vC \\
+&= A + u(B - A) + v(C - A) \\
+\text{s.t.} \quad & u, v \ge 0 \\
+& u + v \le 1
+\end{aligned}
+$$
+
+Here, $u,v$ are called barycentric coordinates. The constraints on $u, v$ ensure that the points obtained from the equation always lie in the triangle, and not anywhere on the plane in which the triangle exists.
+
+For a camera ray and the triangle to intersect, we need
+
+$$
+\begin{aligned}
+P(u,v) = P(s) \implies & A + u(B - A) + v(C - A) = O + sD \\
+\implies & \begin{pmatrix} -D & B - A & C - A \end{pmatrix} \begin{pmatrix} s \\ u \\ v \end{pmatrix} = O - A \\
+\implies & \begin{pmatrix}
+-D_x & (B - A)_x & (C - A)_x \\
+-D_y & (B - A)_y & (C - A)_y \\
+-D_z & (B - A)_z & (C - A)_z
+\end{pmatrix}
+\begin{pmatrix} s \\ u \\ v \end{pmatrix} =
+\begin{pmatrix} (O - A)_x \\ (O - A)_y \\ (O - A)_z \end{pmatrix}
+\end{aligned}
+$$
+
+**Defining the $ 3 \times 3$ matrix `M` for the equation LHS, and `b` the equation RHS**
+
+```python
+M = t.stack([-D, B-A, C-A], dim=1)  # shape (3, 3)
+b = O - A  # shape (3,)
+```
+
+**Linear Solver to solve the equation system**
+
+```python
+x = t.linalg.solve(M, b)  # shape (3,)
+s, u, v = x
+if s >= 0 and u >= 0 and v >= 0 and (u + v) <= 1:
+    return True
+else:
+    return False
+```
+
+### Implement `raytrace_triangle`
+
+We expand further from the previous section where multiple rays have the possibility of intersecting with the triangle. Since the linear solver in pytorch handles simulatenous solving of systemn of equations, we can reutilize much of the logic from the `triangle_ray_intersects` function and augment it by expanding the dimensions to accomodate multiple rays
+
+```python
+def raytrace_triangle(
+    rays: Float[Tensor, "nrays rayPoints=2 dims=3"],
+    triangle: Float[Tensor, "trianglePoints=3 dims=3"],
+) -> Bool[Tensor, " nrays"]:
+    """
+    For each ray, return True if the triangle intersects that ray.
+    """
+
+    """
+    The system of equations needs to be expanded to accomodate nrays instead of 1 ray.
+    This means adding an extra dimension to the traingle points to repeat it across nrays
+    """
+    triangle_expanded = einops.repeat(triangle, "points dims -> nrays points dims", nrays = rays.shape[0])
+    O, D = rays[:, 0, :], rays[:, 1, :]  # shape (nrays, 3)
+    A, B, C = triangle_expanded[:, 0, :], triangle_expanded[:, 1, :], triangle_expanded[:, 2, :]  # shape (nrays, 3)
+    M = t.stack([-D, B-A, C-A], dim=-1)  # shape (nrays, 3, 3)
+    b = O - A  # shape (nrays, 3)
+    try:
+        s,u,v = t.linalg.solve(M, b).T
+        intersects = (s >= 0) & (u >= 0) & (v >= 0) & ((u + v) <= 1)
+        return intersects
+    except t.linalg.LinAlgError:
+        return t.zeros(rays.shape[0], dtype=t.bool)
+```
+
+### Implement `raytrace_mesh`
+
+If we go to the next step, we can have simultaneous intersections between multiple rays and multiple triangles. This leads to expansion of dimensions to accomodate both rays and triangles.
+
+```python
+def raytrace_mesh(
+    rays: Float[Tensor, "nrays rayPoints=2 dims=3"],
+    triangles: Float[Tensor, "ntriangles trianglePoints=3 dims=3"],
+) -> Float[Tensor, " nrays"]:
+    """
+    For each ray, return the distance to the closest intersecting triangle, or infinity.
+    """
+    """
+    The system of equations needs to be expanded to accomodate nrays and ntriangles instead of 1 ray and 1 triangle.
+    This means adding an extra dimension to the traingle points to repeat it across nrays
+    """
+    triangles_expanded = einops.repeat(triangles, "ntriangles trianglePoints dims -> nrays ntriangles trianglePoints dims", nrays = rays.shape[0])
+    assert triangles_expanded.shape == (rays.shape[0], triangles.shape[0], 3, 3)
+
+    rays_expanded = einops.repeat(rays, "nrays rayPoints dims -> nrays ntriangles rayPoints dims", ntriangles = triangles.shape[0])
+    assert rays_expanded.shape == (rays.shape[0], triangles.shape[0], 2, 3)
+
+    O, D = rays_expanded[:, :, 0, :], rays_expanded[:, :, 1, :]  # shape (nrays, ntriangles, 3)
+    assert O.shape == (rays.shape[0], triangles.shape[0], 3)
+    assert D.shape == (rays.shape[0], triangles.shape[0], 3)
+
+    A, B, C = triangles_expanded[:, :, 0, :], triangles_expanded[:, :, 1, :], triangles_expanded[:, :, 2, :]  # shape (nrays, ntriangles, 3)
+    assert A.shape == (rays.shape[0], triangles.shape[0], 3)
+    assert B.shape == (rays.shape[0], triangles.shape[0], 3)
+    assert C.shape == (rays.shape[0], triangles.shape[0], 3)
+
+    M = t.stack([-D, B-A, C-A], dim=-1)  # shape (nrays, ntriangles, 3, 3)
+    assert M.shape == (rays.shape[0], triangles.shape[0], 3, 3)
+
+    b = O - A  # shape (nrays, ntriangles, 3)
+    assert b.shape == (rays.shape[0], triangles.shape[0], 3)
+
+    # Handle singular matrices without crashing the entire batch
+    dets = t.linalg.det(M)                      # (nrays, ntriangles)
+    is_singular = t.abs(dets) <= 1e-8          # (nrays, ntriangles)
+    M[is_singular] = t.eye(3)  # Replace singular matrices with identity
+
+    try:
+        x = t.linalg.solve(M, b)  # shape (nrays, ntriangles, 3)
+        s,u,v = x[..., 0], x[..., 1], x[..., 2]
+        s *= D[..., 0]
+        intersects = (u >= 0) & (v >= 0) & ((u + v) <= 1) & (~is_singular)
+        s[~intersects] = float("inf")
+        return einops.reduce(s, "NR NT -> NR", "min")
+    except t.linalg.LinAlgError:
+        return t.full((rays.shape[0],), float("inf"))
+```
+
+An addition piece of logic is to first determine if any pair of ray-triangle does not have any intersections. The linear solver can throw errors in such cases, hence we can use the determinant to find such pairs and set their corresponding LHS matrices to the identity matrix of shape $3 \times 3$.
+
 ## Full Code Solution
 
 [Link to GitHub repo with my implementation](https://github.com/akshayavb99/ARENA_3.0/blob/main/chapter0_fundamentals/exercises/part1_ray_tracing/exercises.py)
