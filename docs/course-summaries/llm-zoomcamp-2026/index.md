@@ -1,7 +1,7 @@
 ---
 title: LLM Zoomcamp 2026
 description: This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub
-updated_date: 2026-06-25
+updated_date: 2026-06-30
 tags:
   - artificial-intelligence
   - course-summary
@@ -9,6 +9,7 @@ tags:
   - large-language-models
   - agentic-ai
   - kestra
+  - llm-evaluation
 ---
 
 # LLM Zoomcamp 2026
@@ -17,50 +18,53 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 
 ## Index
 
-| Lecture                             | Notes                                                                       | Homework                                                                                |
-| ----------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| **Lecture 1 - Agentic RAG**         | [1. Agentic Rag](#1-agentic-rag)                                            | [Homework 1](https://github.com/akshayavb99/llm-zoomcamp-2026-hw/tree/main/homework-01) |
-| 1.1 Introduction                    | [1-1 Introduction](#1-1-introduction)                                       |                                                                                         |
-| 1.2 Environment                     | [1-2 Environment](#1-2-environment)                                         |                                                                                         |
-| 1.3 What is RAG                     | [1-3 What is RAG (Retrieval-Augmented Generation)](#1-3-what-is-rag)        |                                                                                         |
-| 1.4 The Course FAQ dataset          | [1-4 The Course FAQ Dataset](#1-4-the-course-faq-dataset)                   |                                                                                         |
-| 1.5 Search                          | [1-5 Search](#1-5-search)                                                   |                                                                                         |
-| 1.6 Building a Prompt               | [1-6 Building a Prompt](#1-6-building-a-prompt)                             |                                                                                         |
-| 1.7 RAG Pipeline                    | [1-7 RAG Pipeline](#1-7-rag-pipeline)                                       |                                                                                         |
-| 1.8 RAG Helper                      | [1-8 RAG Helper](#1-8-rag-helper)                                           |                                                                                         |
-| 1.9 Data Ingestion                  | [1-9 Data Ingestion](#1-9-data-ingestion)                                   |                                                                                         |
-| 1.10 RAG Next Steps                 | [1-10 RAG Next Steps](#1-10-wrap-up-of-part-1)                              |                                                                                         |
-| 1.11 Agents Intro                   | [1-11 Agents Intro](#1-11-agents)                                           |                                                                                         |
-| 1.12 RAG Revision                   |                                                                             |                                                                                         |
-| 1.13 Function Calling               | [1-13 Function Calling](#1-13-function-calling)                             |                                                                                         |
-| 1.14 Agentic Loop                   | [1-14 The Agentic Loop](#1-14-the-agentic-loop)                             |                                                                                         |
-| 1.15 ToyAIKit                       | [1-15 ToyAIKit](#1-15-toyaikit)                                             |                                                                                         |
-| 1.16 Other Frameworks               |                                                                             |                                                                                         |
-| **2. Vector Search**                | [2. Vector Search](#2-vector-search)                                        |                                                                                         |
-| 2.1 What is Vector Search           | [2-1 What is Vector Search](#2-1-what-is-vector-search)                     |                                                                                         |
-| 2.2 Embeddings                      | [2-2 Embeddings](#2-2-embeddings)                                           |                                                                                         |
-| 2.3 Embedding Our Dataset           | [2-3 Embedding Our Dataset](#2-3-embedding-our-dataset)                     |                                                                                         |
-| 2.4 Vector Search                   | [2-4 Vector Search](#2-4-vector-search)                                     |                                                                                         |
-| 2.5 Vector Search with minsearch    | [2-5 Vector Search with minsearch](#2-5-vector-search-with-minsearch)       |                                                                                         |
-| 2.6 RAG with vector search          | [2-6 RAG with vector search](#2-6-rag-with-vector-search)                   |                                                                                         |
-| 2.7 Vector Search with sqlitesearch | [2-7 Vector Search with sqlitesearch](#2-7-vector-search-with-sqlitesearch) |                                                                                         |
-| 2.8 Vector Search with PGVector     | [2-8 Vector Search with PGVector](#2-8-vector-search-with-pgvector)         |                                                                                         |
-| 2.9 ONNX Embedder                   | [2-9 ONNX Embedder](#2-9-onnx-embedder)                                     |                                                                                         |
-| **3. Orchestration**                | [3. Orchestration](#3-orchestration)                                        |                                                                                         |
-| 3.1 Introduction                    |                                                                             |                                                                                         |
-| 3.2 Context Engineering             |                                                                             |                                                                                         |
-| 3.3 Setting up Kestra               | [3-3 Setting up Kestra](#3-3-setting-up-kestra)                             |                                                                                         |
-| 3.4 AI Copilot                      |                                                                             |                                                                                         |
-| 3.5 Retrieval Augmented Generation  | [3-5 Retrieval Augmented Generation](#3-5-retreival-augmented-generation)   |                                                                                         |
-| 3.6 AI Agents                       | [3-6 Agents](#3-6-agents)                                                   |                                                                                         |
-| 3.7 Multi-Agent Systems             | [3-7 Multi-Agent Systems](#3-7-multi-agent-systems)                         |                                                                                         |
-| 3.8 Best Practices                  | [3-8 Best Practices](#3-8-best-practices)                                   |                                                                                         |
-| 3.9 Next Steps                      |                                                                             |                                                                                         |
-| 4. Evaluation                       | [4. Evaluation](#4-evaluation)                                              |                                                                                         |
-| 5. Monitoring                       | [5. Monitoring](#5-monitoring)                                              |                                                                                         |
-| 6. Best Practices                   | [6. Best Practices](#6-best-practices)                                      |                                                                                         |
-| 7. End-to-End Project               | [7. End-to-End Project](#7-end-to-end-project)                              |                                                                                         |
-| Capstone Project                    | [Capstone Project](#capstone-project)                                       |                                                                                         |
+| Lecture                                       | Notes                                                                                           | Homework                                                                                |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Lecture 1 - Agentic RAG**                   | [1. Agentic Rag](#1-agentic-rag)                                                                | [Homework 1](https://github.com/akshayavb99/llm-zoomcamp-2026-hw/tree/main/homework-01) |
+| 1.1 Introduction                              | [1-1 Introduction](#1-1-introduction)                                                           |                                                                                         |
+| 1.2 Environment                               | [1-2 Environment](#1-2-environment)                                                             |                                                                                         |
+| 1.3 What is RAG                               | [1-3 What is RAG (Retrieval-Augmented Generation)](#1-3-what-is-rag)                            |                                                                                         |
+| 1.4 The Course FAQ dataset                    | [1-4 The Course FAQ Dataset](#1-4-the-course-faq-dataset)                                       |                                                                                         |
+| 1.5 Search                                    | [1-5 Search](#1-5-search)                                                                       |                                                                                         |
+| 1.6 Building a Prompt                         | [1-6 Building a Prompt](#1-6-building-a-prompt)                                                 |                                                                                         |
+| 1.7 RAG Pipeline                              | [1-7 RAG Pipeline](#1-7-rag-pipeline)                                                           |                                                                                         |
+| 1.8 RAG Helper                                | [1-8 RAG Helper](#1-8-rag-helper)                                                               |                                                                                         |
+| 1.9 Data Ingestion                            | [1-9 Data Ingestion](#1-9-data-ingestion)                                                       |                                                                                         |
+| 1.10 RAG Next Steps                           | [1-10 RAG Next Steps](#1-10-wrap-up-of-part-1)                                                  |                                                                                         |
+| 1.11 Agents Intro                             | [1-11 Agents Intro](#1-11-agents)                                                               |                                                                                         |
+| 1.12 RAG Revision                             |                                                                                                 |                                                                                         |
+| 1.13 Function Calling                         | [1-13 Function Calling](#1-13-function-calling)                                                 |                                                                                         |
+| 1.14 Agentic Loop                             | [1-14 The Agentic Loop](#1-14-the-agentic-loop)                                                 |                                                                                         |
+| 1.15 ToyAIKit                                 | [1-15 ToyAIKit](#1-15-toyaikit)                                                                 |                                                                                         |
+| 1.16 Other Frameworks                         |                                                                                                 |                                                                                         |
+| **2. Vector Search**                          | [2. Vector Search](#2-vector-search)                                                            |                                                                                         |
+| 2.1 What is Vector Search                     | [2-1 What is Vector Search](#2-1-what-is-vector-search)                                         |                                                                                         |
+| 2.2 Embeddings                                | [2-2 Embeddings](#2-2-embeddings)                                                               |                                                                                         |
+| 2.3 Embedding Our Dataset                     | [2-3 Embedding Our Dataset](#2-3-embedding-our-dataset)                                         |                                                                                         |
+| 2.4 Vector Search                             | [2-4 Vector Search](#2-4-vector-search)                                                         |                                                                                         |
+| 2.5 Vector Search with minsearch              | [2-5 Vector Search with minsearch](#2-5-vector-search-with-minsearch)                           |                                                                                         |
+| 2.6 RAG with vector search                    | [2-6 RAG with vector search](#2-6-rag-with-vector-search)                                       |                                                                                         |
+| 2.7 Vector Search with sqlitesearch           | [2-7 Vector Search with sqlitesearch](#2-7-vector-search-with-sqlitesearch)                     |                                                                                         |
+| 2.8 Vector Search with PGVector               | [2-8 Vector Search with PGVector](#2-8-vector-search-with-pgvector)                             |                                                                                         |
+| 2.9 ONNX Embedder                             | [2-9 ONNX Embedder](#2-9-onnx-embedder)                                                         |                                                                                         |
+| **3. Orchestration**                          | [3. Orchestration](#3-orchestration)                                                            |                                                                                         |
+| 3.1 Introduction                              |                                                                                                 |                                                                                         |
+| 3.2 Context Engineering                       |                                                                                                 |                                                                                         |
+| 3.3 Setting up Kestra                         | [3-3 Setting up Kestra](#3-3-setting-up-kestra)                                                 |                                                                                         |
+| 3.4 AI Copilot                                |                                                                                                 |                                                                                         |
+| 3.5 Retrieval Augmented Generation            | [3-5 Retrieval Augmented Generation](#3-5-retreival-augmented-generation)                       |                                                                                         |
+| 3.6 AI Agents                                 | [3-6 Agents](#3-6-agents)                                                                       |                                                                                         |
+| 3.7 Multi-Agent Systems                       | [3-7 Multi-Agent Systems](#3-7-multi-agent-systems)                                             |                                                                                         |
+| 3.8 Best Practices                            | [3-8 Best Practices](#3-8-best-practices)                                                       |                                                                                         |
+| 3.9 Next Steps                                |                                                                                                 |                                                                                         |
+| **4. Evaluation**                             | [4. Evaluation](#4-evaluation)                                                                  |                                                                                         |
+| 4.1 Introduction                              | [4-1 Introduction](#4-1-introduction)                                                           |                                                                                         |
+| 4.2 Generating Ground Truth                   | [4-2 Generating Ground Truth](#4-2-generating-ground-truth)                                     |                                                                                         |
+| 4.3 Generating Ground Truth for All Documents | [4-3 Generating Ground Truth for All Documents](#4-3-generating-ground-truth-for-all-documents) |                                                                                         |
+| 5. Monitoring                                 | [5. Monitoring](#5-monitoring)                                                                  |                                                                                         |
+| 6. Best Practices                             | [6. Best Practices](#6-best-practices)                                                          |                                                                                         |
+| 7. End-to-End Project                         | [7. End-to-End Project](#7-end-to-end-project)                                                  |                                                                                         |
+| Capstone Project                              | [Capstone Project](#capstone-project)                                                           |                                                                                         |
 
 ## 1. Agentic RAG
 
@@ -1999,7 +2003,160 @@ pluginDefaults:
 
 ## 4. Evaluation
 
-Measure retrieval and answer quality with offline and online eval
+### 4-1 Introduction
+
+Evaluating the search functionality of the RAG assistant helps us understand the quality of the answers for the user's questions
+
+**Evaluation System Setup**
+
+- We will set up an evaluation system that evaluates not just the search functionality, but the overall RAG assistant as well.
+- For this, we can use multiple ways:
+  - **Interaction logs** {$Q_i$} - Interact with the system, collect logs, use the logs as a dataset. But how do we know if the answers are actually good?
+  - **Ground Truth generation** - Either manually by experts or by generating data with LLMs. For a given ground truth answer, we can generate $n$ questions that users can ask which can result in that answer
+
+### 4-2 Generating Ground Truth
+
+**Loading the FAQ data**
+
+We will use the same FAQ data , and ingest it using `ingest.py` as seen in the earlier section.
+
+```python
+from ingest import load_faq_data
+raw_documents = load_faq_data()
+```
+
+**Generate Questions only for LLM Zoomcamp FAQ**
+
+```python
+documents = []
+
+for doc in raw_documents:
+    if doc["course"] == "llm-zoomcamp":
+        documents.append(doc)
+
+print(len(documents))
+print(documents[0]) # Dictionary with keys id, question and answer
+```
+
+The `id` is important as the label to identify which document holds the answer we want.
+
+**Define structured output format for the LLM and get output from LLM**
+
+We use `pydantic` to define a data structure that constrains the output structure of the LLM.
+
+```python
+from pydantic import BaseModel
+from dotenv import load_dotenv
+from openai import OpenAI
+import json
+
+class Questions(BaseModel):
+    questions: list[str]
+
+data_gen_instructions = """
+You emulate a student who's taking our course.
+Formulate 5 questions this student might ask based on a FAQ record. The record
+should contain the answer to the questions, and the questions should be complete and not too short.
+If possible, use as fewer words as possible from the record.
+
+The output should resemble how people ask questions
+on the internet. Not too formal, not too short, not too long.
+""".strip()
+
+load_dotenv()
+openai_client = OpenAI()
+user_prompt = json.dumps(doc)
+messages = [
+    {"role": "developer", "content": data_gen_instructions},
+    {"role": "user", "content": user_prompt}
+]
+response = openai_client.responses.parse(
+    model="gpt-5.4-mini",
+    input=messages,
+    text_format=Questions
+)
+result = response.output_parsed
+print(result)
+print(result.questions)
+```
+
+Since this can be reused for multiple documents, the same has been given as a function `llm_structured` in the `evaluation_utils.py`
+
+```python
+from evaluation_utils import llm_structured
+
+result, usage = llm_structured(
+    openai_client,
+    data_gen_instructions,
+    user_prompt,
+    Questions
+)
+
+print(result.questions)
+```
+
+**Convert Questions into Ground Truth Records**
+
+Ground Truth records are basically question and answer label pairs
+
+```python
+records = []
+
+for q in result.questions:
+    records.append({
+        "question": q,
+        "document": doc["id"]
+    })
+
+print(records)
+```
+
+### 4-3 Generating Ground Truth for All Documents
+
+To generate ground truth for all documents, we can reuse the `llm_structured` function for all documents with a new function
+
+```python
+def generate_ground_truth(doc):
+    user_prompt = json.dumps(doc)
+
+    out, usage = llm_structured_retry(
+        openai_client,
+        data_gen_instructions,
+        user_prompt,
+        Questions
+    )
+
+    results = []
+
+    for q in out.questions:
+        results.append({
+            "question": q,
+            "document": doc["id"]
+        })
+
+    return results, usage
+
+from tqdm.auto import tqdm
+
+ground_truth = []
+usages = []
+
+for doc in tqdm(documents[:5]):
+    records, usage = generate_ground_truth(doc)
+    ground_truth.extend(records)
+    usages.append(usage)
+```
+
+**Parallel Processing**
+
+- Calling the LLM API for one document at a time does not scale well when we have thousands of documents.
+- To speed up the process, we can process documents in parallel where multiple API calls can be made simultaneously, one for each document.
+- Note that the number of parallel calls should not meet the provider's rate limits
+
+```python
+with ThreadPoolExecutor(max_workers=6) as pool:
+    results = map_progress(pool, documents, generate_ground_truth)
+```
 
 ## 5. Monitoring
 
