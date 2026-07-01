@@ -1,6 +1,6 @@
 ---
 title: System Design Index
-tags: 
+tags:
   - system-design
   - index
 ---
@@ -12,6 +12,11 @@ Notes and resources on distributed systems and system design.
 ## Notes
 
 _No standalone system design concept notes yet._
+
+## Resources
+
+- [(Course) Hello Interview - System Design in a Hurry](https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction)
+  - [(Question) Hello Interview - Design Bitly](https://www.hellointerview.com/learn/system-design/problem-breakdowns/bitly)
 
 ## Book Summaries
 
