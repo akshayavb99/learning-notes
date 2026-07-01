@@ -1,7 +1,7 @@
 ---
 title: LLM Zoomcamp 2026
 description: This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub
-updated_date: 2026-06-30
+updated_date: 2026-07-01
 tags:
   - artificial-intelligence
   - course-summary
@@ -61,6 +61,9 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 | 4.1 Introduction                              | [4-1 Introduction](#4-1-introduction)                                                           |                                                                                         |
 | 4.2 Generating Ground Truth                   | [4-2 Generating Ground Truth](#4-2-generating-ground-truth)                                     |                                                                                         |
 | 4.3 Generating Ground Truth for All Documents | [4-3 Generating Ground Truth for All Documents](#4-3-generating-ground-truth-for-all-documents) |                                                                                         |
+| 4.4 Search Evaluation                         | [4-4 Search Evaluation](#4-4-search-evaluation)                                                 |                                                                                         |
+| 4.5 Search Evaluation Metrics                 | [4-5 Search Evaluation Metrics](#4-5-search-evaluation-metrics)                                 |                                                                                         |
+| 4.6 Search Parameter Tuning                   | [4-6 Search Parameter Tuning](#4-6-search-parameter-tuning)                                     |                                                                                         |
 | 5. Monitoring                                 | [5. Monitoring](#5-monitoring)                                                                  |                                                                                         |
 | 6. Best Practices                             | [6. Best Practices](#6-best-practices)                                                          |                                                                                         |
 | 7. End-to-End Project                         | [7. End-to-End Project](#7-end-to-end-project)                                                  |                                                                                         |
@@ -2156,6 +2159,150 @@ for doc in tqdm(documents[:5]):
 ```python
 with ThreadPoolExecutor(max_workers=6) as pool:
     results = map_progress(pool, documents, generate_ground_truth)
+```
+
+### 4-4 Search Evaluation
+
+To evaluate the search, we need to look only at the search results
+
+**Build the minsearch index**
+
+```python
+import pandas as pd
+from ingest import load_faq_data, build_index
+
+df_ground_truth = pd.read_csv("data/ground_truth-new.csv")
+ground_truth = df_ground_truth.to_dict(orient="records")
+
+raw_documents = load_faq_data()
+documents = []
+
+for doc in raw_documents:
+    if doc["course"] == "llm-zoomcamp":
+        documents.append(doc)
+
+index = build_index(documents)
+```
+
+**Build a search wrapper function**
+
+```python
+def text_search(query):
+    boost_dict = {"question": 3.0, "section": 0.5}
+
+    return index.search(
+        query,
+        num_results=5,
+        boost_dict=boost_dict
+    )
+```
+
+**For every ground truth answer, search for relevant documents**
+
+```python
+from tqdm.auto import tqdm
+
+def compute_relevance_text(q, search_function):
+    doc_id = q["document"]
+    results = search_function(query=q["question"])
+
+    relevance = []
+    for d in results:
+        relevance.append(int(d["id"] == doc_id))
+
+    return relevance
+
+def compute_relevance_total(ground_truth, search_function):
+    relevance_total = []
+
+    for q in tqdm(ground_truth):
+        relevance = compute_relevance(q, search_function)
+        relevance_total.append(relevance)
+
+    return relevance_total
+
+relevance_total = compute_relevance_total(ground_truth_sample, text_search)
+relevance_total
+```
+
+### 4-5 Search Evaluation Metrics
+
+**Hit Rate (Recall@k)**
+
+- Fraction of queries where correct document appears anywhere in the results
+
+```python
+def hit_rate(relevance):
+    cnt = 0
+
+    for line in relevance:
+        if 1 in line:
+            cnt = cnt + 1
+
+    return cnt / len(relevance)
+```
+
+**Mean Reciprocal Rank**
+
+- MRR provides information about the position or rank of the correct document, not only its presence
+
+```python
+def mrr(relevance):
+    total_score = 0.0
+
+    for line in relevance:
+        for rank in range(len(line)):
+            if line[rank] == 1:
+                total_score = total_score + 1 / (rank + 1)
+                break
+
+    return total_score / len(relevance)
+```
+
+**Wrapper function for evaluation with multiple metrics**
+
+```python
+def evaluate(ground_truth, search_function):
+    relevance_total = compute_relevance_total(ground_truth, search_function)
+
+    return {
+        "hit_rate": hit_rate(relevance_total),
+        "mrr": mrr(relevance_total),
+    }
+```
+
+### 4-6 Search Parameter Tuning
+
+**Tuning for different search, question and answer boosts**
+
+```python
+results = []
+
+for question_boost in [1.0, 2.0, 5.0]:
+    for answer_boost in [1.0, 2.0, 4.0, 10.0]:
+        for section_boost in [0.1, 0.2, 0.5]:
+            print(
+                f"Evaluating question_boost={question_boost},"
+                f" answer_boost={answer_boost},"
+                f" section_boost={section_boost}..."
+            )
+            result = evaluate(
+                ground_truth,
+                lambda query, question_boost=question_boost, answer_boost=answer_boost, section_boost=section_boost: search_boosts(
+                    query,
+                    question_boost,
+                    answer_boost,
+                    section_boost
+                )
+            )
+
+            results.append({
+                "question": question_boost,
+                "answer": answer_boost,
+                "section": section_boost,
+                "hit_rate": result["hit_rate"],
+                "mrr": result["mrr"],
+            })
 ```
 
 ## 5. Monitoring
