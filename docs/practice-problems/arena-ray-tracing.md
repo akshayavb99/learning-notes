@@ -6,7 +6,7 @@ tags:
   - pytorch
   - numpy
   - linear-algebra
-updated_date: 2026-06-28
+updated_date: 2026-07-02
 url: https://learn.arena.education/chapter0_fundamentals/01_ray_tracing/intro/
 ---
 
@@ -461,6 +461,151 @@ def raytrace_mesh(
 ```
 
 An addition piece of logic is to first determine if any pair of ray-triangle does not have any intersections. The linear solver can throw errors in such cases, hence we can use the determinant to find such pairs and set their corresponding LHS matrices to the identity matrix of shape $3 \times 3$.
+
+## Exercise - rotation matrix
+
+The objective is to create a matrix which can introduce a counterclockwise transformation of angle $\theta$ around the y-axis. Mathematically, the following $3 \times 3$ matrix can introduce the rotation when given coordinates across X, Y, and Z axes
+
+$$
+$$R_y(\theta) = \begin{bmatrix} \cos\theta & 0 & \sin\theta \\ 0 & 1 & 0 \\ -\sin\theta & 0 & \cos\theta \end{bmatrix}$$
+$$
+
+```python
+def rotation_matrix(theta: Float[Tensor, ""]) -> Float[Tensor, "rows cols"]:
+    """
+    Creates a rotation matrix representing a counterclockwise rotation of `theta` around the y-axis.
+    """
+    rot_mat = t.tensor([[t.cos(theta), 0, t.sin(theta)],
+                        [0, 1, 0],
+                        [-t.sin(theta), 0, t.cos(theta)]])
+    return rot_mat
+```
+
+## Exercise - use GPUs
+
+Recall the `raytrace_mesh` function in the [previous section](#implement-raytrace_mesh). Till now, we have done all the computations using the CPU. As the computations grow in volume and complexity, using dedicated GPUs speeds up the process.
+
+```python
+def raytrace_mesh_gpu(
+    rays: Float[Tensor, "nrays rayPoints=2 dims=3"],
+    triangles: Float[Tensor, "ntriangles trianglePoints=3 dims=3"],
+) -> Float[Tensor, " nrays"]:
+    """
+    For each ray, return the distance to the closest intersecting triangle, or infinity.
+
+    All computations should be performed on the GPU.
+    """
+    device = t.device("cuda" if t.cuda.is_available() else "cpu")
+    rays = rays.to(device)
+    triangles = triangles.to(device)
+    dists = raytrace_mesh(rays, triangles)
+    return dists.cpu()
+```
+
+## Exercise (bonus) - Add Lighting
+
+We can enhance the rendered 3D figure by varying the light intesnities across the different composite triangles. Mathematically, this brightness is determined by the angle between two vectors:
+
+- The Light Vector ($\vec{L}$): The direction the light is coming from.
+- The Normal Vector ($\vec{N}$): An arrow sticking straight out of the surface (like a flagpole sticking out of a roof).
+
+According to Lambert's Cosine Law, the intensity of the reflection depends on the dot product of these two normalized (unit) vectors:
+
+$$
+\text{Intensity} = \vec{N} \cdot \vec{L} = \cos(\theta)
+$$
+
+**1. Finding out what we actually hit**
+
+```python
+closest_distances = raytrace_mesh(rays, triangles)
+```
+
+Before doing any math, the code fires thousands of "rays" from the camera into the 3D scene. It calls a helper function raytrace_mesh to find out the distance ($s$) to the closest triangle each ray collides with. If a ray misses everything, it returns an infinite distance (`inf`).
+
+**2. Finding the closest triangle based on the closest distance**
+
+```python
+# We rebuild the broadcasted arrays exactly like inside raytrace_mesh
+NR = rays.size(0)
+NT = triangles.size(0)
+
+triangles_expanded = einops.repeat(triangles, "NT pts dims -> NR NT pts dims", NR=NR)
+A, B, C = triangles_expanded[:, :, 0, :], triangles_expanded[:, :, 1, :], triangles_expanded[:, :, 2, :]
+
+rays_expanded = einops.repeat(rays, "NR pts dims -> NR NT pts dims", NT=NT)
+O, D = rays_expanded[:, :, 0, :], rays_expanded[:, :, 1, :]
+
+# Set up matrix equation
+M = t.stack([-D, B - A, C - A], dim=-1)
+b_vec = O - A
+
+# Watch out for singular matrices
+dets = t.linalg.det(M)
+is_singular = dets.abs() < 1e-8
+M[is_singular] = t.eye(3).to(device)
+
+# Solve system for ALL ray-triangle pairs
+sol = t.linalg.solve(M, b_vec)
+s = sol[..., 0]   # shape: [nrays, ntriangles]
+s *= D[..., 0]   # distance scaling
+
+is_closest_triangle = (s == closest_distances.unsqueeze(-1))
+closest_triangle_indices = is_closest_triangle.to(t.long).argmax(dim=-1) # shape: [nrays]
+```
+
+**3. Computing normal vectors for all the chosen triangles**
+
+To find which way a flat triangle is facing, we pick two of its edges ($\vec{E_1}$ and $\vec{E_2}$) and compute their cross product. The cross product outputs a new vector that points perfectly perpendicular to both edges:
+
+$$
+\vec{N}_{\text{raw}} = \vec{E}_1 \times \vec{E}_2
+$$
+
+We then divide this vector by its own length to make it a unit vector (length of $1$):
+
+$$
+\vec{N} = \frac{\vec{N}_{\text{raw}}}{\|\vec{N}_{\text{raw}}\|}
+$$
+
+```python
+edge1 = triangles[:, 1] - triangles[:, 0]
+edge2 = triangles[:, 2] - triangles[:, 0]
+normals = t.cross(edge1, edge2, dim=1) # Specify dim=1 so it doesn't crash
+normals = normals / t.norm(normals, dim=1, keepdim=True)
+```
+
+**4. Normalize light vector and calculate intensities**
+
+We calculate the dot product between our normalized surface normal $\vec{N}$ and our normalized light direction $\vec{L}$.If the triangle is facing away from the light, the dot product will be negative. Because things can't have "negative brightness," we use t.where to chop off any negative values and set them to 0.0.
+
+$$
+\text{Intensity} = \max(0, \vec{N} \cdot \vec{L})
+$$
+
+```python
+light_normalized = light / t.norm(light)
+intensity_per_triangle = t.einsum("nd, d -> n", normals, light_normalized)
+intensity_per_triangle = t.where(intensity_per_triangle > 0, intensity_per_triangle, 0.0)
+```
+
+**5. Adding Ambient Light and rendering**
+
+If a triangle is hidden in a shadow, it shouldn't be pitch black (otherwise, you couldn't see the shape of the object at all). We add a small baseline of constant light called ambient_intensity.
+
+$$
+\text{Final Color} = \text{Intensity} + \text{Ambient Intensity}
+$$
+
+Finally, the code checks if the ray actually hit something (closest_distances.isfinite()). If it did, it gives it the calculated brightness. If the ray missed everything and flew off into outer space, it returns 0.0 (pure black background).
+
+```python
+intensity_per_ray = intensity_per_triangle[closest_triangle_indices]
+final_intensity = intensity_per_ray + ambient_intensity
+final_intensity = t.where(closest_distances.isfinite(), final_intensity, 0.0)
+```
+
+---
 
 ## Full Code Solution
 
