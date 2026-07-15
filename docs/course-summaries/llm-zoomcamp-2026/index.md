@@ -1,7 +1,7 @@
 ---
 title: LLM Zoomcamp 2026
 description: This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub
-updated_date: 2026-07-01
+updated_date: 2026-07-08
 tags:
   - artificial-intelligence
   - course-summary
@@ -69,6 +69,10 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 | 4.13 LLM as a Judge                           | [4-13 LLM as a Judge](#4-13-llm-as-a-judge)                                                     |                                                                                         |
 | 4.14 Agent Evaluation                         |                                                                                                 |                                                                                         |
 | 5. Monitoring                                 | [5. Monitoring](#5-monitoring)                                                                  |                                                                                         |
+| 5.1 Introduction                              |                                                                                                 |                                                                                         |
+| 5.2 Assistant Setup                           |                                                                                                 |                                                                                         |
+| 5.3 Chat App                                  |                                                                                                 |                                                                                         |
+| 5.4 Capturing Metrics                         | [5-4 Capturing Metrics](#5-4-capturing-metrics)                                                 |                                                                                         |
 | 6. Best Practices                             | [6. Best Practices](#6-best-practices)                                                          |                                                                                         |
 | 7. End-to-End Project                         | [7. End-to-End Project](#7-end-to-end-project)                                                  |                                                                                         |
 | Capstone Project                              | [Capstone Project](#capstone-project)                                                           |                                                                                         |
@@ -2474,7 +2478,89 @@ with ThreadPoolExecutor(max_workers=6) as pool:
 
 ## 5. Monitoring
 
-Monitor user feedback and system health with live dashboards
+### 5-4 Capturing Metrics
+
+The goal is to eliminate the "black box" nature of production LLM calls by capturing performance data—specifically response time, token counts, and cost—in real-time as calls happen.
+
+**Data Structure (LLMCallRecord)**
+
+Instead of using loose dictionaries, a Python `@dataclass` defines the exact schema of a single LLM call. It records:
+
+- Model name, prompt, instructions, and generated answer.
+- Token counts (prompt_tokens, completion_tokens, total_tokens).
+- Execution metrics (response_time, calculated cost, and a timestamp).
+
+```python
+@dataclass
+class LLMCallRecord:
+    model: str
+    prompt: str
+    instructions: str
+    answer: str
+    prompt_tokens: int
+    completion_tokens: int
+    total_tokens: int
+    response_time: float
+    cost: float
+    timestamp: datetime = field(default_factory=datetime.now)
+```
+
+**Cost Calculation**
+
+A helper function dynamically calculates the financial cost per call based on token usage.Example: For gpt-5.4-mini, the rate is calculated as:
+
+$$
+\text{Cost} = \frac{(\text{Input Tokens} \times 0.15) + (\text{Output Tokens} \times 0.60)}{1,000,000}
+$$
+
+**`RAGWithMetrics` - Subclassing the RAGBase class to add metrics functionalities**
+
+```python
+class RAGWithMetrics(RAGBase):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.last_call: LLMCallRecord = None
+
+    def llm(self, prompt):
+        start_time = time.time()
+        response = self._call_llm(prompt)
+        response_time = time.time() - start_time
+        self._log_response(prompt, response, response_time)
+        return response.output_text
+
+    def _call_llm(self, prompt):
+        input_messages = [
+            {"role": "developer", "content": self.instructions},
+            {"role": "user", "content": prompt}
+        ]
+        response = self.llm_client.responses.create(
+            model=self.model,
+            input=input_messages
+        )
+        return response
+
+    def _log_response(self, prompt, response, response_time):
+        usage = response.usage
+        cost = calculate_cost(self.model, usage)
+
+        call_record = LLMCallRecord(
+            model=self.model,
+            prompt=prompt,
+            instructions=self.instructions,
+            answer=response.output_text,
+            prompt_tokens=usage.input_tokens,
+            completion_tokens=usage.output_tokens,
+            total_tokens=usage.total_tokens,
+            response_time=response_time,
+            cost=cost,
+        )
+
+        print(call_record)
+        self.last_call = call_record
+```
+
+While metrics are now visible on the frontend, they currently vanish when the app closes. The next phase involves persisting these records to a database to track historical system usage over time.
 
 ## 6. Best Practices
 
