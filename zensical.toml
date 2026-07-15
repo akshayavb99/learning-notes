@@ -28,6 +28,7 @@ features = [
     "search.suggest",
     "search.highlight",
     "toc.follow",
+#    "toc.integrate",
     "content.footnote.tooltips",
     "content.tabs.link"
 ]

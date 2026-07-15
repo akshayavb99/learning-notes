@@ -96,21 +96,6 @@ SECTIONS = [
         },
     },
     {
-        'dir': DOCS_DIR / 'research-dev-diary',
-        'glob': '*.md',
-        'parent_stem': False,
-        'url_prefix': 'research-dev-diary',
-        'label': 'Research and Developer Diary',
-        'desc': "Research notes, implementation logs, experiments, and developer diary entries.",
-        'start_marker': '<!-- pr:start -->',
-        'end_marker': '<!-- pr:end -->',
-        'section_index': {
-            'file': DOCS_DIR / 'research-dev-diary' / 'index.md',
-            'start': '<!-- pr:start -->',
-            'end': '<!-- pr:end -->',
-        },
-    },
-    {
         'dir': DOCS_DIR / 'practice-problems',
         'glob': '*.md',
         'parent_stem': False,
@@ -772,7 +757,6 @@ def update_homepage_counts(sections):
         'Paper Summaries': ('paper-summaries', count_label(section_counts.get('Paper Summaries', 0), 'paper')),
         'Indexes': ('indexes', count_label(section_counts.get('Indexes', 0), 'index')),
         'Course Summaries': ('course-summaries', count_label(section_counts.get('Course Summaries', 0), 'course')),
-        'Research and Developer Diary': ('research-dev-diary', count_label(section_counts.get('Research and Developer Diary', 0), 'entry')),
         'Leetcode Solutions': ('practice-problems', count_label(section_counts.get('Leetcode Solutions', 0), 'solution')),
     }
 
@@ -793,7 +777,6 @@ def update_homepage_counts(sections):
         'paper-summaries': str(section_counts.get('Paper Summaries', 0)),
         'indexes': str(section_counts.get('Indexes', 0)),
         'course-summaries': str(section_counts.get('Course Summaries', 0)),
-        'research-dev-diary': str(section_counts.get('Research and Developer Diary', 0)),
         'practice-problems': str(section_counts.get('Leetcode Solutions', 0)),
     }
 
