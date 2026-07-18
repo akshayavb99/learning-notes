@@ -1,7 +1,7 @@
 ---
 title: LLM Zoomcamp 2026
 description: This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub
-updated_date: 2026-07-08
+updated_date: 2026-07-18
 tags:
   - artificial-intelligence
   - course-summary
@@ -10,6 +10,9 @@ tags:
   - agentic-ai
   - kestra
   - llm-evaluation
+  - streamlit
+  - monitoring
+  - grafana
 ---
 
 # LLM Zoomcamp 2026
@@ -19,7 +22,7 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 ## Index
 
 | Lecture                                       | Notes                                                                                           | Homework                                                                                |
-| --------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --- |
 | **Lecture 1 - Agentic RAG**                   | [1. Agentic Rag](#1-agentic-rag)                                                                | [Homework 1](https://github.com/akshayavb99/llm-zoomcamp-2026-hw/tree/main/homework-01) |
 | 1.1 Introduction                              | [1-1 Introduction](#1-1-introduction)                                                           |                                                                                         |
 | 1.2 Environment                               | [1-2 Environment](#1-2-environment)                                                             |                                                                                         |
@@ -73,8 +76,10 @@ This is the course summary page for the LLM Zoomcamp by [DataTalksClub](https://
 | 5.2 Assistant Setup                           |                                                                                                 |                                                                                         |
 | 5.3 Chat App                                  |                                                                                                 |                                                                                         |
 | 5.4 Capturing Metrics                         | [5-4 Capturing Metrics](#5-4-capturing-metrics)                                                 |                                                                                         |
-| 6. Best Practices                             | [6. Best Practices](#6-best-practices)                                                          |                                                                                         |
-| 7. End-to-End Project                         | [7. End-to-End Project](#7-end-to-end-project)                                                  |                                                                                         |
+| 5.5 Database                                  | [5-5 Database](#5-5-database)                                                                   |                                                                                         |
+| 5.6 Querying Conversations                    | [5-6 Querying `conversations` table](#5-6-querying-conversations-table)                         |                                                                                         |
+| 5.7 Streamlit Dashboard                       | [5-7 Building a Streamlit Dashboard](#5-7-building-a-streamlit-dashboard)                       |                                                                                         |
+| 5.8 User Feedback                             | [5-8 User Feedback](#5-8-user-feedback)                                                         |                                                                                         |     |
 | Capstone Project                              | [Capstone Project](#capstone-project)                                                           |                                                                                         |
 
 ## 1. Agentic RAG
@@ -2562,14 +2567,416 @@ class RAGWithMetrics(RAGBase):
 
 While metrics are now visible on the frontend, they currently vanish when the app closes. The next phase involves persisting these records to a database to track historical system usage over time.
 
-## 6. Best Practices
+### 5-5 Database
 
-LangChain, hybrid search. Combine vector + keyword search; rerank results for higher precision
+**Setting up PostgreSQL DB in Docker**
 
-## 7. End-to-End Project
+To persist LLM metrics, PostgreSQL is run inside a Docker container. Since Grafana will later connect to the same database, a dedicated Docker network is created before starting PostgreSQL.
 
-A complete project example: a fitness assistant built with LLMs
+The PostgreSQL instance is used only for monitoring data, not for storing application data.
+
+To simplify repeated setup, the Docker commands are placed inside a Makefile:
+
+- `make network` → Creates the Docker network.
+- `make postgres` → Creates the network (if needed) and starts the PostgreSQL container.
+
+```text
+# Add to Makefile
+network:
+	docker network create monitoring
+
+postgres: network
+	docker run -it \
+		--name course-assistant-pg \
+		--network monitoring \
+		-e POSTGRES_USER=user \
+		-e POSTGRES_PASSWORD=password \
+		-e POSTGRES_DB=course_assistant \
+		-p 5432:5432 \
+		-v pgdata:/var/lib/postgresql/data \
+		postgres:17
+```
+
+**Installing driver to connect with PostgreSQL DB from Python**
+
+`uv add "psycopg[binary]"`
+
+After installing the dependency, the application connects to PostgreSQL using:
+
+- Host
+- DB name
+- Username
+- Password
+- Port (optional if using the default PostgreSQL port)
+
+**Creating table to store LLM Conversation records**
+
+We create a PostgreSQL table to store each LLM interaction by utlizing the data from `LLMCallRecord` objects, uniquely identified by autogenerated `id`.
+
+The table needs to be created only once - volume persistance in the Docker container will ensure the same table is available for uswhen the docker container is stopped and started or restarted.
+
+```python
+# db_init.py
+import os
+import psycopg
+from datetime import datetime
+
+DB_TIMEZONE = datetime.now().astimezone().tzinfo
+print(f"Using timezone: {DB_TIMEZONE}")
+
+def get_db_connection():
+    return psycopg.connect(
+        host=os.getenv("POSTGRES_HOST", "localhost"),
+        dbname=os.getenv("POSTGRES_DB", "course_assistant"),
+        user=os.getenv("POSTGRES_USER", "user"),
+        password=os.getenv("POSTGRES_PASSWORD", "password"),
+    )
+
+def init_db(drop=False):
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            if drop:
+                cur.execute("DROP TABLE IF EXISTS conversations")
+
+            cur.execute("""
+                CREATE TABLE conversations (
+                    id SERIAL PRIMARY KEY,
+                    question TEXT NOT NULL,
+                    answer TEXT NOT NULL,
+                    course TEXT NOT NULL,
+                    model TEXT NOT NULL,
+                    instructions TEXT NOT NULL,
+                    prompt TEXT NOT NULL,
+                    prompt_tokens INTEGER NOT NULL,
+                    completion_tokens INTEGER NOT NULL,
+                    total_tokens INTEGER NOT NULL,
+                    response_time FLOAT NOT NULL,
+                    cost FLOAT NOT NULL,
+                    timestamp TIMESTAMP WITH TIME ZONE NOT NULL
+                )
+            """)
+        conn.commit()
+    finally:
+        conn.close()
+
+if __name__ == "__main__":
+    init_db()
+    print("Database initialized")
+```
+
+**Inserting records into `conversations` table**
+
+Once the table is ready, the data in `LLMCallRecord` objects can be inserted into the `conversations` table.
+
+```python
+# db_save.py
+
+from datetime import datetime
+from db_init import get_db_connection, DB_TIMEZONE
+
+def save_conversation(record, question, course):
+    timestamp = datetime.now(DB_TIMEZONE)
+
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO conversations (
+                    question, answer, course, model, instructions, prompt,
+                    prompt_tokens, completion_tokens, total_tokens,
+                    response_time, cost, timestamp
+                ) VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                )
+                RETURNING id
+                """,
+                (
+                    question,
+                    record.answer,
+                    course,
+                    record.model,
+                    record.instructions,
+                    record.prompt,
+                    record.prompt_tokens,
+                    record.completion_tokens,
+                    record.total_tokens,
+                    record.response_time,
+                    record.cost,
+                    timestamp,
+                ),
+            )
+            conversation_id = cur.fetchone()[0]
+        conn.commit()
+    finally:
+        conn.close()
+    return conversation_id
+```
+
+### 5-6 Querying `conversations` table
+
+```python
+# db_query.py
+
+from dataclasses import dataclass
+
+from db_init import get_db_connection
+from metrics import LLMCallRecord
+
+def row_to_record(row):
+    return LLMCallRecord(
+        model=row[4],
+        prompt=row[6],
+        instructions=row[5],
+        answer=row[2],
+        prompt_tokens=row[7],
+        completion_tokens=row[8],
+        total_tokens=row[9],
+        response_time=row[10],
+        cost=row[11],
+        timestamp=row[12],
+    )
+
+def get_conversations(limit=10):
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT id, question, answer, course, model,
+                       instructions, prompt,
+                       prompt_tokens, completion_tokens, total_tokens,
+                       response_time, cost, timestamp
+                FROM conversations
+                ORDER BY timestamp DESC
+                LIMIT %s
+                """,
+                (limit,),
+            )
+            rows = cur.fetchall()
+    finally:
+        conn.close()
+
+    return [row_to_record(row) for row in rows]
+
+if __name__ == "__main__":
+    records = get_conversations()
+    for record in records:
+        print(record)
+```
+
+### 5-7 Building a Streamlit Dashboard
+
+We need the PostgreSQL DB on Docker only for future pivot to using Grafana. If we are building a Streamlit dashboard, SQLite DB can also be used as a simpler implementation.
+
+We define a `dataclass ` and a function to get statistics of the LLM conversation
+
+```python
+# Add to db_query.py
+
+@dataclass
+class Stats:
+    total: int
+    avg_response_time: float
+    total_cost: float
+    avg_tokens: float
+
+def get_stats():
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT
+                    COUNT(*),
+                    AVG(response_time),
+                    SUM(cost),
+                    AVG(total_tokens)
+                FROM conversations
+            """)
+            row = cur.fetchone()
+    finally:
+        conn.close()
+
+    return Stats(
+        total=row[0],
+        avg_response_time=row[1],
+        total_cost=row[2],
+        avg_tokens=row[3],
+    )
+```
+
+Next, we create the Streamlit dashboard
+
+```python
+# dashboard.py
+
+import streamlit as st
+from dataclasses import asdict
+import pandas as pd
+from db_query import get_conversations, get_stats
+
+st.title("Course Assistant Dashboard")
+
+stats = get_stats()
+
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Total conversations", stats.total)
+col2.metric("Avg response time", f"{stats.avg_response_time:.2f}s")
+col3.metric("Total cost", f"${stats.total_cost:.4f}")
+col4.metric("Avg tokens", f"{stats.avg_tokens:.0f}")
+
+st.subheader("Recent conversations")
+records = get_conversations(limit=20)
+
+for record in records:
+    st.write(f"**{record.prompt[:80]}...**")
+    st.write(f"{record.answer[:200]}...")
+    st.write(f"Time: {record.response_time:.2f}s | Cost: ${record.cost:.4f}")
+    st.divider()
+```
+
+### 5-8 User Feedback
+
+Giving the users options to provide positive or negative feedback after receiving a response has many advantages:
+
+- Improves evaluation datasets by providing real user judgments.
+- Helps compare user opinions with LLM-based evaluation (LLM-as-a-Judge).
+- Enables monitoring dashboards to track trends in user satisfaction.
+- Helps identify issues when a sudden increase in negative feedback occurs.
+
+**Creating the `feedback` table**
+
+The feedback table stores:
+
+- `conversation_id` – References the conversation being rated.
+- `source` – Origin of the feedback (e.g., user or future automated evaluators such as an LLM Judge).
+- `score` – Positive (+1) or negative (-1) feedback.
+- `relevance and explanation` – Reserved for future evaluation workflows and detailed feedback.
+
+```python
+# Add to db_init.py
+
+def init_feedback():
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("DROP TABLE IF EXISTS feedback")
+
+            cur.execute("""
+                CREATE TABLE feedback (
+                    id SERIAL PRIMARY KEY,
+                    conversation_id INTEGER REFERENCES conversations(id),
+                    source TEXT NOT NULL,
+                    relevance TEXT,
+                    explanation TEXT,
+                    score INTEGER,
+                    timestamp TIMESTAMP WITH TIME ZONE NOT NULL
+                )
+            """)
+        conn.commit()
+    finally:
+        conn.close()
+
+if __name__ == "__main__":
+    init_db()
+    init_feedback()
+    print("Database initialized")
+```
+
+**Saving user feedback**
+
+A new database function, save_feedback(), is implemented to insert feedback into the feedback table.
+
+The function stores:
+
+- Conversation ID
+- Feedback source
+- Relevance
+- Explanation
+- Score
+
+For the current implementation:
+
+- Source = `user`
+- Score = `+1` or `-1`
+
+```python
+# db_feedback.py
+
+from datetime import datetime
+from db_init import get_db_connection, DB_TIMEZONE
+
+def save_feedback(conversation_id, source, relevance=None,
+                  explanation=None, score=None):
+    timestamp = datetime.now(DB_TIMEZONE)
+
+    conn = get_db_connection()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO feedback (
+                    conversation_id, source, relevance,
+                    explanation, score, timestamp
+                ) VALUES (
+                    %s, %s, %s, %s, %s, %s
+                )
+                """,
+                (conversation_id, source, relevance,
+                 explanation, score, timestamp),
+            )
+        conn.commit()
+    finally:
+        conn.close()
+```
+
+**Adding Feedback Buttons**
+
+The Streamlit application is updated with two feedback buttons:
+
+- 👍 Positive (+1)
+- 👎 Negative (-1)
+
+When a user clicks either button, the application records the selected feedback and stores it in the database.
+
+```python
+# Add to app.py
+from db_feedback import save_feedback
+
+if st.button("Ask"):
+    with st.spinner("Processing..."):
+        answer = assistant.rag(user_input)
+        st.success("Completed!")
+        st.write(answer)
+
+        record = assistant.last_call
+        st.write(f"Response time: {record.response_time:.2f}s")
+        st.write(f"Prompt tokens: {record.prompt_tokens}")
+        st.write(f"Completion tokens: {record.completion_tokens}")
+        st.write(f"Cost: ${record.cost:.4f}")
+
+        conversation_id = save_conversation(record, user_input, "llm-zoomcamp")
+        st.session_state.conversation_id = conversation_id
+
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("+1"):
+        cid = st.session_state.conversation_id
+        save_feedback(cid, "user", score=1)
+        st.write("Thanks!")
+
+with col2:
+    if st.button("-1"):
+        cid = st.session_state.conversation_id
+        save_feedback(cid, "user", score=-1)
+        st.write("Thanks for the feedback!")
+```
 
 ## Capstone Project
 
 Ship a complete end-to-end project of your choice from scratch
+
+```
+
+```
