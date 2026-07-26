@@ -9,10 +9,8 @@ site_author = "Akshaya Balaji"
 docs_dir = "docs"
 site_dir = "site"
 copyright = "&copy; 2026 Akshaya Balaji"
-extra_javascript = [
-    "javascripts/mathjax.js",
-    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"
-]
+extra_javascript = ["javascripts/mathjax.js", "javascripts/knowledge-graph-data.js", "javascripts/knowledge-graph.js", "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"]
+extra_css = ["stylesheets/knowledge-graph.css"]
 
 [project.theme]
 features = [
@@ -96,3 +94,7 @@ generic = true
 [project.markdown_extensions.pymdownx.emoji]
 emoji_index = "pymdownx.emoji.twemoji"
 emoji_generator = "pymdownx.emoji.to_svg"
+
+
+
+

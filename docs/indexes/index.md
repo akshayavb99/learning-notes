@@ -29,6 +29,27 @@ Topic-area indexes. Use to browse notes by theme.
 <div class="ni-list">
 <div class="ni">
   <div class="ni-header">
+    <a href="./AI-ML-interview-prep-topics/" class="ni-title">AI/ML Interview Prep Topics</a>
+    <span class="ni-date">Jul 25, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">artificial-intelligence</span><span class="ni-tag">index</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./mathematics/" class="ni-title">Mathematics Index</a>
+    <span class="ni-date">Jul 25, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">mathematics</span><span class="ni-tag">index</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./system-design/" class="ni-title">System Design Index</a>
+    <span class="ni-date">Jul 16, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">system-design</span><span class="ni-tag">index</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
     <a href="./artificial-intelligence/" class="ni-title">Artificial Intelligence Index</a>
     <span class="ni-date">May 1, 2026</span>
   </div>
@@ -40,13 +61,6 @@ Topic-area indexes. Use to browse notes by theme.
     <span class="ni-date">May 1, 2026</span>
   </div>
   <div class="ni-tags"><span class="ni-tag">programming</span><span class="ni-tag">index</span></div>
-</div>
-<div class="ni">
-  <div class="ni-header">
-    <a href="./system-design/" class="ni-title">System Design Index</a>
-    <span class="ni-date">May 1, 2026</span>
-  </div>
-  <div class="ni-tags"><span class="ni-tag">system-design</span><span class="ni-tag">index</span></div>
 </div>
 <div class="ni">
   <div class="ni-header">

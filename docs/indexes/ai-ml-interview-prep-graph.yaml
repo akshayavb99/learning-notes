@@ -1,0 +1,1283 @@
+﻿# Optional status values: To be started, In Progress, Complete
+files:
+  # ============================================================
+  # MATHEMATICAL FOUNDATIONS
+  # ============================================================
+
+  - name: Linear Algebra
+    category: Foundation
+    status: In Progress
+    path: indexes/mathematics/#linear-algebra-important-terms-and-concepts
+
+  - name: Calculus and Differentiation
+    category: Foundation
+    status: To be started
+    path: indexes/mathematics/#calculus-important-terms-and-concepts
+
+  - name: Probability Theory
+    category: Foundation
+    status: To be started
+    path: indexes/mathematics/#probability-theory-important-terms-and-concepts
+
+  - name: Statistics
+    category: Foundation
+    status: To be started
+    path: indexes/mathematics/#statistics-important-terms-and-concepts
+
+  # ============================================================
+  # MACHINE LEARNING FOUNDATIONS
+  # ============================================================
+
+  - name: Machine Learning Fundamentals
+    category: Foundation
+    status: In Progress
+    path: indexes/artificial-intelligence/#fundamentals-important-terms-and-concepts
+
+  {# - name: Data Preprocessing
+    category: Foundation
+    path: concept-notes/data-preprocessing-methods
+
+  - name: Feature Engineering
+    topics:
+      - Feature representation
+      - Numerical features
+      - Categorical features
+      - Ordinal features
+      - One-hot encoding
+      - Label encoding
+      - Target encoding
+      - Frequency encoding
+      - Feature scaling
+      - Feature interactions
+      - Polynomial features
+      - Feature extraction
+      - Feature selection
+      - Filter methods
+      - Wrapper methods
+      - Embedded methods
+      - Feature importance #}
+
+  # ============================================================
+  # CLASSICAL MACHINE LEARNING MODELS
+  # ============================================================
+
+  {# - name: Linear Regression
+    topics:
+      - Simple linear regression
+      - Multiple linear regression
+      - Least squares
+      - Normal equation
+      - Gradient descent solution
+      - Regression coefficients
+      - Residuals
+      - Residual analysis
+      - R-squared
+      - Adjusted R-squared
+      - Regression assumptions
+      - Multicollinearity
+      - Polynomial regression
+      - Interaction terms
+
+  - name: Generalized Linear Models
+    topics:
+      - Exponential family
+      - Link functions
+      - Logistic regression
+      - Poisson regression
+      - Probit regression
+      - Maximum likelihood formulation
+      - Odds ratio
+      - Log odds
+
+  - name: Classification Algorithms
+    topics:
+      - Logistic regression
+      - k-Nearest Neighbors
+      - Naive Bayes
+      - Linear discriminant analysis
+      - Quadratic discriminant analysis
+      - Support Vector Machines
+      - Maximum margin classifier
+      - Soft margin classifier
+      - Kernel methods
+      - Polynomial kernels
+      - RBF kernels
+
+  - name: Decision Trees
+    topics:
+      - Tree representation
+      - Nodes
+      - Splits
+      - Leaves
+      - Recursive partitioning
+      - Regression trees
+      - Classification trees
+      - Entropy
+      - Information gain
+      - Gini impurity
+      - Tree depth
+      - Pruning
+      - Cost complexity pruning
+
+  - name: Ensemble Learning
+    topics:
+      - Ensemble motivation
+      - Bagging
+      - Bootstrap aggregation
+      - Random forests
+      - Extremely randomized trees
+      - Boosting
+      - AdaBoost
+      - Gradient boosting
+      - XGBoost
+      - LightGBM
+      - CatBoost
+      - Stacking
+      - Blending
+      - Voting ensembles
+
+  - name: Unsupervised Learning
+    topics:
+      - Clustering objectives
+      - Distance functions
+      - K-means clustering
+      - K-means initialization
+      - K-means++
+      - Elbow method
+      - Silhouette score
+      - Hierarchical clustering
+      - Agglomerative clustering
+      - Divisive clustering
+      - Dendrograms
+      - DBSCAN
+      - Gaussian mixture models
+      - Expectation maximization
+      - Density estimation
+
+  - name: Dimensionality Reduction
+    topics:
+      - Curse of dimensionality
+      - Feature compression
+      - PCA
+      - Principal components
+      - Explained variance
+      - Eigenvector interpretation
+      - SVD-based PCA
+      - Kernel PCA
+      - Independent Component Analysis
+      - t-SNE
+      - UMAP
+ #}
+  # ============================================================
+  # MODEL TRAINING AND OPTIMIZATION
+  # ============================================================
+
+ {#  - name: Optimization
+    topics:
+      - Optimization objectives
+      - Empirical risk minimization
+      - Loss functions
+      - Cost functions
+      - Convex optimization
+      - Non-convex optimization
+      - Gradient descent
+      - Batch gradient descent
+      - Stochastic gradient descent
+      - Mini-batch gradient descent
+      - Learning rate
+      - Learning rate schedules
+      - Momentum
+      - Nesterov momentum
+      - AdaGrad
+      - RMSProp
+      - Adam
+      - AdamW
+      - Convergence
+      - Local minima
+      - Global minima
+      - Saddle points
+      - Optimization landscape
+
+  - name: Loss Functions
+    topics:
+      - Mean squared error
+      - Mean absolute error
+      - Huber loss
+      - Log loss
+      - Binary cross entropy
+      - Categorical cross entropy
+      - Hinge loss
+      - KL divergence
+      - Jensen-Shannon divergence
+      - Contrastive loss
+      - Triplet loss
+      - Ranking loss
+      - Focal loss
+
+  - name: Model Selection
+    topics:
+      - Training error
+      - Validation error
+      - Test error
+      - Cross validation
+      - K-fold cross validation
+      - Stratified cross validation
+      - Leave-one-out validation
+      - Bootstrap
+      - Model comparison
+      - Baselines
+      - Learning curves
+      - Validation curves
+
+  - name: Hyperparameter Optimization
+    topics:
+      - Hyperparameters
+      - Grid search
+      - Random search
+      - Bayesian optimization
+      - Tree-structured Parzen estimator
+      - Early stopping
+      - Experiment tracking
+      - Reproducibility #}
+
+# ============================================================
+# DEEP LEARNING FOUNDATIONS
+# ============================================================
+
+{#   - name: Neural Networks Fundamentals
+    topics:
+      - Biological inspiration of neural networks
+      - Artificial neurons
+      - Perceptron
+      - Linear threshold units
+      - Neural network layers
+      - Input layer
+      - Hidden layers
+      - Output layer
+      - Parameters:
+          - Weights
+          - Biases
+      - Network depth
+      - Network width
+      - Deep vs shallow networks
+      - Forward propagation
+      - Backward propagation
+      - Computational graphs
+      - Representation learning
+      - Feature learning
+      - Universal approximation theorem
+      - Neural network capacity
+
+
+  - name: Activation Functions
+    topics:
+      - Purpose of activation functions
+      - Linear activation
+      - Sigmoid
+      - Tanh
+      - ReLU
+      - Leaky ReLU
+      - Parametric ReLU
+      - ELU
+      - GELU
+      - Swish
+      - Softmax
+      - Activation saturation
+      - Dead neurons
+      - Vanishing gradients
+      - Activation selection
+
+
+  - name: Neural Network Forward and Backward Propagation
+    topics:
+      - Forward pass
+      - Loss computation
+      - Backward pass
+      - Chain rule in neural networks
+      - Gradient computation
+      - Gradient flow
+      - Computational graphs
+      - Automatic differentiation
+      - Backpropagation through layers
+      - Gradient checking
+      - Numerical gradient approximation
+
+
+  - name: Neural Network Initialization
+    topics:
+      - Importance of initialization
+      - Zero initialization problem
+      - Symmetry breaking
+      - Random initialization
+      - Xavier initialization
+      - Glorot initialization
+      - He initialization
+      - Orthogonal initialization
+      - Initialization for deep networks
+
+
+  - name: Neural Network Training
+    topics:
+      - Training loop
+      - Mini-batch training
+      - Epochs
+      - Batch size
+      - Learning rate
+      - Learning rate warmup
+      - Learning rate decay
+      - Gradient descent optimization
+      - Gradient accumulation
+      - Gradient clipping
+      - Mixed precision training
+      - Numerical stability
+      - Training instability
+
+
+  - name: Deep Learning Regularization
+    topics:
+      - Overfitting in neural networks
+      - L1 regularization
+      - L2 regularization
+      - Weight decay
+      - Dropout
+      - DropConnect
+      - Early stopping
+      - Data augmentation
+      - Label smoothing
+      - Noise injection
+      - Stochastic depth
+      - Regularization vs optimization
+
+
+  - name: Normalization Techniques
+    topics:
+      - Batch normalization
+      - Layer normalization
+      - Instance normalization
+      - Group normalization
+      - Batch statistics
+      - Training vs inference behavior
+      - Internal covariate shift
+      - Normalization in transformers
+
+
+  - name: Deep Learning Optimization
+    topics:
+      - SGD
+      - Momentum
+      - Nesterov momentum
+      - AdaGrad
+      - RMSProp
+      - Adam
+      - AdamW
+      - Adaptive learning rates
+      - Optimizer comparison
+      - Loss landscape
+      - Sharp vs flat minima
+      - Optimization challenges #}
+
+
+# ============================================================
+# DEEP LEARNING FRAMEWORKS AND ENGINEERING
+# ============================================================
+
+{#   - name: Deep Learning Frameworks
+    topics:
+      - PyTorch
+      - TensorFlow
+      - JAX
+      - Tensors
+      - Computational graphs
+      - Dynamic graphs
+      - Static graphs
+      - Autograd
+      - Dataset abstractions
+      - Data loaders
+      - Model definition
+      - Training loops
+      - Checkpointing
+      - Model serialization
+
+
+  - name: GPU Computing for Deep Learning
+    topics:
+      - CPU vs GPU
+      - GPU architecture
+      - CUDA basics
+      - CUDA cores
+      - Memory hierarchy
+      - GPU memory management
+      - Tensor cores
+      - Mixed precision
+      - FP32
+      - FP16
+      - BF16
+      - Memory optimization
+ #}
+
+# ============================================================
+# CONVOLUTIONAL NEURAL NETWORKS
+# ============================================================
+
+{#   - name: Convolutional Neural Networks
+    topics:
+      - Motivation for CNNs
+      - Image representation
+      - Spatial locality
+      - Parameter sharing
+      - Sparse connectivity
+      - Convolution operation
+      - Filters
+      - Kernels
+      - Feature maps
+      - Channels
+      - Receptive field
+      - Padding
+      - Stride
+      - Dilated convolution
+      - Transposed convolution
+      - Pooling:
+          - Max pooling
+          - Average pooling
+      - Global average pooling
+
+
+  - name: CNN Architectures
+    topics:
+      - LeNet
+      - AlexNet
+      - VGG
+      - Network in Network
+      - GoogLeNet
+      - Inception networks
+      - ResNet
+      - Residual blocks
+      - Skip connections
+      - DenseNet
+      - MobileNet
+      - EfficientNet
+      - ConvNeXt
+      - Neural architecture search
+
+
+  - name: Computer Vision Fundamentals
+    topics:
+      - Image representation
+      - Pixels
+      - Channels
+      - Color spaces
+      - Image preprocessing
+      - Image augmentation
+      - Normalization
+      - Data augmentation strategies
+      - Image classification
+      - Transfer learning
+      - Feature extraction
+      - Fine tuning
+
+
+  - name: Object Detection
+    topics:
+      - Object localization
+      - Bounding boxes
+      - Classification + localization
+      - Sliding window detection
+      - Region proposals
+      - R-CNN
+      - Fast R-CNN
+      - Faster R-CNN
+      - YOLO
+      - SSD
+      - RetinaNet
+      - Anchor boxes
+      - Intersection over Union
+      - Non-max suppression
+
+
+  - name: Image Segmentation
+    topics:
+      - Semantic segmentation
+      - Instance segmentation
+      - Panoptic segmentation
+      - Fully convolutional networks
+      - U-Net
+      - Mask R-CNN
+      - DeepLab
+      - Segmentation metrics:
+          - IoU
+          - Dice score
+
+
+  - name: Advanced Computer Vision
+    topics:
+      - Vision Transformers
+      - ViT
+      - Swin Transformer
+      - CLIP
+      - Image-text alignment
+      - Self-supervised vision learning
+      - Contrastive vision learning
+      - Foundation vision models
+      - Segment Anything Model #}
+
+
+# ============================================================
+# SEQUENCE MODELS
+# ============================================================
+
+{#   - name: Sequence Modeling Fundamentals
+    topics:
+      - Sequential data
+      - Temporal dependencies
+      - Time series
+      - Language sequences
+      - Variable length sequences
+      - Sequence-to-sequence learning
+      - Many-to-one models
+      - One-to-many models
+      - Many-to-many models
+
+
+  - name: Recurrent Neural Networks
+    topics:
+      - RNN architecture
+      - Hidden states
+      - Recurrent connections
+      - Unrolling through time
+      - Backpropagation through time
+      - Vanishing gradients
+      - Exploding gradients
+      - Long-range dependencies
+
+
+  - name: Long Short-Term Memory Networks
+    topics:
+      - LSTM motivation
+      - Cell state
+      - Hidden state
+      - Forget gate
+      - Input gate
+      - Output gate
+      - Candidate memory
+      - Gradient flow in LSTM
+
+
+  - name: Gated Recurrent Units
+    topics:
+      - GRU architecture
+      - Update gate
+      - Reset gate
+      - GRU vs LSTM
+      - Efficiency considerations
+
+
+  - name: Advanced Sequence Architectures
+    topics:
+      - Bidirectional RNNs
+      - Deep RNNs
+      - Encoder-decoder architectures
+      - Teacher forcing
+      - Scheduled sampling
+      - Beam search
+      - Sequence generation #}
+
+
+# ============================================================
+# ATTENTION AND TRANSFORMERS
+# ============================================================
+
+{#   - name: Attention Mechanisms
+    topics:
+      - Motivation for attention
+      - Alignment models
+      - Query
+      - Key
+      - Value
+      - Attention scores
+      - Scaled dot-product attention
+      - Additive attention
+      - Self-attention
+      - Cross-attention
+      - Multi-head attention
+      - Attention masking
+      - Causal attention
+
+
+  - name: Transformer Architecture
+    topics:
+      - Transformer motivation
+      - Encoder architecture
+      - Decoder architecture
+      - Encoder-decoder transformer
+      - Self-attention layers
+      - Feed-forward layers
+      - Residual connections
+      - Layer normalization
+      - Positional encoding
+      - Learned positional embeddings
+      - Transformer variants
+
+
+  - name: Transformer Training
+    topics:
+      - Teacher forcing
+      - Autoregressive training
+      - Masked language modeling
+      - Next token prediction
+      - Sequence length
+      - Context window
+      - Attention complexity
+      - Quadratic attention cost
+      - Efficient attention #}
+
+
+# ============================================================
+# REPRESENTATION LEARNING
+# ============================================================
+
+{#   - name: Representation Learning
+    topics:
+      - Feature learning
+      - Distributed representations
+      - Latent representations
+      - Embedding spaces
+      - Representation quality
+      - Transferability
+      - Invariance
+      - Equivariance
+
+
+  - name: Word Embeddings
+    topics:
+      - One-hot representations
+      - Distributed word representations
+      - Word2Vec
+      - Skip-gram
+      - Continuous bag of words
+      - Negative sampling
+      - Hierarchical softmax
+      - GloVe
+      - FastText
+      - Word similarity
+      - Word analogies
+
+
+  - name: Sentence and Document Embeddings
+    topics:
+      - Sentence embeddings
+      - Document embeddings
+      - Encoder models
+      - Semantic similarity
+      - Embedding normalization
+      - Dense retrieval
+      - Vector similarity search
+
+
+  - name: Contrastive Learning
+    topics:
+      - Contrastive objectives
+      - Positive pairs
+      - Negative pairs
+      - InfoNCE loss
+      - Representation collapse
+      - SimCLR
+      - MoCo
+      - BYOL
+      - CLIP training
+
+
+  - name: Self Supervised Learning
+    topics:
+      - Self-supervised objectives
+      - Pretext tasks
+      - Masked prediction
+      - Autoencoding
+      - Contrastive learning
+      - Momentum encoders
+      - Foundation model pretraining #}
+
+
+# ============================================================
+# GENERATIVE DEEP LEARNING FOUNDATIONS
+# ============================================================
+
+{#   - name: Generative Models Foundations
+    topics:
+      - Discriminative vs generative models
+      - Probability distribution learning
+      - Latent variables
+      - Sampling
+      - Maximum likelihood learning
+      - Approximate inference
+
+
+  - name: Autoencoders
+    topics:
+      - Encoder
+      - Decoder
+      - Latent representation
+      - Reconstruction loss
+      - Bottleneck
+      - Denoising autoencoders
+      - Sparse autoencoders
+      - Variational autoencoders
+
+
+  - name: Variational Autoencoders
+    topics:
+      - Latent distributions
+      - Variational inference
+      - Evidence lower bound
+      - KL divergence
+      - Reparameterization trick
+      - Sampling from latent space
+
+
+  - name: Generative Adversarial Networks
+    topics:
+      - Generator
+      - Discriminator
+      - Minimax objective
+      - GAN training instability
+      - Mode collapse
+      - DCGAN
+      - Conditional GANs
+      - StyleGAN
+
+
+  - name: Diffusion Models
+    topics:
+      - Forward diffusion process
+      - Noise schedule
+      - Reverse denoising process
+      - Score matching
+      - DDPM
+      - DDIM
+      - Latent diffusion
+      - Text-to-image generation #}
+
+# ============================================================
+# NATURAL LANGUAGE PROCESSING
+# ============================================================
+
+{#   - name: Natural Language Processing Fundamentals
+    topics:
+      - Text preprocessing
+      - Unicode
+      - Tokenization
+      - Normalization
+      - Stemming
+      - Lemmatization
+      - Stop words
+      - N-grams
+      - Bag of Words
+      - TF-IDF
+      - Vocabulary construction
+      - Out-of-vocabulary words
+      - Byte Pair Encoding (BPE)
+      - WordPiece
+      - SentencePiece
+      - Tokenizer training
+
+  - name: Language Modeling
+    topics:
+      - Statistical language models
+      - N-gram language models
+      - Neural language models
+      - Autoregressive language models
+      - Masked language models
+      - Causal language modeling
+      - Sequence likelihood
+      - Perplexity
+      - Next token prediction
+
+  - name: NLP Tasks
+    topics:
+      - Text classification
+      - Sentiment analysis
+      - Named Entity Recognition
+      - Part-of-speech tagging
+      - Dependency parsing
+      - Question answering
+      - Summarization
+      - Machine translation
+      - Dialogue systems
+      - Text generation
+      - Information extraction
+      - Semantic similarity #}
+
+# ============================================================
+# LARGE LANGUAGE MODELS
+# ============================================================
+
+{#   - name: Large Language Models
+    topics:
+      - Foundation models
+      - Scaling laws
+      - Emergent abilities
+      - Decoder-only models
+      - Encoder-only models
+      - Encoder-decoder models
+      - Context window
+      - Token budget
+      - Prompt processing
+      - In-context learning
+      - Zero-shot learning
+      - One-shot learning
+      - Few-shot learning
+      - Chain-of-thought prompting
+      - Self-consistency
+      - Reasoning models
+
+  - name: LLM Pretraining
+    topics:
+      - Corpus construction
+      - Dataset filtering
+      - Deduplication
+      - Data quality
+      - Tokenization pipeline
+      - Next token prediction
+      - Masked language modeling
+      - Distributed pretraining
+      - Scaling compute
+      - Scaling data
+      - Scaling parameters
+      - Chinchilla scaling laws
+
+  - name: Prompt Engineering
+    topics:
+      - Prompt design
+      - System prompts
+      - User prompts
+      - Instruction prompting
+      - Role prompting
+      - Zero-shot prompting
+      - Few-shot prompting
+      - Chain-of-thought
+      - Tree-of-thought
+      - ReAct prompting
+      - Structured outputs
+      - JSON generation
+      - Prompt templates
+      - Prompt injection
+      - Prompt debugging
+
+  - name: LLM Fine-Tuning
+    topics:
+      - Supervised fine-tuning
+      - Instruction tuning
+      - Domain adaptation
+      - Continued pretraining
+      - Parameter-efficient fine-tuning
+      - LoRA
+      - QLoRA
+      - Adapters
+      - Prefix tuning
+      - Prompt tuning
+      - Fine-tuning datasets
+      - Hyperparameter selection
+
+  - name: LLM Alignment
+    topics:
+      - Alignment objectives
+      - Human feedback
+      - Preference datasets
+      - Reward models
+      - RLHF
+      - RLAIF
+      - Direct Preference Optimization (DPO)
+      - IPO
+      - Constitutional AI
+      - AI safety alignment
+
+  - name: LLM Inference
+    topics:
+      - Greedy decoding
+      - Beam search
+      - Top-k sampling
+      - Top-p sampling
+      - Temperature
+      - Repetition penalty
+      - Stop sequences
+      - KV cache
+      - Speculative decoding
+      - Continuous batching
+      - Streaming inference
+      - Token latency
+      - Throughput optimization
+
+  - name: LLM Optimization
+    topics:
+      - Quantization
+      - Dynamic quantization
+      - Static quantization
+      - GPTQ
+      - AWQ
+      - Model pruning
+      - Knowledge distillation
+      - Mixture of Experts
+      - Tensor parallelism
+      - Pipeline parallelism
+      - Sequence parallelism #}
+
+# ============================================================
+# MULTIMODAL AI
+# ============================================================
+
+{#   - name: Multimodal Models
+    topics:
+      - Vision-language models
+      - Image-text embeddings
+      - CLIP
+      - BLIP
+      - Flamingo
+      - LLaVA
+      - Multimodal prompting
+      - Visual instruction tuning
+      - Image captioning
+      - Visual question answering
+      - OCR-enhanced models
+      - Audio-language models #}
+
+# ============================================================
+# RETRIEVAL AUGMENTED GENERATION
+# ============================================================
+
+{#   - name: Retrieval Augmented Generation
+    topics:
+      - RAG architecture
+      - Retrieval pipeline
+      - Generation pipeline
+      - Context augmentation
+      - Retrieval strategies
+      - Retrieval failure modes
+      - Hallucination reduction
+      - Grounded generation
+
+  - name: Document Processing
+    topics:
+      - Document ingestion
+      - Parsing
+      - OCR
+      - PDF extraction
+      - HTML parsing
+      - Metadata extraction
+      - Chunking
+      - Sliding windows
+      - Semantic chunking
+      - Parent-child chunking
+      - Recursive chunking
+      - Context preservation
+
+  - name: Embedding Models
+    topics:
+      - Dense embeddings
+      - Sparse embeddings
+      - Hybrid embeddings
+      - Embedding normalization
+      - Embedding dimensionality
+      - Embedding evaluation
+      - Cross-encoders
+      - Bi-encoders
+
+  - name: Vector Search
+    topics:
+      - Vector databases
+      - Approximate nearest neighbour search
+      - Exact search
+      - Similarity metrics
+      - Cosine similarity
+      - Euclidean distance
+      - Dot product similarity
+      - HNSW
+      - IVF
+      - Product quantization
+      - FAISS
+      - ScaNN
+      - Annoy
+
+  - name: Information Retrieval
+    topics:
+      - Lexical retrieval
+      - BM25
+      - TF-IDF retrieval
+      - Dense retrieval
+      - Hybrid retrieval
+      - Cross-encoder reranking
+      - Reciprocal Rank Fusion
+      - Query expansion
+      - Query rewriting
+      - Multi-query retrieval
+      - Metadata filtering
+      - Context compression #}
+
+# ============================================================
+# AGENTIC AI
+# ============================================================
+
+{#   - name: AI Agents
+    topics:
+      - Agent architecture
+      - Agent lifecycle
+      - Planning
+      - Goal decomposition
+      - Reflection
+      - Self-refinement
+      - Tool use
+      - Function calling
+      - Structured outputs
+      - Memory
+      - State management
+      - Multi-turn reasoning
+
+  - name: Agent Memory
+    topics:
+      - Short-term memory
+      - Long-term memory
+      - Episodic memory
+      - Semantic memory
+      - Memory retrieval
+      - Memory summarization
+      - Memory persistence
+      - Memory pruning
+
+  - name: Agent Planning
+    topics:
+      - ReAct
+      - Plan-and-Execute
+      - Tree search
+      - Graph planning
+      - Task decomposition
+      - Reflection loops
+      - Multi-step reasoning
+      - Execution monitoring
+
+  - name: Tool Calling
+    topics:
+      - Function calling
+      - API integration
+      - Tool selection
+      - Parameter extraction
+      - Error recovery
+      - Parallel tool calls
+      - Sequential workflows
+      - Tool orchestration
+
+  - name: Multi-Agent Systems
+    topics:
+      - Agent collaboration
+      - Agent communication
+      - Supervisor-worker architecture
+      - Debate
+      - Voting
+      - Consensus
+      - Blackboard architecture
+      - Swarm intelligence #}
+
+# ============================================================
+# EVALUATION
+# ============================================================
+
+{#   - name: Machine Learning Evaluation
+    topics:
+      - Train-validation-test split
+      - Cross-validation
+      - Classification metrics
+      - Regression metrics
+      - Calibration
+      - ROC curves
+      - Precision-recall curves
+      - Confusion matrix
+      - Threshold selection
+      - Cost-sensitive evaluation
+      - Error analysis
+      - Ablation studies
+
+  - name: LLM Evaluation
+    topics:
+      - Human evaluation
+      - Pairwise comparison
+      - Arena evaluation
+      - Win rate
+      - Benchmark datasets
+      - MMLU
+      - GSM8K
+      - HumanEval
+      - Truthfulness
+      - Hallucination detection
+      - Toxicity
+      - Bias evaluation
+      - Robustness testing
+
+  - name: RAG Evaluation
+    topics:
+      - Retrieval evaluation
+      - Recall@K
+      - Precision@K
+      - Mean Reciprocal Rank
+      - NDCG
+      - Context relevance
+      - Context precision
+      - Groundedness
+      - Faithfulness
+      - Answer relevance
+      - End-to-end evaluation
+
+  - name: Agent Evaluation
+    topics:
+      - Task completion
+      - Success rate
+      - Planning quality
+      - Tool accuracy
+      - Execution traces
+      - Cost evaluation
+      - Latency evaluation
+      - Safety evaluation
+      - Reliability
+      - Long-horizon tasks #}
+
+# ============================================================
+# ML SYSTEMS AND MLOPS
+# ============================================================
+
+{#   - name: Machine Learning Systems
+    topics:
+      - ML system architecture
+      - Offline inference
+      - Online inference
+      - Batch inference
+      - Streaming inference
+      - Feature pipelines
+      - Feature stores
+      - Online features
+      - Offline features
+      - Training-serving skew
+
+  - name: Model Deployment
+    topics:
+      - Model packaging
+      - REST APIs
+      - gRPC
+      - Model serving
+      - Batch deployment
+      - Online deployment
+      - Canary deployment
+      - Blue-green deployment
+      - Shadow deployment
+      - A/B deployment
+      - Rollback strategies
+
+  - name: MLOps
+    topics:
+      - Experiment tracking
+      - Model registry
+      - Data versioning
+      - Model versioning
+      - Pipeline orchestration
+      - CI/CD
+      - Continuous training
+      - Continuous evaluation
+      - Reproducibility
+
+  - name: Monitoring
+    topics:
+      - Data drift
+      - Concept drift
+      - Model drift
+      - Performance monitoring
+      - Latency monitoring
+      - Throughput monitoring
+      - Cost monitoring
+      - Logging
+      - Tracing
+      - Alerting
+
+  - name: Distributed Training
+    topics:
+      - Data parallelism
+      - Model parallelism
+      - Tensor parallelism
+      - Pipeline parallelism
+      - Distributed optimizers
+      - Gradient synchronization
+      - Checkpointing
+      - Fault tolerance #}
+
+# ============================================================
+# RESPONSIBLE AI
+# ============================================================
+
+{#   - name: Responsible AI
+    topics:
+      - AI ethics
+      - Fairness
+      - Bias
+      - Explainability
+      - Interpretability
+      - SHAP
+      - LIME
+      - Counterfactual explanations
+      - Privacy
+      - Differential privacy
+      - Federated learning
+      - AI governance
+
+  - name: AI Security
+    topics:
+      - Adversarial attacks
+      - Data poisoning
+      - Model poisoning
+      - Evasion attacks
+      - Membership inference
+      - Model extraction
+      - Prompt injection
+      - Jailbreaking
+      - Prompt leaking
+      - Indirect prompt injection
+      - Supply chain security
+      - Secret management #}
+
+# ============================================================
+# SOFTWARE ENGINEERING FOR AI
+# ============================================================
+
+{#   - name: Python for Machine Learning
+    topics:
+      - Python language features
+      - Object-oriented programming
+      - NumPy
+      - Pandas
+      - Polars
+      - SciPy
+      - Matplotlib
+      - Seaborn
+      - Scikit-learn
+      - Type hints
+      - Virtual environments
+      - Package management
+
+  - name: SQL for Machine Learning
+    topics:
+      - SELECT queries
+      - JOINs
+      - Aggregations
+      - Window functions
+      - Common Table Expressions
+      - Recursive queries
+      - Query optimization
+      - Feature engineering with SQL
+
+  - name: Software Engineering
+    topics:
+      - Data structures
+      - Algorithms
+      - Time complexity
+      - Space complexity
+      - Object-oriented design
+      - Design patterns
+      - Testing
+      - Debugging
+      - Profiling
+      - Logging
+      - Configuration management
+      - API design #}
