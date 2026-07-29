@@ -26,14 +26,113 @@ Solutions, approaches, and complexity analysis for practice problems like Leetco
 .ni-page-btn:disabled { opacity: 0.35; cursor: default; }
 .ni-page-info { font-size: 0.78rem; color: var(--md-default-fg-color--light); }
 </style>
-<div class="ni-list">
+<div class="ni-paged">
+  <div class="ni-list">
+    <div class="ni">
+  <div class="ni-header">
+    <a href="./clone-graph/" class="ni-title">Leetcode 133 - Clone Graph</a>
+    <span class="ni-date">Jul 20, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">graph</span><span class="ni-tag">bfs</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./max-area-of-island/" class="ni-title">Leetcode 695 - Max Area of Island</a>
+    <span class="ni-date">Jul 20, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">dfs</span><span class="ni-tag">graph</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./matrix-vector-dot-product/" class="ni-title">Deep-ML - Matrix-Vector Dot Product</a>
+    <span class="ni-date">Jul 16, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">deep-ml</span><span class="ni-tag">linear-algebra</span><span class="ni-tag">python</span><span class="ni-tag">matrix-operations</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./subsets-ii/" class="ni-title">Leetcode 90 - Subsets II</a>
+    <span class="ni-date">Jul 16, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">backtracking</span><span class="ni-tag">recursion</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./combination-sum-2/" class="ni-title">Leetcode 40 - Combination Sum II</a>
+    <span class="ni-date">Jul 14, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">backtracking</span><span class="ni-tag">recursion</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./permutations/" class="ni-title">Leetcode 46 - Permutations</a>
+    <span class="ni-date">Jul 14, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">backtracking</span><span class="ni-tag">recursion</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./subsets/" class="ni-title">Leetcode 78 - Subsets</a>
+    <span class="ni-date">Jul 7, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">backtracking</span><span class="ni-tag">recursion</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./generate-parantheses/" class="ni-title">Leetcode 22 - Generate Parentheses</a>
+    <span class="ni-date">Jul 4, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">backtracking</span><span class="ni-tag">recursion</span><span class="ni-tag">None</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./k-closest-points-to-origin/" class="ni-title">Leetcode 973 - K Closest Points to Origin</a>
+    <span class="ni-date">Jul 3, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">max-heap</span></div>
+</div>
 <div class="ni">
   <div class="ni-header">
     <a href="./arena-ray-tracing/" class="ni-title">ARENA - 0.1 Ray Tracing</a>
-    <span class="ni-date">Jun 27, 2026</span>
+    <span class="ni-date">Jul 2, 2026</span>
   </div>
   <p class="ni-desc">My notes and explanation about the exercises for Ray Tracing Exercises in the ARENA curriculum</p>
   <div class="ni-tags"><span class="ni-tag">pytorch</span><span class="ni-tag">numpy</span><span class="ni-tag">linear-algebra</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./last-stone-weight/" class="ni-title">Leetcode 1046 - Last Stone Weight</a>
+    <span class="ni-date">Jul 2, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">max-heap</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./kth-largest-element-in-an-array/" class="ni-title">Leetcode 215 - Kth Largest Element in an Array</a>
+    <span class="ni-date">Jul 1, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">min-heap</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./kth-largest-element-in-a-stream/" class="ni-title">Leetcode 703 - Kth Largest Element in a Stream</a>
+    <span class="ni-date">Jul 1, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">min-heap</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./count-good-nodes-in-binary-tree/" class="ni-title">Leetcode 1448 - Count Good Nodes in Binary Tree</a>
+    <span class="ni-date">Jun 30, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">binary-tree</span><span class="ni-tag">dfs</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./binary-tree-right-side-view/" class="ni-title">Leetcode 199- Binary Tree Right Side View</a>
+    <span class="ni-date">Jun 30, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">binary-tree</span><span class="ni-tag">bfs</span><span class="ni-tag">deque</span></div>
 </div>
 <div class="ni">
   <div class="ni-header">
@@ -91,6 +190,39 @@ Solutions, approaches, and complexity analysis for practice problems like Leetco
   </div>
   <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">binary-search</span><span class="ni-tag">matrix</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span></div>
 </div>
+    <div class="ni-pagination">
+      <button class="ni-page-btn ni-prev">&#8592; Prev</button>
+      <span class="ni-page-info"></span>
+      <button class="ni-page-btn ni-next">Next &#8594;</button>
+    </div>
+  </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.ni-paged').forEach(function(paged) {
+    var PAGE_SIZE = 15;
+    var items = Array.from(paged.querySelectorAll('.ni-list > .ni'));
+    var total = items.length;
+    if (total <= PAGE_SIZE) return;
+    var pages = Math.ceil(total / PAGE_SIZE);
+    var page = 0;
+    var prevBtn = paged.querySelector('.ni-prev');
+    var nextBtn = paged.querySelector('.ni-next');
+    var info = paged.querySelector('.ni-page-info');
+    function render() {
+      items.forEach(function(item, i) {
+        item.style.display = (i >= page * PAGE_SIZE && i < (page + 1) * PAGE_SIZE) ? '' : 'none';
+      });
+      info.textContent = 'Page ' + (page + 1) + ' of ' + pages;
+      prevBtn.disabled = (page === 0);
+      nextBtn.disabled = (page === pages - 1);
+    }
+    prevBtn.addEventListener('click', function() { page--; render(); });
+    nextBtn.addEventListener('click', function() { page++; render(); });
+    render();
+  });
+});
+</script>
 
 <!-- pd:end -->
