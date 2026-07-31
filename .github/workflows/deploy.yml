@@ -3,7 +3,6 @@ name: Deploy notes site
 on:
   push:
     branches:
-      - master
       - main
 
 env:
@@ -28,7 +27,9 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install zensical python-frontmatter
-      - run: make build 
+      - run: python scripts/gen_widget.py
+      - run: python scripts/gen_knowledge_graph.py
+      - run: zensical build --clean
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site

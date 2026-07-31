@@ -21,11 +21,11 @@ RECENT_END   = '<!-- pd-recent:end -->'
 SECTIONS = [
     {
         'dir': DOCS_DIR / 'concept-notes',
-        'glob': '*.md',
+        'glob': '**/*.md',
         'parent_stem': False,
         'url_prefix': 'concept-notes',
         'label': 'Concept Notes',
-        'desc': 'A flat collection of notes spanning AI, system design, programming, version control, and more.',
+        'desc': 'A collection of notes spanning AI, system design, programming, version control, and more.',
         'start_marker': '<!-- pd-cn:start -->',
         'end_marker': '<!-- pd-cn:end -->',
         'section_index': {
@@ -223,7 +223,7 @@ def load_notes(section_cfg):
         return notes
 
     for md_file in sorted(section_dir.glob(section_cfg['glob'])):
-        if md_file.name == "index.md" and not section_cfg['parent_stem']:
+        if md_file.name == "index.md" and md_file.parent == section_dir:
             continue
 
         fm = parse_frontmatter(md_file)
@@ -238,7 +238,7 @@ def load_notes(section_cfg):
         has_explicit_date = raw_date is not None
         updated_date = safe_parse_date(raw_date) if raw_date is not None else date.fromtimestamp(md_file.stat().st_mtime)
 
-        stem = md_file.parent.name if section_cfg['parent_stem'] else md_file.stem
+        stem = (md_file.parent.name if md_file.name == 'index.md' and md_file.parent != section_dir else md_file.stem)
 
         description = fm.get('description', '') or ''
         if not isinstance(description, str):
@@ -273,7 +273,7 @@ def is_section_note_path(path, section_cfg, repo_root):
     if not rel_path.match(section_cfg['glob']):
         return False
 
-    if rel_path.name == "index.md" and not section_cfg['parent_stem']:
+    if rel_path.as_posix() == section_path:
         return False
 
     return True
@@ -350,7 +350,7 @@ def get_git_dates(sections):
     path_set = set()
     for section_cfg in sections:
         for md_file in section_cfg['dir'].glob(section_cfg['glob']):
-            if md_file.name == "index.md" and not section_cfg['parent_stem']:
+            if md_file.name == "index.md" and md_file.parent == section_cfg['dir']:
                 continue
             path_set.add(md_file.resolve())
 
@@ -660,7 +660,7 @@ def get_git_recent_notes(sections, n=4):
     path_to_section = {}
     for section_cfg in sections:
         for md_file in section_cfg['dir'].glob(section_cfg['glob']):
-            if md_file.name == "index.md" and not section_cfg['parent_stem']:
+            if md_file.name == "index.md" and md_file.parent == section_cfg['dir']:
                 continue
             path_to_section[md_file.resolve()] = section_cfg
 
@@ -704,7 +704,7 @@ def get_git_recent_notes(sections, n=4):
         tags = fm.get('tags', [])
         if not isinstance(tags, list):
             tags = [tags] if tags else []
-        stem = abs_path.parent.name if section_cfg['parent_stem'] else abs_path.stem
+        stem = (abs_path.parent.name if abs_path.name == 'index.md' and abs_path.parent != section_cfg['dir'] else abs_path.stem)
         fm_date = fm.get('updated_date')
         note_date = safe_parse_date(fm_date) if fm_date is not None else commit_date
         notes.append({
