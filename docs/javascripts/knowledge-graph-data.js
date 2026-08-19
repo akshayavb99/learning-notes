@@ -44,9 +44,9 @@ window.KNOWLEDGE_GRAPH = {
     {
       "id": "indexes/artificial-intelligence#fundamentals-important-terms-and-concepts",
       "title": "Machine Learning Fundamentals",
-      "status": "Complete",
-      "statusClass": "complete",
-      "category": "In Progress",
+      "status": "In Progress",
+      "statusClass": "in-progress",
+      "category": "Foundation",
       "source": "indexes/artificial-intelligence.md",
       "anchor": "fundamentals-important-terms-and-concepts",
       "url": null
@@ -58,9 +58,9 @@ window.KNOWLEDGE_GRAPH = {
       "target": "indexes/mathematics#linear-algebra-important-terms-and-concepts",
       "label": "Linear Algebra",
       "kind": "mention",
-      "count": 4,
+      "count": 12,
       "explicitCount": 0,
-      "mentionCount": 4
+      "mentionCount": 12
     },
     {
       "source": "indexes/mathematics#statistics-important-terms-and-concepts",

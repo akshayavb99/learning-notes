@@ -30,6 +30,27 @@ Solutions, approaches, and complexity analysis for practice problems like Leetco
   <div class="ni-list">
     <div class="ni">
   <div class="ni-header">
+    <a href="./design-twitter-dsa/" class="ni-title">Leetcode 355 - Design Twitter</a>
+    <span class="ni-date">Jul 31, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">heap</span><span class="ni-tag">hashmap</span><span class="ni-tag">design</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./task-scheduler/" class="ni-title">Leetcode 621 - Task Scheduler</a>
+    <span class="ni-date">Jul 30, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">heap</span><span class="ni-tag">queue</span><span class="ni-tag">greedy</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
+    <a href="./encode-and-decode-strings/" class="ni-title">Leetcode 271 - Encode and Decode Strings</a>
+    <span class="ni-date">Jul 29, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">leetcode</span><span class="ni-tag">neetcode-150-list</span><span class="ni-tag">python</span><span class="ni-tag">string</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
     <a href="./clone-graph/" class="ni-title">Leetcode 133 - Clone Graph</a>
     <span class="ni-date">Jul 20, 2026</span>
   </div>

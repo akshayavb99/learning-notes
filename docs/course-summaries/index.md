@@ -30,10 +30,10 @@ Notes and summaries from courses I have taken.
 <div class="ni">
   <div class="ni-header">
     <a href="./llm-zoomcamp-2026/" class="ni-title">LLM Zoomcamp 2026</a>
-    <span class="ni-date">Jun 25, 2026</span>
+    <span class="ni-date">Jul 18, 2026</span>
   </div>
   <p class="ni-desc">This is the course summary page with my notes for the LLM Zoomcamp 2026 by DataTalksClub</p>
-  <div class="ni-tags"><span class="ni-tag">artificial-intelligence</span><span class="ni-tag">course-summary</span><span class="ni-tag">git</span><span class="ni-tag">large-language-models</span><span class="ni-tag">agentic-ai</span><span class="ni-tag">kestra</span></div>
+  <div class="ni-tags"><span class="ni-tag">artificial-intelligence</span><span class="ni-tag">course-summary</span><span class="ni-tag">git</span><span class="ni-tag">large-language-models</span><span class="ni-tag">agentic-ai</span><span class="ni-tag">kestra</span><span class="ni-tag">llm-evaluation</span><span class="ni-tag">streamlit</span><span class="ni-tag">monitoring</span><span class="ni-tag">grafana</span></div>
 </div>
 </div>
 

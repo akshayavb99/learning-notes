@@ -258,7 +258,7 @@ hide:
       <a href="indexes/" class="cat-item">
         <div class="cat-icon">&#128270;</div>
         <div class="cat-name">Indexes</div>
-        <div class="cat-count"><!-- cat-count:indexes -->4 indexes<!-- /cat-count --></div>
+        <div class="cat-count"><!-- cat-count:indexes -->6 indexes<!-- /cat-count --></div>
       </a>
       <a href="course-summaries/" class="cat-item">
         <div class="cat-icon">&#127891;</div>
@@ -268,7 +268,7 @@ hide:
       <a href="practice-problems/" class="cat-item">
         <div class="cat-icon">&#128187;</div>
         <div class="cat-name">Practice Problems</div>
-        <div class="cat-count"><!-- cat-count:practice-problems -->9 solutions<!-- /cat-count --></div>
+        <div class="cat-count"><!-- cat-count:practice-problems -->26 solutions<!-- /cat-count --></div>
       </a>
     </div>
   </div>
@@ -279,12 +279,12 @@ hide:
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-label">Total Notes</div>
-        <div class="stat-value"><!-- stat:total-notes -->23<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:total-notes -->42<!-- /stat --></div>
         <div class="stat-detail">across all sections</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Sections</div>
-        <div class="stat-value"><!-- stat:sections -->7<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:sections -->6<!-- /stat --></div>
         <div class="stat-detail">topic areas</div>
       </div>
       <div class="stat-card">
@@ -304,7 +304,7 @@ hide:
       </div>
       <div class="stat-card">
         <div class="stat-label">Indexes</div>
-        <div class="stat-value"><!-- stat:indexes -->4<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:indexes -->6<!-- /stat --></div>
         <div class="stat-detail">topic maps</div>
       </div>
       <div class="stat-card">
@@ -314,7 +314,7 @@ hide:
       </div>
       <div class="stat-card">
         <div class="stat-label">Practice Problems</div>
-        <div class="stat-value"><!-- stat:practice-problems -->9<!-- /stat --></div>
+        <div class="stat-value"><!-- stat:practice-problems -->26<!-- /stat --></div>
         <div class="stat-detail">problems solved</div>
       </div>
     </div>
@@ -327,38 +327,38 @@ hide:
 <div class="recent-notes-list">
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="course-summaries/llm-zoomcamp-2026/" class="recent-note-title">LLM Zoomcamp 2026</a>
-      <span class="recent-note-date">Jun 25, 2026</span>
+      <a href="concept-notes/transformer-model-architecture/" class="recent-note-title">Transformer Model Architecture</a>
+      <span class="recent-note-date">Jul 31, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">artificial-intelligence</span><span class="rn-tag">course-summary</span><span class="rn-tag">git</span><span class="rn-tag">large-language-models</span><span class="rn-tag">agentic-ai</span><span class="rn-tag">kestra</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">natural-language-processing</span><span class="rn-tag">deep-learning</span><span class="rn-tag">transformers</span><span class="rn-tag">attention</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="practice-problems/balanced-binary-tree/" class="recent-note-title">Leetcode 110 - Balanced Binary Tree</a>
-      <span class="recent-note-date">Jun 15, 2026</span>
+      <a href="practice-problems/design-twitter-dsa/" class="recent-note-title">Leetcode 355 - Design Twitter</a>
+      <span class="recent-note-date">Jul 31, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">tree</span><span class="rn-tag">dfs</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">heap</span><span class="rn-tag">hashmap</span><span class="rn-tag">design</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="practice-problems/diameter-of-binary-tree/" class="recent-note-title">Leetcode 543 - Diameter of Binary Tree</a>
-      <span class="recent-note-date">Jun 15, 2026</span>
+      <a href="practice-problems/task-scheduler/" class="recent-note-title">Leetcode 621 - Task Scheduler</a>
+      <span class="recent-note-date">Jul 30, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">tree</span><span class="rn-tag">dfs</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">heap</span><span class="rn-tag">queue</span><span class="rn-tag">greedy</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="practice-problems/lru_cache/" class="recent-note-title">Leetcode 146 - LRU Cache</a>
-      <span class="recent-note-date">Jun 15, 2026</span>
+      <a href="practice-problems/clone-graph/" class="recent-note-title">Leetcode 133 - Clone Graph</a>
+      <span class="recent-note-date">Jul 20, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">linked-list</span><span class="rn-tag">hashmap</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">graph</span><span class="rn-tag">bfs</span></div>
   </div>
   <div class="recent-note">
     <div class="recent-note-main">
-      <a href="practice-problems/add-two-numbers/" class="recent-note-title">Leetcode 2 - Add Two Numbers</a>
-      <span class="recent-note-date">Jun 10, 2026</span>
+      <a href="practice-problems/encode-and-decode-strings/" class="recent-note-title">Leetcode 271 - Encode and Decode Strings</a>
+      <span class="recent-note-date">Jul 29, 2026</span>
     </div>
-    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">linked-list</span></div>
+    <div class="recent-note-tags"><span class="rn-tag">leetcode</span><span class="rn-tag">neetcode-150-list</span><span class="rn-tag">python</span><span class="rn-tag">string</span></div>
   </div>
 </div>
 

@@ -30,6 +30,13 @@ Notes live here regardless of which areas they touch.
 <div class="ni-list">
 <div class="ni">
   <div class="ni-header">
+    <a href="./transformer-model-architecture/" class="ni-title">Transformer Model Architecture</a>
+    <span class="ni-date">Jul 31, 2026</span>
+  </div>
+  <div class="ni-tags"><span class="ni-tag">natural-language-processing</span><span class="ni-tag">deep-learning</span><span class="ni-tag">transformers</span><span class="ni-tag">attention</span></div>
+</div>
+<div class="ni">
+  <div class="ni-header">
     <a href="./json-grammar/" class="ni-title">JSON Grammar Rules - McKeeman Form</a>
     <span class="ni-date">May 11, 2026</span>
   </div>
@@ -64,13 +71,6 @@ Notes live here regardless of which areas they touch.
     <span class="ni-date">May 1, 2026</span>
   </div>
   <div class="ni-tags"><span class="ni-tag">git</span><span class="ni-tag">github</span></div>
-</div>
-<div class="ni">
-  <div class="ni-header">
-    <a href="./leetcode-tracker/" class="ni-title">Leetcode Practice Tracker</a>
-    <span class="ni-date">May 1, 2026</span>
-  </div>
-  <div class="ni-tags"><span class="ni-tag">dsa</span><span class="ni-tag">leetcode</span><span class="ni-tag">interview-preparation</span></div>
 </div>
 </div>
 
