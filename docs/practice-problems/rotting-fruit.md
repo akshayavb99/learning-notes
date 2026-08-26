@@ -1,5 +1,4 @@
 ---
-
 title: Leetcode 994 - Rotting Oranges
 tags:
 
@@ -10,8 +9,7 @@ tags:
 - matrix
 - graph
 updated_date: 2026-08-20
-url: [https://leetcode.com/problems/rotting-oranges/](https://leetcode.com/problems/rotting-oranges/)
-
+url: https://leetcode.com/problems/rotting-oranges/
 ---
 
 # Leetcode 994 - Rotting Oranges
